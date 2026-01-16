@@ -199,8 +199,8 @@
         .food-cards-container {
             display: flex;
             flex-wrap: wrap;
-            width: 420px; /* 3 * 140px */
-            height: 420px; /* 3 * 140px */
+            width: 504px; /* 3 * 140px * 1.2 */
+            height: 504px; /* 3 * 140px * 1.2 */
             margin: 0 auto;
             padding: 0;
             overflow-y: auto;
@@ -364,10 +364,10 @@
             flex: 0 0 auto;
         }
         
-        /* 材料容器區域 */
+        /* 材料容器區域 - 修改為500px寬度和120px高度 */
         .ingredients-container {
-            width: 350px; /* 略多於材料卡片邊長 */
-            height: 96px; /* 1.2 * 80px */
+            width: 500px; /* 足夠展示6個材料卡片 */
+            height: 120px; /* 1.5 * 80px */
             overflow-x: auto;
             overflow-y: hidden;
             display: flex;
@@ -1007,6 +1007,26 @@
             75% { transform: translateY(5px) rotate(-5deg); }
         }
         
+        /* 勝利視頻全屏播放 */
+        .victory-video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .victory-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
         /* 橫屏專用優化 */
         @media (orientation: landscape) {
             .header h1 {
@@ -1028,8 +1048,8 @@
             }
             
             .food-cards-container {
-                width: 360px; /* 3 * 120px */
-                height: 360px; /* 3 * 120px */
+                width: 432px; /* 3 * 120px * 1.2 */
+                height: 432px; /* 3 * 120px * 1.2 */
             }
             
             .food-icon {
@@ -1047,8 +1067,8 @@
             }
             
             .ingredients-container {
-                height: 84px; /* 1.2 * 70px */
-                width: 320px; /* 略多於材料卡片邊長 */
+                height: 105px; /* 1.5 * 70px */
+                width: 500px; /* 足夠展示6個材料卡片 */
             }
             
             .leaderboard-tabs {
@@ -1215,6 +1235,14 @@
                 <button id="submit-score" class="submit-button clickable">登上排行榜！</button>
             </div>
         </div>
+        
+        <!-- 勝利視頻容器 -->
+        <div id="victory-video-container" class="victory-video-container hidden">
+            <video id="victory-video" class="victory-video" preload="auto">
+                <source src="images/victory.mp4" type="video/mp4">
+                您的瀏覽器不支持播放此視頻。
+            </video>
+        </div>
     </div>
 
     <!-- 音效 -->
@@ -1276,6 +1304,8 @@
         const selectedCountEl = document.getElementById('selected-count');
         const totalIngredientsEl = document.getElementById('total-ingredients');
         const messageArea = document.getElementById('message-area');
+        const victoryVideoContainer = document.getElementById('victory-video-container');
+        const victoryVideo = document.getElementById('victory-video');
         
         // ============================================
         // 遊戲數據定義
@@ -1785,6 +1815,13 @@
                 });
             });
             
+            // 勝利視頻結束事件
+            victoryVideo.addEventListener('ended', function() {
+                victoryVideoContainer.classList.add('hidden');
+                leaderboardArea.classList.remove('hidden');
+                updateLeaderboard('all');
+            });
+            
             // 禁用雙擊放大
             document.addEventListener('dblclick', function(e) {
                 e.preventDefault();
@@ -1836,6 +1873,7 @@
             interactionArea.classList.add('hidden');
             leaderboardArea.classList.add('hidden');
             nameForm.classList.add('hidden');
+            victoryVideoContainer.classList.add('hidden');
             
             // 顯示主菜單
             mainMenu.classList.remove('hidden');
@@ -2537,16 +2575,21 @@
             // 標記分數已提交
             scoreAlreadySubmitted = true;
             
-            // 顯示成功訊息並跳轉到排行榜
+            // 顯示勝利視頻
             setTimeout(() => {
-                alert(`🎉 ${playerName}，你的分數 ${finalScore} 分已登上排行榜！`);
-                
                 // 隱藏姓名輸入表單
                 nameForm.classList.add('hidden');
                 
-                // 跳轉到排行榜頁面
-                leaderboardArea.classList.remove('hidden');
-                updateLeaderboard('all');
+                // 顯示視頻容器並播放視頻
+                victoryVideoContainer.classList.remove('hidden');
+                victoryVideo.currentTime = 0;
+                victoryVideo.play().catch(e => {
+                    console.log("視頻播放失敗:", e);
+                    // 如果視頻播放失敗，直接顯示排行榜
+                    victoryVideoContainer.classList.add('hidden');
+                    leaderboardArea.classList.remove('hidden');
+                    updateLeaderboard('all');
+                });
                 
                 isProcessingClick = false;
             }, 500);
