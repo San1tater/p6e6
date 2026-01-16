@@ -2,7 +2,9 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>2026馬年美食製作遊戲 - 攤位版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -16,6 +18,8 @@
             -ms-user-select: none;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         html, body {
@@ -25,6 +29,8 @@
             background: url('images/bg.png') no-repeat center center fixed;
             background-size: cover;
             color: #333;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
+            -ms-touch-action: manipulation; /* IE11支持 */
         }
         
         .container {
@@ -142,6 +148,7 @@
             position: relative;
             overflow: hidden;
             width: 100%;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .menu-button::before {
@@ -225,6 +232,7 @@
             width: 140px;
             height: 140px;
             margin: 0;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .food-card:hover {
@@ -401,6 +409,7 @@
             user-select: none;
             position: relative;
             flex-shrink: 0;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .ingredient:hover {
@@ -499,6 +508,7 @@
             justify-content: center;
             transition: all 0.2s;
             border: 3px solid #ffd700;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .counter-button:hover {
@@ -594,6 +604,7 @@
             font-weight: bold;
             border: 3px solid #8B4513;
             min-width: 120px;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .nav-button:hover {
@@ -624,6 +635,7 @@
             border: 4px solid #ffd700;
             box-shadow: 0 6px 0 #5D2906;
             min-width: 150px;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .action-button:hover {
@@ -689,6 +701,7 @@
             font-weight: bold;
             transition: all 0.3s;
             min-width: 80px;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .leaderboard-tab:hover {
@@ -807,6 +820,7 @@
             font-size: 2rem;
             background-color: white;
             transition: all 0.3s;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .character-option:hover {
@@ -835,6 +849,7 @@
             box-shadow: 0 6px 0 #5D2906;
             width: 100%;
             margin-top: 10px;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .submit-button:hover {
@@ -938,6 +953,7 @@
             transition: all 0.3s;
             border: 2px solid #ffd700;
             z-index: 10;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .back-button:hover {
@@ -963,6 +979,7 @@
             justify-content: center;
             z-index: 10;
             transition: all 0.3s;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
         }
         
         .sound-toggle:hover {
@@ -1823,13 +1840,71 @@
                 updateLeaderboard('all');
             });
             
-            // 禁用雙擊放大
-            document.addEventListener('dblclick', function(e) {
-                e.preventDefault();
-            }, { passive: false });
+            // 絕對禁用雙擊縮放
+            disableDoubleTapZoom();
             
             // 顯示主菜單
             showMainMenu();
+        }
+        
+        // 絕對禁用雙擊縮放
+        function disableDoubleTapZoom() {
+            // 禁用雙擊事件
+            document.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }, { passive: false });
+            
+            // 禁用手勢縮放
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }, { passive: false });
+            
+            document.addEventListener('gesturechange', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }, { passive: false });
+            
+            document.addEventListener('gestureend', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }, { passive: false });
+            
+            // 防止iOS Safari的雙擊縮放
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                }
+                lastTouchEnd = now;
+            }, { passive: false });
+            
+            // 防止雙擊事件觸發縮放
+            let touchCount = 0;
+            document.addEventListener('touchstart', function(event) {
+                if (event.touches.length > 1) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                }
+            }, { passive: false });
+            
+            // 防止捏合縮放
+            document.addEventListener('touchmove', function(event) {
+                if (event.touches.length > 1) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                }
+            }, { passive: false });
         }
         
         // ============================================
