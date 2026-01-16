@@ -2,73 +2,68 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>2026馬年美食製作遊戲 - 攤位版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* 禁用雙擊放大和縮放 */
         * {
-            -webkit-touch-callout: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Microsoft JhengHei', sans-serif;
             -webkit-user-select: none;
-            -khtml-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            touch-action: manipulation;
-        }
-        
-        html, body {
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-            background: url('images/bg.png') no-repeat center center;
-            background-size: cover;
-            color: #333;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-        
-        /* 禁用雙擊縮放 */
-        * {
             -webkit-tap-highlight-color: transparent;
         }
         
-        /* 防止文字選擇 */
-        .no-select {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: url('images/bg.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
         }
         
         .container {
-            width: 100vw;
-            height: 100vh;
-            padding: 10px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
         }
         
-        /* 年份標誌 */
+        /* 裝飾元素 */
+        .decoration {
+            position: absolute;
+            font-size: 2rem;
+            color: #ffd700;
+            z-index: 1;
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .dec-1 { top: 20px; left: 20px; }
+        .dec-2 { top: 20px; right: 20px; }
+        .dec-3 { bottom: 20px; left: 20px; }
+        .dec-4 { bottom: 20px; right: 20px; }
+        
         .year-badge {
             background: linear-gradient(45deg, #8B4513, #ffd700, #D2691E);
             color: white;
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 30px;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            margin: 5px auto;
+            margin: 10px auto;
             display: inline-block;
             border: 3px solid #ffd700;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -76,7 +71,6 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             z-index: 2;
             position: relative;
-            flex-shrink: 0;
         }
         
         @keyframes pulse {
@@ -86,24 +80,23 @@
         
         .header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             position: relative;
             z-index: 2;
-            flex-shrink: 0;
         }
         
         .header h1 {
             color: #8B4513;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             text-shadow: 2px 2px 0 #ffd700;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             letter-spacing: 1px;
         }
         
         .header p {
             color: #555;
-            font-size: 0.9rem;
-            line-height: 1.2;
+            font-size: 1.1rem;
+            line-height: 1.4;
             max-width: 90%;
             margin: 0 auto;
         }
@@ -112,10 +105,9 @@
         .game-area {
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 120px);
+            height: 100%;
             width: 100%;
             overflow: hidden;
-            position: relative;
         }
         
         /* 主菜單 */
@@ -124,19 +116,18 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
             margin: auto;
             width: 100%;
             max-width: 400px;
-            height: 100%;
         }
         
         .menu-button {
             background-color: #8B4513;
             color: white;
             border: none;
-            padding: 15px 20px;
-            font-size: 1.3rem;
+            padding: 18px 25px;
+            font-size: 1.5rem;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s;
@@ -150,8 +141,7 @@
             gap: 12px;
             position: relative;
             overflow: hidden;
-            width: 90%;
-            max-width: 300px;
+            width: 100%;
         }
         
         .menu-button::before {
@@ -181,109 +171,103 @@
         }
         
         .menu-button i {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
         
-        /* 食物選擇區域 - 3x3緊密排列 */
+        /* 食物選擇區域 */
         .food-selection {
             display: flex;
             flex-direction: column;
             height: 100%;
             width: 100%;
             position: relative;
+            overflow-x: auto;
         }
         
         .food-selection-title {
             text-align: center;
             color: #8B4513;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
             font-weight: bold;
             width: 100%;
             text-shadow: 1px 1px 0 #ffd700;
             flex-shrink: 0;
         }
         
+        /* 3x3佈局，不使用網格 */
         .food-cards-container {
             display: flex;
             flex-wrap: wrap;
-            width: 100%;
-            height: calc(100% - 40px);
+            width: 420px; /* 3 * 140px */
+            height: 420px; /* 3 * 140px */
+            margin: 0 auto;
             padding: 0;
-            margin: 0;
-            justify-content: center;
+            overflow-y: auto;
+            justify-content: flex-start;
             align-content: flex-start;
-            overflow: hidden;
         }
         
         .food-card {
             background: linear-gradient(145deg, #fff9e6, #ffecb3);
-            border-radius: 12px;
-            padding: 10px 5px;
+            border-radius: 15px;
+            padding: 15px 10px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
             border: 4px solid #ffd700;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: 33.33%;
-            height: 33.33%;
-            max-width: 140px;
-            max-height: 140px;
+            width: 140px;
+            height: 140px;
             margin: 0;
-            box-sizing: border-box;
         }
         
-        /* 確保9張卡片正好3x3，無間隔 */
-        .food-card:nth-child(3n+1) { margin-left: 0; margin-right: 0; }
-        .food-card:nth-child(3n+2) { margin-left: 0; margin-right: 0; }
-        .food-card:nth-child(3n+3) { margin-left: 0; margin-right: 0; }
-        
         .food-card:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
             border-color: #8B4513;
         }
         
         .food-card.selected {
             border-color: #8B4513;
             background: linear-gradient(145deg, #ffeaa7, #ffd93d);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
         
         .food-icon {
-            font-size: 2rem;
-            margin-bottom: 5px;
+            font-size: 2.5rem;
+            margin-bottom: 8px;
             color: #8B4513;
-            height: 35px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
         .food-name {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #8B4513;
-            margin-bottom: 3px;
+            margin-bottom: 5px;
             font-weight: bold;
         }
         
         .food-desc {
             color: #666;
-            font-size: 0.7rem;
-            line-height: 1.1;
-            margin-bottom: 5px;
+            font-size: 0.8rem;
+            line-height: 1.2;
+            margin-bottom: 8px;
         }
         
         .food-stats {
             display: flex;
             justify-content: space-between;
             color: #888;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             margin-top: auto;
         }
         
@@ -298,21 +282,21 @@
         .steps-indicator {
             display: flex;
             justify-content: center;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 8px;
             flex-shrink: 0;
         }
         
         .step-dot {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             background-color: #eee;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: bold;
             color: #888;
             border: 2px solid #ddd;
@@ -335,25 +319,25 @@
         /* 製作區保留白色背景和黃色邊框 */
         .interaction-area {
             background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            padding: 10px;
-            border: 6px solid #ffd700;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border: 8px solid #ffd700;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: flex-start;
             flex: 1;
             overflow: hidden;
             position: relative;
-            margin-top: 5px;
-            height: calc(100% - 50px);
+            margin-top: 10px;
         }
         
         .step-title {
             text-align: center;
             color: #8B4513;
-            font-size: 1.4rem;
-            margin-bottom: 5px;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
             font-weight: bold;
             flex-shrink: 0;
         }
@@ -361,43 +345,50 @@
         .step-instruction {
             text-align: center;
             color: #666;
-            font-size: 1rem;
-            margin-bottom: 10px;
-            padding: 0 5px;
-            line-height: 1.2;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding: 0 10px;
+            line-height: 1.4;
             flex-shrink: 0;
         }
         
-        /* 食材容器區域 - 精確控制高度 */
-        .ingredients-container {
+        /* 互動內容區域 */
+        .interaction-content {
             width: 100%;
-            height: 96px; /* 1.2倍材料卡片寬度(80px) */
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-            margin: 5px 0;
-            flex-shrink: 0;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            flex: 0 0 auto;
+        }
+        
+        /* 材料容器區域 */
+        .ingredients-container {
+            width: 350px; /* 略多於材料卡片邊長 */
+            height: 96px; /* 1.2 * 80px */
+            overflow-x: auto;
+            overflow-y: hidden;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0 auto;
+            padding: 0;
         }
         
         .ingredients {
             display: flex;
             flex-wrap: nowrap;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
-            height: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
-            padding: 2px;
+            gap: 10px;
+            padding: 5px;
         }
         
         .ingredient {
             width: 80px;
             height: 80px;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -406,16 +397,15 @@
             border: 3px solid #ccc;
             cursor: pointer;
             transition: all 0.3s;
-            padding: 5px;
+            padding: 8px;
             user-select: none;
             position: relative;
             flex-shrink: 0;
-            flex-grow: 0;
         }
         
         .ingredient:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
         
         .ingredient.correct {
@@ -447,78 +437,163 @@
         }
         
         .ingredient-icon {
-            font-size: 1.6rem;
-            margin-bottom: 3px;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
         }
         
         .ingredient-name {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: #555;
             text-align: center;
             font-weight: bold;
         }
         
-        /* 食材計數器 */
-        .ingredient-counter {
-            font-size: 1rem;
+        /* 進度條步驟樣式 */
+        .progress-container {
+            width: 90%;
+            height: 25px;
+            background-color: #eee;
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+            border: 3px solid #ddd;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: #ffd700;
+            width: 0%;
+            transition: width 0.5s;
+            border-radius: 15px;
+        }
+        
+        .progress-text {
+            font-size: 1.2rem;
             color: #8B4513;
-            margin-bottom: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        /* 計數器步驟樣式 */
+        .counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+            font-size: 1.5rem;
+            color: #8B4513;
+        }
+        
+        .counter-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: 3px solid #ffd700;
+        }
+        
+        .counter-button:hover {
+            background-color: #5D2906;
+            transform: scale(1.05);
+        }
+        
+        .counter-button:active {
+            transform: scale(0.95);
+        }
+        
+        .counter-button:disabled {
+            background-color: #aaa;
+            border-color: #777;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .counter-value {
+            min-width: 70px;
             text-align: center;
             font-weight: bold;
-            padding: 5px 10px;
+            font-size: 2.2rem;
             background-color: #fff9e6;
-            border-radius: 8px;
+            padding: 10px 15px;
+            border-radius: 10px;
             border: 2px solid #ffd700;
-            display: inline-block;
-            flex-shrink: 0;
         }
         
-        /* 訊息區域 */
-        .message-area {
+        /* 完成畫面 */
+        .completion-screen {
+            text-align: center;
+            padding: 15px;
             width: 100%;
-            max-width: 95%;
-            margin: 8px 0;
-            min-height: 40px;
+            height: 100%;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: flex-start;
-            flex-shrink: 0;
-            overflow-y: auto;
-            max-height: 60px;
-            padding: 3px;
-            background-color: transparent;
-            border: none;
-            position: relative;
         }
         
-        /* 導航按鈕區域 - 緊湊排列 */
+        .completion-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: #8B4513;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .completion-message {
+            color: #8B4513;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .completion-desc {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            max-width: 90%;
+            line-height: 1.4;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* 導航按鈕 */
         .navigation-buttons {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin: 8px 0;
+            gap: 15px;
+            margin-top: 15px;
             width: 100%;
-            padding: 0 10px;
+            padding: 0 15px;
             z-index: 10;
             position: relative;
-            flex-shrink: 0;
+            bottom: auto;
         }
         
         .nav-button {
             background-color: #ffd700;
             color: #8B4513;
             border: none;
-            padding: 10px 15px;
-            font-size: 1rem;
-            border-radius: 25px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
             border: 3px solid #8B4513;
-            min-width: 100px;
-            flex: 1;
-            max-width: 150px;
+            min-width: 120px;
         }
         
         .nav-button:hover {
@@ -535,92 +610,328 @@
             transform: none;
         }
         
-        /* 完成畫面 */
-        .completion-screen {
-            text-align: center;
-            padding: 10px;
+        .action-button {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            font-weight: bold;
+            border: 4px solid #ffd700;
+            box-shadow: 0 6px 0 #5D2906;
+            min-width: 150px;
+        }
+        
+        .action-button:hover {
+            background-color: #5D2906;
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 #5D2906;
+        }
+        
+        .action-button:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #5D2906;
+        }
+        
+        .action-button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 6px 0 #777;
+            border-color: #777;
+        }
+        
+        /* 排行榜 */
+        .leaderboard-container {
             width: 100%;
             height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 15px;
+            border: 8px solid #ffd700;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden;
+            position: relative;
         }
         
-        .completion-icon {
-            font-size: 4rem;
+        .leaderboard-title {
+            text-align: center;
+            color: #8B4513;
+            font-size: 1.8rem;
             margin-bottom: 15px;
-            color: #8B4513;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .completion-message {
-            color: #8B4513;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
             font-weight: bold;
+            flex-shrink: 0;
         }
         
-        .completion-desc {
-            color: #666;
-            font-size: 0.9rem;
+        .leaderboard-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
             margin-bottom: 15px;
-            max-width: 95%;
-            line-height: 1.3;
-            margin-left: auto;
-            margin-right: auto;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .leaderboard-tab {
+            background-color: #ffd700;
+            color: #8B4513;
+            border: 2px solid #8B4513;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            min-width: 80px;
+        }
+        
+        .leaderboard-tab:hover {
+            background-color: #8B4513;
+            color: #ffd700;
+        }
+        
+        .leaderboard-tab.active {
+            background-color: #8B4513;
+            color: #ffd700;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        
+        .leaderboard-table-container {
+            flex: 1;
+            overflow: auto;
+        }
+        
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        
+        .leaderboard-table th {
+            background-color: #8B4513;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 1rem;
+            position: sticky;
+            top: 0;
+        }
+        
+        .leaderboard-table td {
+            padding: 12px;
+            border-bottom: 2px solid #ffd700;
+            font-size: 0.9rem;
+        }
+        
+        .leaderboard-table tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .leaderboard-table tr:hover {
+            background-color: rgba(255, 215, 0, 0.2);
+        }
+        
+        .rank-1 { color: #ffd700; font-weight: bold; font-size: 1.1rem; }
+        .rank-2 { color: #c0c0c0; font-weight: bold; font-size: 1rem; }
+        .rank-3 { color: #cd7f32; font-weight: bold; font-size: 1rem; }
+        
+        /* 姓名輸入表單 */
+        .name-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            border: 4px solid #ffd700;
+            max-width: 90%;
+            margin: 0 auto;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            z-index: 100;
+        }
+        
+        .name-form h2 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .name-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.3rem;
+            border: 3px solid #ffd700;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #8B4513;
+            transition: all 0.3s;
+        }
+        
+        .name-input:focus {
+            outline: none;
+            border-color: #8B4513;
+            box-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
+            transform: scale(1.02);
+        }
+        
+        .character-selection {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .character-option {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #ffd700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background-color: white;
+            transition: all 0.3s;
+        }
+        
+        .character-option:hover {
+            transform: scale(1.05);
+            border-color: #8B4513;
+        }
+        
+        .character-option.selected {
+            border-color: #8B4513;
+            background-color: #ffd700;
+            transform: scale(1.05);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        
+        .submit-button {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            border: 4px solid #ffd700;
+            box-shadow: 0 6px 0 #5D2906;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .submit-button:hover {
+            background-color: #5D2906;
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 #5D2906;
+        }
+        
+        .submit-button:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #5D2906;
+        }
+        
+        /* 隱藏類 */
+        .hidden {
+            display: none !important;
         }
         
         /* 錯誤訊息 */
         .error-message {
             color: #f44336;
-            font-size: 0.9rem;
-            margin-top: 3px;
+            font-size: 1rem;
+            margin-top: 4px;
             text-align: center;
             font-weight: bold;
             animation: shake 0.5s;
-            padding: 6px 12px;
+            padding: 8px 15px;
             background-color: rgba(244, 67, 54, 0.1);
-            border-radius: 6px;
+            border-radius: 8px;
             border: 2px solid #f44336;
         }
         
         .success-message {
             color: #4CAF50;
-            font-size: 0.9rem;
-            margin-top: 3px;
+            font-size: 1rem;
+            margin-top: 4px;
             text-align: center;
             font-weight: bold;
-            padding: 6px 12px;
+            padding: 8px 15px;
             background-color: rgba(76, 175, 80, 0.1);
-            border-radius: 6px;
+            border-radius: 8px;
             border: 2px solid #4CAF50;
         }
         
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-            20%, 40%, 60%, 80% { transform: translateX(2px); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+            20%, 40%, 60%, 80% { transform: translateX(3px); }
+        }
+        
+        /* 食材計數器 */
+        .ingredient-counter {
+            font-size: 1.1rem;
+            color: #8B4513;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+            padding: 8px 15px;
+            background-color: #fff9e6;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        
+        /* 訊息區域 */
+        .message-area {
+            width: 100%;
+            max-width: 90%;
+            margin-top: 15px;
+            min-height: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            overflow-y: auto;
+            max-height: 60px;
+            padding: 5px;
+            background-color: transparent;
+            border: none;
+            position: relative;
         }
         
         /* 返回按鈕 */
         .back-button {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 15px;
+            left: 15px;
             background-color: #8B4513;
             color: white;
             border: none;
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -637,15 +948,15 @@
         /* 音效按鈕 */
         .sound-toggle {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 35px;
-            height: 35px;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background-color: #ffd700;
             color: #8B4513;
             border: 2px solid #8B4513;
-            font-size: 1rem;
+            font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -669,256 +980,65 @@
             transform: scale(0.95);
         }
         
-        /* 隱藏類 */
-        .hidden {
-            display: none !important;
+        /* 防止文字選擇 */
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
-        /* 排行榜 */
-        .leaderboard-container {
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 10px;
-            border: 6px solid #ffd700;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
+        /* 馬年特別主題 */
+        .horse-theme {
+            background-image: 
+                radial-gradient(#ffd700 1px, transparent 1px),
+                radial-gradient(#8B4513 1px, transparent 1px),
+                linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 100%);
         }
         
-        .leaderboard-title {
-            text-align: center;
-            color: #8B4513;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            font-weight: bold;
-            flex-shrink: 0;
+        .horse-decoration {
+            font-size: 2.5rem;
+            animation: horseFloat 4s infinite ease-in-out;
         }
         
-        .leaderboard-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 10px;
-            justify-content: center;
-            flex-shrink: 0;
+        @keyframes horseFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(5deg); }
+            75% { transform: translateY(5px) rotate(-5deg); }
         }
         
-        .leaderboard-tab {
-            background-color: #ffd700;
-            color: #8B4513;
-            border: 2px solid #8B4513;
-            padding: 5px 8px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: bold;
-            transition: all 0.3s;
-            min-width: 60px;
-        }
-        
-        .leaderboard-tab:hover {
-            background-color: #8B4513;
-            color: #ffd700;
-        }
-        
-        .leaderboard-tab.active {
-            background-color: #8B4513;
-            color: #ffd700;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        .leaderboard-table-container {
-            flex: 1;
-            overflow: auto;
-        }
-        
-        .leaderboard-table {
-            width: 100%;
-            border-collapse: collapse;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .leaderboard-table th {
-            background-color: #8B4513;
-            color: white;
-            padding: 8px;
-            text-align: left;
-            font-size: 0.8rem;
-            position: sticky;
-            top: 0;
-        }
-        
-        .leaderboard-table td {
-            padding: 8px;
-            border-bottom: 1px solid #ffd700;
-            font-size: 0.8rem;
-        }
-        
-        .leaderboard-table tr:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .leaderboard-table tr:hover {
-            background-color: rgba(255, 215, 0, 0.2);
-        }
-        
-        .rank-1 { color: #ffd700; font-weight: bold; font-size: 0.9rem; }
-        .rank-2 { color: #c0c0c0; font-weight: bold; font-size: 0.85rem; }
-        .rank-3 { color: #cd7f32; font-weight: bold; font-size: 0.85rem; }
-        
-        /* 姓名輸入表單 */
-        .name-form {
-            background-color: white;
-            padding: 15px;
-            border-radius: 12px;
-            border: 4px solid #ffd700;
-            max-width: 90%;
-            margin: 0 auto;
-            text-align: center;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 400px;
-            z-index: 100;
-        }
-        
-        .name-form h2 {
-            color: #8B4513;
-            margin-bottom: 10px;
-            font-size: 1.5rem;
-        }
-        
-        .name-input {
-            width: 100%;
-            padding: 10px;
-            font-size: 1.1rem;
-            border: 3px solid #ffd700;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            text-align: center;
-            color: #8B4513;
-            transition: all 0.3s;
-        }
-        
-        .name-input:focus {
-            outline: none;
-            border-color: #8B4513;
-            box-shadow: 0 0 8px rgba(139, 69, 19, 0.3);
-            transform: scale(1.02);
-        }
-        
-        .character-selection {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 10px 0;
-            flex-wrap: wrap;
-        }
-        
-        .character-option {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 3px solid #ffd700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background-color: white;
-            transition: all 0.3s;
-        }
-        
-        .character-option:hover {
-            transform: scale(1.05);
-            border-color: #8B4513;
-        }
-        
-        .character-option.selected {
-            border-color: #8B4513;
-            background-color: #ffd700;
-            transform: scale(1.05);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        .submit-button {
-            background-color: #8B4513;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1.1rem;
-            border-radius: 35px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
-            border: 4px solid #ffd700;
-            box-shadow: 0 6px 0 #5D2906;
-            width: 100%;
-            margin-top: 10px;
-        }
-        
-        .submit-button:hover {
-            background-color: #5D2906;
-            transform: translateY(-3px);
-            box-shadow: 0 9px 0 #5D2906;
-        }
-        
-        .submit-button:active {
-            transform: translateY(3px);
-            box-shadow: 0 3px 0 #5D2906;
-        }
-        
-        /* 橫屏優化 */
+        /* 橫屏專用優化 */
         @media (orientation: landscape) {
-            .game-area {
-                height: calc(100vh - 100px);
-            }
-            
             .header h1 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
             
             .header p {
-                font-size: 0.8rem;
+                font-size: 0.9rem;
             }
             
             .year-badge {
-                font-size: 1rem;
-                padding: 6px 15px;
+                font-size: 1.2rem;
+                padding: 8px 20px;
             }
             
             .food-card {
-                padding: 8px 4px;
+                width: 120px;
+                height: 120px;
+            }
+            
+            .food-cards-container {
+                width: 360px; /* 3 * 120px */
+                height: 360px; /* 3 * 120px */
             }
             
             .food-icon {
-                font-size: 1.8rem;
-                height: 30px;
+                font-size: 2rem;
+                height: 35px;
             }
             
             .food-name {
-                font-size: 0.9rem;
-            }
-            
-            .food-desc {
-                font-size: 0.65rem;
-            }
-            
-            .step-title {
-                font-size: 1.2rem;
-            }
-            
-            .step-instruction {
-                font-size: 0.9rem;
+                font-size: 1.1rem;
             }
             
             .ingredient {
@@ -926,68 +1046,54 @@
                 height: 70px;
             }
             
-            .ingredient-icon {
-                font-size: 1.4rem;
-            }
-            
             .ingredients-container {
                 height: 84px; /* 1.2 * 70px */
-            }
-        }
-        
-        /* 小屏幕優化 */
-        @media (max-width: 360px) {
-            .food-card {
-                padding: 6px 3px;
+                width: 320px; /* 略多於材料卡片邊長 */
             }
             
-            .food-icon {
-                font-size: 1.6rem;
-                height: 25px;
+            .leaderboard-tabs {
+                gap: 6px;
             }
             
-            .food-name {
+            .leaderboard-tab {
+                padding: 6px 10px;
                 font-size: 0.8rem;
+                min-width: 70px;
             }
             
-            .food-desc {
-                font-size: 0.6rem;
-            }
-            
-            .step-title {
-                font-size: 1.1rem;
-            }
-            
-            .step-instruction {
-                font-size: 0.8rem;
-            }
-            
-            .ingredient {
-                width: 65px;
-                height: 65px;
-            }
-            
-            .ingredient-icon {
+            .menu-button {
+                padding: 15px 20px;
                 font-size: 1.3rem;
             }
             
-            .ingredients-container {
-                height: 78px; /* 1.2 * 65px */
+            .menu-button i {
+                font-size: 1.5rem;
+            }
+            
+            .message-area {
+                min-height: 35px;
+                max-height: 50px;
             }
         }
         
-        /* 禁用滾動條樣式 */
-        ::-webkit-scrollbar {
-            display: none;
-        }
-        
-        * {
-            scrollbar-width: none;
+        /* 煙花效果 */
+        .fireworks {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="decoration dec-1 horse-decoration">🐴</div>
+        <div class="decoration dec-2">🧧</div>
+        <div class="decoration dec-3">🏮</div>
+        <div class="decoration dec-4 horse-decoration">🏇</div>
+        
         <!-- 年份標誌 -->
         <div class="year-badge">🏮 2026 新年快樂 🏮</div>
         
@@ -1036,8 +1142,10 @@
                         已選擇: <span id="selected-count">0</span>/<span id="total-ingredients">0</span>
                     </div>
                     
-                    <!-- 材料卡片區域 -->
-                    <div id="ingredients-container" class="ingredients-container"></div>
+                    <!-- 通用互動區域 -->
+                    <div id="interaction-content" class="interaction-content">
+                        <!-- 內容將根據步驟動態更新 -->
+                    </div>
                     
                     <!-- 訊息區域 -->
                     <div id="message-area" class="message-area"></div>
@@ -1090,7 +1198,7 @@
             <!-- 姓名輸入表單 -->
             <div id="name-form" class="name-form hidden">
                 <h2>🎉 挑戰完成！</h2>
-                <p style="font-size: 1rem; margin-bottom: 15px; color: #666;">
+                <p style="font-size: 1.2rem; margin-bottom: 20px; color: #666;">
                     你獲得了 <span id="final-score" style="color: #8B4513; font-weight: bold;">0</span> 分！
                 </p>
                 
@@ -1102,7 +1210,7 @@
                     <div class="character-option clickable" data-char="🧧">🧧</div>
                 </div>
                 
-                <h3 style="margin-top: 15px;">輸入你的名字：</h3>
+                <h3 style="margin-top: 20px;">輸入你的名字：</h3>
                 <input type="text" id="player-name" class="name-input" placeholder="輸入你的名字" maxlength="12">
                 <button id="submit-score" class="submit-button clickable">登上排行榜！</button>
             </div>
@@ -1150,7 +1258,7 @@
         const interactionArea = document.getElementById('interaction-area');
         const stepTitle = document.getElementById('step-title');
         const stepInstruction = document.getElementById('step-instruction');
-        const ingredientsContainer = document.getElementById('ingredients-container');
+        const interactionContent = document.getElementById('interaction-content');
         const prevStepButton = document.getElementById('prev-step');
         const nextStepButton = document.getElementById('next-step');
         const leaderboardArea = document.getElementById('leaderboard-area');
@@ -1191,7 +1299,7 @@
             { icon: "🍓", name: "草莓" }
         ];
         
-        // 美食步驟定義 - 10種美食
+        // 美食步驟定義 - 10種美食（已移除鳳梨酥）
         const foodSteps = {
             dumpling: {
                 name: "餃子",
@@ -1677,6 +1785,11 @@
                 });
             });
             
+            // 禁用雙擊放大
+            document.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
             // 顯示主菜單
             showMainMenu();
         }
@@ -1896,12 +2009,19 @@
             stepTitle.textContent = `步驟${stepIndex + 1}: ${step.title}`;
             stepInstruction.textContent = step.instruction;
             
-            // 清空材料容器
-            ingredientsContainer.innerHTML = '';
+            // 更新互動內容
+            interactionContent.innerHTML = '';
             ingredientCounterDisplay.classList.add('hidden');
             
             // 清空訊息區域
             clearMessageArea();
+            
+            // 根據步驟類型設置interaction-content的高度
+            if (step.type === "click") {
+                interactionContent.style.height = "96px";
+            } else {
+                interactionContent.style.height = "auto";
+            }
             
             // 根據步驟類型載入不同的互動內容
             switch(step.type) {
@@ -1943,10 +2063,17 @@
         
         // 載入點擊步驟
         function loadClickStep(step) {
+            // 清空interactionContent
+            interactionContent.innerHTML = '';
+            
             // 顯示食材計數器
             ingredientCounterDisplay.classList.remove('hidden');
             selectedCountEl.textContent = '0';
             totalIngredientsEl.textContent = step.correctIngredients.length;
+            
+            // 創建材料容器
+            const ingredientsContainer = document.createElement('div');
+            ingredientsContainer.className = 'ingredients-container';
             
             const ingredientsDiv = document.createElement('div');
             ingredientsDiv.className = 'ingredients';
@@ -2002,6 +2129,7 @@
             });
             
             ingredientsContainer.appendChild(ingredientsDiv);
+            interactionContent.appendChild(ingredientsContainer);
             
             // 重置點擊狀態
             gameState.clickedIngredients = [];
@@ -2103,9 +2231,9 @@
             actionButton.id = 'action-button';
             actionButton.textContent = step.actionText;
             
-            ingredientsContainer.appendChild(progressContainer);
-            ingredientsContainer.appendChild(progressText);
-            ingredientsContainer.appendChild(actionButton);
+            interactionContent.appendChild(progressContainer);
+            interactionContent.appendChild(progressText);
+            interactionContent.appendChild(actionButton);
             
             // 重置進度狀態
             gameState.progress = 0;
@@ -2151,8 +2279,8 @@
             actionText.className = 'step-instruction';
             actionText.textContent = `目標: ${step.targetCount} 次 ${step.actionText}`;
             
-            ingredientsContainer.appendChild(actionText);
-            ingredientsContainer.appendChild(counterDiv);
+            interactionContent.appendChild(actionText);
+            interactionContent.appendChild(counterDiv);
             
             // 重置計數器狀態
             gameState.counter = 0;
@@ -2238,7 +2366,7 @@
         
         // 顯示完成畫面
         function showCompletionScreen() {
-            ingredientsContainer.innerHTML = '';
+            interactionContent.innerHTML = '';
             stepsIndicator.classList.add('hidden');
             ingredientCounterDisplay.classList.add('hidden');
             prevStepButton.classList.add('hidden');
@@ -2326,7 +2454,7 @@
                 </div>
             `;
             
-            ingredientsContainer.appendChild(completionScreen);
+            interactionContent.appendChild(completionScreen);
             
             // 顯示姓名輸入表單
             setTimeout(() => {
@@ -2478,7 +2606,7 @@
         
         // 創建煙花效果
         function createFirework(x, y) {
-            const colors = ['#ff0000', '#ffd700, '#00ff00', '#00aaff', '#ff00ff'];
+            const colors = ['#ff0000', '#ffd700, #00ff00', '#00aaff', '#ff00ff'];
             const color = colors[Math.floor(Math.random() * colors.length)];
             
             const firework = document.createElement('div');
