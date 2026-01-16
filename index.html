@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>2026馬年美食製作遊戲 - 攤位版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -11,33 +11,40 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Arial Rounded MT Bold', 'Microsoft JhengHei', sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         html, body {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
-            background: url('images/bg.png') no-repeat center center;
+            background: url('images/bg.png') no-repeat center center fixed;
             background-size: cover;
             color: #333;
-            touch-action: manipulation; /* 禁用雙擊放大 */
         }
         
         .container {
-            width: 100vw;
-            height: 100vh;
-            padding: 1vh;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
         
+        /* 禁用雙擊放大 */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         /* 裝飾元素 */
         .decoration {
             position: absolute;
-            font-size: 2vh;
+            font-size: 1.5rem;
             color: #ffd700;
             z-index: 1;
             animation: float 3s infinite ease-in-out;
@@ -45,56 +52,55 @@
         
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-0.8vh); }
+            50% { transform: translateY(-5px); }
         }
         
-        .dec-1 { top: 2vh; left: 2vw; }
-        .dec-2 { top: 2vh; right: 2vw; }
-        .dec-3 { bottom: 2vh; left: 2vw; }
-        .dec-4 { bottom: 2vh; right: 2vw; }
+        .dec-1 { top: 10px; left: 10px; }
+        .dec-2 { top: 10px; right: 10px; }
+        .dec-3 { bottom: 10px; left: 10px; }
+        .dec-4 { bottom: 10px; right: 10px; }
         
         .year-badge {
             background: linear-gradient(45deg, #8B4513, #ffd700, #D2691E);
             color: white;
-            padding: 1vh 2.5vw;
-            border-radius: 3vh;
-            font-size: 1.5vh;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 1.2rem;
             font-weight: bold;
-            margin: 1vh auto;
+            margin: 5px auto;
             display: inline-block;
-            border: 0.3vh solid #ffd700;
-            box-shadow: 0 0.5vh 1.5vh rgba(0,0,0,0.3);
+            border: 2px solid #ffd700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             animation: pulse 2s infinite;
-            text-shadow: 0.1vh 0.1vh 0.2vh rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             z-index: 2;
             position: relative;
         }
         
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
         }
         
         .header {
             text-align: center;
-            margin-bottom: 1.5vh;
+            margin-bottom: 10px;
             position: relative;
             z-index: 2;
-            flex-shrink: 0;
         }
         
         .header h1 {
             color: #8B4513;
-            font-size: 2.2vh;
-            text-shadow: 0.2vh 0.2vh 0 #ffd700;
-            margin-bottom: 0.8vh;
-            letter-spacing: 0.1vh;
+            font-size: 1.6rem;
+            text-shadow: 1px 1px 0 #ffd700;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
         }
         
         .header p {
             color: #555;
-            font-size: 1.1vh;
-            line-height: 1.4;
+            font-size: 0.9rem;
+            line-height: 1.3;
             max-width: 90%;
             margin: 0 auto;
         }
@@ -103,10 +109,9 @@
         .game-area {
             display: flex;
             flex-direction: column;
-            height: 100%;
+            height: calc(100% - 80px);
             width: 100%;
             overflow: hidden;
-            flex: 1;
         }
         
         /* 主菜單 */
@@ -115,30 +120,30 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 2vh;
+            gap: 15px;
             margin: auto;
             width: 100%;
-            max-width: 40vw;
-            flex: 1;
+            max-width: 350px;
+            height: 100%;
         }
         
         .menu-button {
             background-color: #8B4513;
             color: white;
             border: none;
-            padding: 1.8vh 2.5vw;
-            font-size: 1.5vh;
-            border-radius: 5vh;
+            padding: 15px 20px;
+            font-size: 1.3rem;
+            border-radius: 40px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
-            border: 0.5vh solid #ffd700;
-            box-shadow: 0 0.8vh 0 #5D2906;
+            border: 4px solid #ffd700;
+            box-shadow: 0 6px 0 #5D2906;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1.2vw;
+            gap: 10px;
             position: relative;
             overflow: hidden;
             width: 100%;
@@ -161,17 +166,17 @@
         
         .menu-button:hover {
             background-color: #5D2906;
-            transform: translateY(-0.3vh);
-            box-shadow: 0 1.1vh 0 #5D2906;
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 #5D2906;
         }
         
         .menu-button:active {
-            transform: translateY(0.3vh);
-            box-shadow: 0 0.5vh 0 #5D2906;
+            transform: translateY(2px);
+            box-shadow: 0 4px 0 #5D2906;
         }
         
         .menu-button i {
-            font-size: 1.8vh;
+            font-size: 1.5rem;
         }
         
         /* 食物選擇區域 */
@@ -181,95 +186,93 @@
             height: 100%;
             width: 100%;
             position: relative;
-            overflow: hidden;
         }
         
         .food-selection-title {
             text-align: center;
             color: #8B4513;
-            font-size: 1.8vh;
-            margin-bottom: 1.5vh;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
             font-weight: bold;
             width: 100%;
-            text-shadow: 0.1vh 0.1vh 0 #ffd700;
+            text-shadow: 1px 1px 0 #ffd700;
             flex-shrink: 0;
         }
         
         .food-cards-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 0.5vh;
-            width: 33.33vw;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 33.33%;
             margin: 0 auto;
             padding: 0;
             flex: 1;
             overflow: hidden;
-            justify-items: center;
-            align-items: center;
-            max-height: calc(100vh - 25vh); /* 確保不會超出屏幕 */
+            gap: 0;
         }
         
         .food-card {
             background: linear-gradient(145deg, #fff9e6, #ffecb3);
-            border-radius: 1.5vh;
-            padding: 1.5vh 1vw;
+            border-radius: 12px;
+            padding: 12px 8px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 0.4vh solid #ffd700;
-            box-shadow: 0 0.6vh 1.2vh rgba(0, 0, 0, 0.1);
+            border: 3px solid #ffd700;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: 14vh;
-            height: 14vh;
+            width: 33.33%;
+            height: 33.33%;
             margin: 0;
+            flex-shrink: 0;
         }
         
         .food-card:hover {
-            transform: translateY(-0.5vh) scale(1.05);
-            box-shadow: 0 1.2vh 2vh rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
             border-color: #8B4513;
         }
         
         .food-card.selected {
             border-color: #8B4513;
             background: linear-gradient(145deg, #ffeaa7, #ffd93d);
-            transform: translateY(-0.3vh);
+            transform: translateY(-2px);
         }
         
         .food-icon {
-            font-size: 2.5vh;
-            margin-bottom: 0.8vh;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
             color: #8B4513;
-            height: 4.5vh;
+            height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
         .food-name {
-            font-size: 1.2vh;
+            font-size: 1rem;
             color: #8B4513;
-            margin-bottom: 0.5vh;
+            margin-bottom: 3px;
             font-weight: bold;
         }
         
         .food-desc {
             color: #666;
-            font-size: 0.8vh;
-            line-height: 1.2;
-            margin-bottom: 0.8vh;
+            font-size: 0.7rem;
+            line-height: 1.1;
+            margin-bottom: 5px;
         }
         
         .food-stats {
             display: flex;
             justify-content: space-between;
             color: #888;
-            font-size: 0.8vh;
+            font-size: 0.7rem;
             margin-top: auto;
         }
         
@@ -279,30 +282,29 @@
             flex-direction: column;
             height: 100%;
             width: 100%;
-            overflow: hidden;
         }
         
         .steps-indicator {
             display: flex;
             justify-content: center;
-            margin-bottom: 1vh;
+            margin-bottom: 8px;
             flex-wrap: wrap;
-            gap: 0.8vh;
+            gap: 6px;
             flex-shrink: 0;
         }
         
         .step-dot {
-            width: 3.5vh;
-            height: 3.5vh;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background-color: #eee;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1vh;
+            font-size: 0.9rem;
             font-weight: bold;
             color: #888;
-            border: 0.2vh solid #ddd;
+            border: 2px solid #ddd;
             transition: all 0.3s;
         }
         
@@ -322,10 +324,10 @@
         /* 製作區保留白色背景和黃色邊框 */
         .interaction-area {
             background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 2vh;
-            box-shadow: 0 1vh 3vh rgba(0, 0, 0, 0.3);
-            padding: 1.5vh;
-            border: 0.8vh solid #ffd700;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border: 6px solid #ffd700;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -333,15 +335,14 @@
             flex: 1;
             overflow: hidden;
             position: relative;
-            margin-top: 1vh;
-            max-height: calc(100vh - 20vh); /* 確保不會超出屏幕 */
+            margin-top: 5px;
         }
         
         .step-title {
             text-align: center;
             color: #8B4513;
-            font-size: 1.6vh;
-            margin-bottom: 0.8vh;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
             font-weight: bold;
             flex-shrink: 0;
         }
@@ -349,10 +350,10 @@
         .step-instruction {
             text-align: center;
             color: #666;
-            font-size: 1.1vh;
-            margin-bottom: 1.5vh;
-            padding: 0 1vw;
-            line-height: 1.4;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            padding: 0 8px;
+            line-height: 1.3;
             flex-shrink: 0;
         }
         
@@ -364,9 +365,8 @@
             flex-direction: column;
             align-items: center;
             overflow: hidden;
-            padding: 0.5vh;
+            padding: 3px;
             position: relative;
-            max-height: calc(100% - 20vh);
         }
         
         /* 點擊步驟樣式 */
@@ -375,37 +375,36 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            height: 100%;
+            height: auto;
             position: relative;
-            max-height: calc(100% - 15vh);
-            overflow: hidden;
+            margin-bottom: 5px;
         }
         
         .ingredients {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1vh;
-            margin-bottom: 1vh;
+            gap: 8px;
             width: 100%;
+            max-height: 100px;
             overflow-y: auto;
-            padding: 0.5vh;
-            max-height: calc(100% - 8vh);
+            padding: 3px;
+            margin-bottom: 5px;
         }
         
         .ingredient {
-            width: 8vh;
-            height: 8vh;
-            border-radius: 1.2vh;
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background-color: white;
-            border: 0.3vh solid #ccc;
+            border: 2px solid #ccc;
             cursor: pointer;
             transition: all 0.3s;
-            padding: 0.8vh;
+            padding: 6px;
             user-select: none;
             position: relative;
             flex-shrink: 0;
@@ -413,7 +412,7 @@
         
         .ingredient:hover {
             transform: scale(1.05);
-            box-shadow: 0 0.6vh 1.2vh rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
         .ingredient.correct {
@@ -445,12 +444,12 @@
         }
         
         .ingredient-icon {
-            font-size: 1.8vh;
-            margin-bottom: 0.5vh;
+            font-size: 1.5rem;
+            margin-bottom: 4px;
         }
         
         .ingredient-name {
-            font-size: 0.8vh;
+            font-size: 0.7rem;
             color: #555;
             text-align: center;
             font-weight: bold;
@@ -459,12 +458,12 @@
         /* 進度條步驟樣式 */
         .progress-container {
             width: 90%;
-            height: 2.5vh;
+            height: 20px;
             background-color: #eee;
-            border-radius: 1.5vh;
-            margin: 2vh 0;
+            border-radius: 12px;
+            margin: 15px 0;
             overflow: hidden;
-            border: 0.3vh solid #ddd;
+            border: 2px solid #ddd;
         }
         
         .progress-bar {
@@ -472,14 +471,14 @@
             background-color: #ffd700;
             width: 0%;
             transition: width 0.5s;
-            border-radius: 1.5vh;
+            border-radius: 12px;
         }
         
         .progress-text {
-            font-size: 1.2vh;
+            font-size: 1rem;
             color: #8B4513;
             font-weight: bold;
-            margin-top: 1vh;
+            margin-top: 8px;
         }
         
         /* 計數器步驟樣式 */
@@ -487,26 +486,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 2vw;
-            margin: 2.5vh 0;
-            font-size: 1.5vh;
+            gap: 15px;
+            margin: 20px 0;
+            font-size: 1.3rem;
             color: #8B4513;
         }
         
         .counter-button {
-            width: 5vh;
-            height: 5vh;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background-color: #8B4513;
             color: white;
             border: none;
-            font-size: 2vh;
+            font-size: 1.8rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            border: 0.3vh solid #ffd700;
+            border: 2px solid #ffd700;
         }
         
         .counter-button:hover {
@@ -526,20 +525,20 @@
         }
         
         .counter-value {
-            min-width: 7vh;
+            min-width: 60px;
             text-align: center;
             font-weight: bold;
-            font-size: 2.2vh;
+            font-size: 1.8rem;
             background-color: #fff9e6;
-            padding: 1vh 1.5vw;
-            border-radius: 1vh;
-            border: 0.2vh solid #ffd700;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
         }
         
         /* 完成畫面 */
         .completion-screen {
             text-align: center;
-            padding: 1.5vh;
+            padding: 10px;
             width: 100%;
             height: 100%;
             display: flex;
@@ -549,30 +548,30 @@
         }
         
         .completion-icon {
-            font-size: 5vh;
-            margin-bottom: 2vh;
+            font-size: 4rem;
+            margin-bottom: 15px;
             color: #8B4513;
             animation: bounce 2s infinite;
         }
         
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-1.5vh); }
+            50% { transform: translateY(-10px); }
         }
         
         .completion-message {
             color: #8B4513;
-            font-size: 1.8vh;
-            margin-bottom: 1.5vh;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
             font-weight: bold;
         }
         
         .completion-desc {
             color: #666;
-            font-size: 1vh;
-            margin-bottom: 2vh;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
             max-width: 90%;
-            line-height: 1.4;
+            line-height: 1.3;
             margin-left: auto;
             margin-right: auto;
         }
@@ -581,28 +580,27 @@
         .navigation-buttons {
             display: flex;
             justify-content: center;
-            gap: 1.5vh;
-            margin-top: 2vh;
+            gap: 10px;
+            margin-top: 5px;
             width: 100%;
-            padding: 0 1.5vh;
+            padding: 0 10px;
             z-index: 10;
             position: relative;
             bottom: auto;
-            flex-shrink: 0;
         }
         
         .nav-button {
             background-color: #ffd700;
             color: #8B4513;
             border: none;
-            padding: 1.2vh 2vw;
-            font-size: 1.1vh;
-            border-radius: 3vh;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
-            border: 0.3vh solid #8B4513;
-            min-width: 12vh;
+            border: 2px solid #8B4513;
+            min-width: 100px;
         }
         
         .nav-button:hover {
@@ -623,34 +621,34 @@
             background-color: #8B4513;
             color: white;
             border: none;
-            padding: 1.2vh 2.5vw;
-            font-size: 1.2vh;
-            border-radius: 4vh;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 35px;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 1.5vh;
+            margin-top: 10px;
             font-weight: bold;
-            border: 0.4vh solid #ffd700;
-            box-shadow: 0 0.6vh 0 #5D2906;
-            min-width: 15vh;
+            border: 3px solid #ffd700;
+            box-shadow: 0 5px 0 #5D2906;
+            min-width: 130px;
         }
         
         .action-button:hover {
             background-color: #5D2906;
-            transform: translateY(-0.3vh);
-            box-shadow: 0 0.9vh 0 #5D2906;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #5D2906;
         }
         
         .action-button:active {
-            transform: translateY(0.3vh);
-            box-shadow: 0 0.3vh 0 #5D2906;
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #5D2906;
         }
         
         .action-button:disabled {
             background-color: #aaa;
             cursor: not-allowed;
             transform: none;
-            box-shadow: 0 0.6vh 0 #777;
+            box-shadow: 0 5px 0 #777;
             border-color: #777;
         }
         
@@ -659,10 +657,10 @@
             width: 100%;
             height: 100%;
             background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 2vh;
-            padding: 1.5vh;
-            border: 0.8vh solid #ffd700;
-            box-shadow: 0 1vh 3vh rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 12px;
+            border: 6px solid #ffd700;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -672,8 +670,8 @@
         .leaderboard-title {
             text-align: center;
             color: #8B4513;
-            font-size: 1.8vh;
-            margin-bottom: 1.5vh;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
             font-weight: bold;
             flex-shrink: 0;
         }
@@ -681,8 +679,8 @@
         .leaderboard-tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.8vh;
-            margin-bottom: 1.5vh;
+            gap: 6px;
+            margin-bottom: 10px;
             justify-content: center;
             flex-shrink: 0;
         }
@@ -690,14 +688,14 @@
         .leaderboard-tab {
             background-color: #ffd700;
             color: #8B4513;
-            border: 0.2vh solid #8B4513;
-            padding: 0.8vh 1.2vw;
-            border-radius: 2vh;
+            border: 2px solid #8B4513;
+            padding: 6px 10px;
+            border-radius: 18px;
             cursor: pointer;
-            font-size: 0.9vh;
+            font-size: 0.8rem;
             font-weight: bold;
             transition: all 0.3s;
-            min-width: 8vh;
+            min-width: 70px;
         }
         
         .leaderboard-tab:hover {
@@ -708,37 +706,36 @@
         .leaderboard-tab.active {
             background-color: #8B4513;
             color: #ffd700;
-            box-shadow: 0 0.3vh 0.8vh rgba(0,0,0,0.2);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         
         .leaderboard-table-container {
             flex: 1;
             overflow: auto;
-            max-height: calc(100vh - 25vh);
         }
         
         .leaderboard-table {
             width: 100%;
             border-collapse: collapse;
-            border-radius: 1vh;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 0.3vh 0.8vh rgba(0,0,0,0.1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
         
         .leaderboard-table th {
             background-color: #8B4513;
             color: white;
-            padding: 1.2vh;
+            padding: 10px;
             text-align: left;
-            font-size: 1vh;
+            font-size: 0.9rem;
             position: sticky;
             top: 0;
         }
         
         .leaderboard-table td {
-            padding: 1.2vh;
-            border-bottom: 0.2vh solid #ffd700;
-            font-size: 0.9vh;
+            padding: 10px;
+            border-bottom: 2px solid #ffd700;
+            font-size: 0.8rem;
         }
         
         .leaderboard-table tr:nth-child(even) {
@@ -749,42 +746,42 @@
             background-color: rgba(255, 215, 0, 0.2);
         }
         
-        .rank-1 { color: #ffd700; font-weight: bold; font-size: 1.1vh; }
-        .rank-2 { color: #c0c0c0; font-weight: bold; font-size: 1vh; }
-        .rank-3 { color: #cd7f32; font-weight: bold; font-size: 1vh; }
+        .rank-1 { color: #ffd700; font-weight: bold; font-size: 1rem; }
+        .rank-2 { color: #c0c0c0; font-weight: bold; font-size: 0.9rem; }
+        .rank-3 { color: #cd7f32; font-weight: bold; font-size: 0.9rem; }
         
         /* 姓名輸入表單 */
         .name-form {
             background-color: white;
-            padding: 2vh;
-            border-radius: 1.5vh;
-            border: 0.4vh solid #ffd700;
+            padding: 15px;
+            border-radius: 12px;
+            border: 4px solid #ffd700;
             max-width: 90%;
             margin: 0 auto;
             text-align: center;
-            box-shadow: 0 0.6vh 1.5vh rgba(0,0,0,0.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 90%;
-            max-width: 50vw;
+            max-width: 450px;
             z-index: 100;
         }
         
         .name-form h2 {
             color: #8B4513;
-            margin-bottom: 1.5vh;
-            font-size: 1.8vh;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
         }
         
         .name-input {
             width: 100%;
-            padding: 1.2vh;
-            font-size: 1.3vh;
-            border: 0.3vh solid #ffd700;
-            border-radius: 1vh;
-            margin-bottom: 2vh;
+            padding: 10px;
+            font-size: 1.1rem;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            margin-bottom: 15px;
             text-align: center;
             color: #8B4513;
             transition: all 0.3s;
@@ -793,28 +790,28 @@
         .name-input:focus {
             outline: none;
             border-color: #8B4513;
-            box-shadow: 0 0 1vh rgba(139, 69, 19, 0.3);
+            box-shadow: 0 0 8px rgba(139, 69, 19, 0.3);
             transform: scale(1.02);
         }
         
         .character-selection {
             display: flex;
             justify-content: center;
-            gap: 1.5vh;
-            margin: 1.5vh 0;
+            gap: 12px;
+            margin: 12px 0;
             flex-wrap: wrap;
         }
         
         .character-option {
-            width: 6vh;
-            height: 6vh;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 0.3vh solid #ffd700;
+            border: 2px solid #ffd700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2vh;
+            font-size: 1.8rem;
             background-color: white;
             transition: all 0.3s;
         }
@@ -828,34 +825,34 @@
             border-color: #8B4513;
             background-color: #ffd700;
             transform: scale(1.05);
-            box-shadow: 0 0.3vh 0.8vh rgba(0,0,0,0.2);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         
         .submit-button {
             background-color: #8B4513;
             color: white;
             border: none;
-            padding: 1.5vh 3vw;
-            font-size: 1.3vh;
-            border-radius: 4vh;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 35px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
-            border: 0.4vh solid #ffd700;
-            box-shadow: 0 0.6vh 0 #5D2906;
+            border: 3px solid #ffd700;
+            box-shadow: 0 5px 0 #5D2906;
             width: 100%;
-            margin-top: 1vh;
+            margin-top: 8px;
         }
         
         .submit-button:hover {
             background-color: #5D2906;
-            transform: translateY(-0.3vh);
-            box-shadow: 0 0.9vh 0 #5D2906;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #5D2906;
         }
         
         .submit-button:active {
-            transform: translateY(0.3vh);
-            box-shadow: 0 0.3vh 0 #5D2906;
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #5D2906;
         }
         
         /* 隱藏類 */
@@ -866,46 +863,46 @@
         /* 錯誤訊息 */
         .error-message {
             color: #f44336;
-            font-size: 1vh;
-            margin-top: 0.4vh;
+            font-size: 0.9rem;
+            margin-top: 3px;
             text-align: center;
             font-weight: bold;
             animation: shake 0.5s;
-            padding: 0.8vh 1.5vw;
+            padding: 6px 12px;
             background-color: rgba(244, 67, 54, 0.1);
-            border-radius: 0.8vh;
-            border: 0.2vh solid #f44336;
+            border-radius: 6px;
+            border: 1px solid #f44336;
         }
         
         .success-message {
             color: #4CAF50;
-            font-size: 1vh;
-            margin-top: 0.4vh;
+            font-size: 0.9rem;
+            margin-top: 3px;
             text-align: center;
             font-weight: bold;
-            padding: 0.8vh 1.5vw;
+            padding: 6px 12px;
             background-color: rgba(76, 175, 80, 0.1);
-            border-radius: 0.8vh;
-            border: 0.2vh solid #4CAF50;
+            border-radius: 6px;
+            border: 1px solid #4CAF50;
         }
         
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-0.3vh); }
-            20%, 40%, 60%, 80% { transform: translateX(0.3vh); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+            20%, 40%, 60%, 80% { transform: translateX(3px); }
         }
         
         /* 食材計數器 */
         .ingredient-counter {
-            font-size: 1.1vh;
+            font-size: 1rem;
             color: #8B4513;
-            margin-bottom: 1vh;
+            margin-bottom: 8px;
             text-align: center;
             font-weight: bold;
-            padding: 0.8vh 1.5vw;
+            padding: 6px 12px;
             background-color: #fff9e6;
-            border-radius: 0.8vh;
-            border: 0.2vh solid #ffd700;
+            border-radius: 6px;
+            border: 2px solid #ffd700;
             display: inline-block;
             flex-shrink: 0;
         }
@@ -914,17 +911,17 @@
         .message-area {
             width: 100%;
             max-width: 90%;
-            margin-top: 2vh;
-            margin-bottom: 1vh;
-            min-height: 6vh;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            min-height: 50px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             flex-shrink: 0;
             overflow-y: auto;
-            max-height: 8vh;
-            padding: 0.5vh;
+            max-height: 70px;
+            padding: 3px;
             background-color: transparent;
             border: none;
             position: relative;
@@ -933,21 +930,21 @@
         /* 返回按鈕 */
         .back-button {
             position: absolute;
-            top: 1.5vh;
-            left: 1.5vw;
+            top: 10px;
+            left: 10px;
             background-color: #8B4513;
             color: white;
             border: none;
-            width: 4vh;
-            height: 4vh;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.2vh;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
-            border: 0.2vh solid #ffd700;
+            border: 2px solid #ffd700;
             z-index: 10;
         }
         
@@ -959,15 +956,15 @@
         /* 音效按鈕 */
         .sound-toggle {
             position: absolute;
-            top: 1.5vh;
-            right: 1.5vw;
-            width: 4vh;
-            height: 4vh;
+            top: 10px;
+            right: 10px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             background-color: #ffd700;
             color: #8B4513;
-            border: 0.2vh solid #8B4513;
-            font-size: 1.2vh;
+            border: 2px solid #8B4513;
+            font-size: 1rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -1002,97 +999,148 @@
         /* 馬年特別主題 */
         .horse-theme {
             background-image: 
-                radial-gradient(#ffd700 0.1vh, transparent 0.1vh),
-                radial-gradient(#8B4513 0.1vh, transparent 0.1vh),
+                radial-gradient(#ffd700 1px, transparent 1px),
+                radial-gradient(#8B4513 1px, transparent 1px),
                 linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 100%);
         }
         
         .horse-decoration {
-            font-size: 2.5vh;
+            font-size: 2rem;
             animation: horseFloat 4s infinite ease-in-out;
         }
         
         @keyframes horseFloat {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-1vh) rotate(5deg); }
-            75% { transform: translateY(0.5vh) rotate(-5deg); }
+            25% { transform: translateY(-8px) rotate(5deg); }
+            75% { transform: translateY(4px) rotate(-5deg); }
         }
         
         /* 橫屏專用優化 */
         @media (orientation: landscape) {
             .header h1 {
-                font-size: 1.8vh;
+                font-size: 1.4rem;
             }
             
             .header p {
-                font-size: 0.9vh;
+                font-size: 0.8rem;
             }
             
             .year-badge {
-                font-size: 1.2vh;
-                padding: 0.8vh 2vw;
+                font-size: 1rem;
+                padding: 6px 15px;
             }
             
             .food-card {
-                width: 12vh;
-                height: 12vh;
+                width: 33.33%;
+                height: 33.33%;
             }
             
             .food-icon {
-                font-size: 2vh;
-                height: 3.5vh;
+                font-size: 1.5rem;
+                height: 30px;
             }
             
             .food-name {
-                font-size: 1.1vh;
+                font-size: 0.9rem;
+            }
+            
+            .food-desc {
+                font-size: 0.65rem;
             }
             
             .ingredient {
-                width: 7vh;
-                height: 7vh;
+                width: 60px;
+                height: 60px;
+            }
+            
+            .ingredient-icon {
+                font-size: 1.3rem;
             }
             
             .leaderboard-tabs {
-                gap: 0.6vh;
+                gap: 5px;
             }
             
             .leaderboard-tab {
-                padding: 0.6vh 1vw;
-                font-size: 0.8vh;
-                min-width: 7vh;
+                padding: 5px 8px;
+                font-size: 0.75rem;
+                min-width: 60px;
             }
             
             .menu-button {
-                padding: 1.5vh 2vw;
-                font-size: 1.3vh;
+                padding: 12px 18px;
+                font-size: 1.1rem;
             }
             
             .menu-button i {
-                font-size: 1.5vh;
+                font-size: 1.3rem;
             }
             
             /* 確保材料區域不超出 */
             .ingredients {
-                max-height: calc(100% - 10vh);
+                max-height: 80px;
             }
             
             .message-area {
-                min-height: 5vh;
-                max-height: 7vh;
+                min-height: 40px;
+                max-height: 60px;
             }
             
             .food-cards-container {
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: repeat(3, 1fr);
-                width: 33.33vw;
+                width: 33.33%;
+            }
+        }
+        
+        /* 小屏幕優化 */
+        @media (max-height: 600px) {
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            
+            .header p {
+                font-size: 0.8rem;
+            }
+            
+            .year-badge {
+                font-size: 1rem;
+                padding: 6px 15px;
+                margin: 3px auto;
+            }
+            
+            .game-area {
+                height: calc(100% - 70px);
+            }
+            
+            .food-card {
+                padding: 8px 5px;
+            }
+            
+            .food-icon {
+                font-size: 1.5rem;
+                height: 30px;
+                margin-bottom: 3px;
+            }
+            
+            .food-name {
+                font-size: 0.9rem;
+                margin-bottom: 2px;
+            }
+            
+            .food-desc {
+                font-size: 0.65rem;
+                margin-bottom: 3px;
+            }
+            
+            .food-stats {
+                font-size: 0.65rem;
             }
         }
         
         /* 煙花效果 */
         .fireworks {
             position: fixed;
-            width: 0.8vh;
-            height: 0.8vh;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             pointer-events: none;
             z-index: 1000;
@@ -1210,7 +1258,7 @@
             <!-- 姓名輸入表單 -->
             <div id="name-form" class="name-form hidden">
                 <h2>🎉 挑戰完成！</h2>
-                <p style="font-size: 1.2vh; margin-bottom: 2vh; color: #666;">
+                <p style="font-size: 1.1rem; margin-bottom: 15px; color: #666;">
                     你獲得了 <span id="final-score" style="color: #8B4513; font-weight: bold;">0</span> 分！
                 </p>
                 
@@ -1222,7 +1270,7 @@
                     <div class="character-option clickable" data-char="🧧">🧧</div>
                 </div>
                 
-                <h3 style="margin-top: 2vh;">輸入你的名字：</h3>
+                <h3 style="margin-top: 15px;">輸入你的名字：</h3>
                 <input type="text" id="player-name" class="name-input" placeholder="輸入你的名字" maxlength="12">
                 <button id="submit-score" class="submit-button clickable">登上排行榜！</button>
             </div>
@@ -1913,6 +1961,10 @@
             const cardsContainer = document.createElement('div');
             cardsContainer.className = 'food-cards-container';
             
+            // 計算卡片尺寸
+            const containerWidth = cardsContainer.offsetWidth || 300;
+            const cardSize = Math.floor(containerWidth / 3);
+            
             // 創建每個美食的卡片
             Object.keys(foodSteps).forEach((foodId) => {
                 const food = foodSteps[foodId];
@@ -1920,6 +1972,8 @@
                 const foodCard = document.createElement('div');
                 foodCard.className = 'food-card clickable no-select';
                 foodCard.dataset.food = foodId;
+                foodCard.style.width = `${cardSize}px`;
+                foodCard.style.height = `${cardSize}px`;
                 
                 foodCard.innerHTML = `
                     <div class="food-icon">${food.icon}</div>
@@ -2422,9 +2476,9 @@
             starRating.className = 'star-rating';
             starRating.style.display = 'flex';
             starRating.style.justifyContent = 'center';
-            starRating.style.gap = '0.8vh';
-            starRating.style.margin = '1.5vh 0';
-            starRating.style.fontSize = '2vh';
+            starRating.style.gap = '6px';
+            starRating.style.margin = '12px 0';
+            starRating.style.fontSize = '1.8rem';
             
             for (let i = 1; i <= 5; i++) {
                 const star = document.createElement('div');
@@ -2566,7 +2620,7 @@
             if (displayData.length === 0) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td colspan="4" style="text-align: center; padding: 3vh; font-size: 1vh; color: #666;">
+                    <td colspan="4" style="text-align: center; padding: 25px; font-size: 0.9rem; color: #666;">
                         還沒有挑戰記錄，快來成為第一個吧！
                     </td>
                 `;
@@ -2612,7 +2666,7 @@
             firework.style.left = x + 'px';
             firework.style.top = y + 'px';
             firework.style.backgroundColor = color;
-            firework.style.boxShadow = `0 0 1.5vh ${color}`;
+            firework.style.boxShadow = `0 0 12px ${color}`;
             
             document.body.appendChild(firework);
             
@@ -2620,7 +2674,7 @@
             let size = 5;
             let opacity = 1;
             const explode = () => {
-                size += 8;
+                size += 6;
                 opacity -= 0.05;
                 
                 firework.style.width = size + 'px';
