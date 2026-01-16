@@ -1788,10 +1788,27 @@
             leaderboardButton.addEventListener('click', showLeaderboard);
             soundToggle.addEventListener('click', toggleSound);
             
-            // 返回按鈕
+            // 返回按鈕 - 從排行榜返回時刷新頁面
             backToMenuFromSelection.addEventListener('click', showMainMenu);
             backToMenuFromGame.addEventListener('click', showMainMenu);
-            backToMenuFromLeaderboard.addEventListener('click', showMainMenu);
+            
+            // 修改排行榜返回按鈕事件，先返回主菜單然後刷新
+            backToMenuFromLeaderboard.addEventListener('click', function() {
+                if (isProcessingClick) return;
+                isProcessingClick = true;
+                
+                playSound('click-sound');
+                
+                // 顯示主菜單
+                showMainMenu();
+                
+                // 延遲一小段時間後刷新頁面
+                setTimeout(() => {
+                    location.reload();
+                }, 300);
+                
+                setTimeout(() => { isProcessingClick = false; }, 300);
+            });
             
             // 導航按鈕
             nextStepButton.addEventListener('click', goToNextStep);
