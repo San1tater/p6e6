@@ -12,9 +12,6 @@
             box-sizing: border-box;
             font-family: 'Arial Rounded MT Bold', 'Microsoft JhengHei', sans-serif;
             touch-action: manipulation;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
         }
         
         html, body {
@@ -24,6 +21,22 @@
             background: url('images/bg.png') no-repeat center center fixed;
             background-size: cover;
             color: #333;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* 禁用雙擊放大 */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        input, textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
         
         .container {
@@ -36,15 +49,10 @@
             flex-direction: column;
         }
         
-        /* 禁用雙擊放大 */
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-        
         /* 裝飾元素 */
         .decoration {
             position: absolute;
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: #ffd700;
             z-index: 1;
             animation: float 3s infinite ease-in-out;
@@ -52,7 +60,7 @@
         
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-8px); }
         }
         
         .dec-1 { top: 10px; left: 10px; }
@@ -64,13 +72,13 @@
             background: linear-gradient(45deg, #8B4513, #ffd700, #D2691E);
             color: white;
             padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 1.2rem;
+            border-radius: 30px;
+            font-size: 1.3rem;
             font-weight: bold;
             margin: 5px auto;
             display: inline-block;
-            border: 2px solid #ffd700;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 3px solid #ffd700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             animation: pulse 2s infinite;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             z-index: 2;
@@ -79,7 +87,7 @@
         
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+            50% { transform: scale(1.05); }
         }
         
         .header {
@@ -91,17 +99,17 @@
         
         .header h1 {
             color: #8B4513;
-            font-size: 1.6rem;
-            text-shadow: 1px 1px 0 #ffd700;
+            font-size: 1.8rem;
+            text-shadow: 2px 2px 0 #ffd700;
             margin-bottom: 5px;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
         
         .header p {
             color: #555;
             font-size: 0.9rem;
             line-height: 1.3;
-            max-width: 90%;
+            max-width: 95%;
             margin: 0 auto;
         }
         
@@ -133,12 +141,12 @@
             border: none;
             padding: 15px 20px;
             font-size: 1.3rem;
-            border-radius: 40px;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
-            border: 4px solid #ffd700;
-            box-shadow: 0 6px 0 #5D2906;
+            border: 5px solid #ffd700;
+            box-shadow: 0 8px 0 #5D2906;
             text-align: center;
             display: flex;
             align-items: center;
@@ -167,19 +175,19 @@
         .menu-button:hover {
             background-color: #5D2906;
             transform: translateY(-3px);
-            box-shadow: 0 9px 0 #5D2906;
+            box-shadow: 0 11px 0 #5D2906;
         }
         
         .menu-button:active {
-            transform: translateY(2px);
-            box-shadow: 0 4px 0 #5D2906;
+            transform: translateY(3px);
+            box-shadow: 0 5px 0 #5D2906;
         }
         
         .menu-button i {
             font-size: 1.5rem;
         }
         
-        /* 食物選擇區域 */
+        /* 食物選擇區域 - 3x3佈局 */
         .food-selection {
             display: flex;
             flex-direction: column;
@@ -202,50 +210,47 @@
         .food-cards-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            width: 33.33%;
-            margin: 0 auto;
+            width: 100%;
+            height: calc(100% - 40px);
             padding: 0;
-            flex: 1;
+            margin: 0;
             overflow: hidden;
-            gap: 0;
+            align-content: flex-start;
         }
         
         .food-card {
             background: linear-gradient(145deg, #fff9e6, #ffecb3);
-            border-radius: 12px;
-            padding: 12px 8px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 3px solid #ffd700;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 4px solid #ffd700;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: 33.33%;
-            height: 33.33%;
+            /* 3x3佈局計算：每個卡片佔1/3寬度和高度 */
+            width: 33.333%;
+            height: 33.333%;
             margin: 0;
-            flex-shrink: 0;
+            padding: 5px;
         }
         
         .food-card:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
             border-color: #8B4513;
         }
         
         .food-card.selected {
             border-color: #8B4513;
             background: linear-gradient(145deg, #ffeaa7, #ffd93d);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
         
         .food-icon {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 5px;
             color: #8B4513;
             height: 35px;
@@ -325,8 +330,8 @@
         .interaction-area {
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-            padding: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 10px;
             border: 6px solid #ffd700;
             display: flex;
             flex-direction: column;
@@ -357,27 +362,16 @@
             flex-shrink: 0;
         }
         
-        /* 互動內容區域 */
-        .interaction-content {
-            width: 100%;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow: hidden;
-            padding: 3px;
-            position: relative;
-        }
-        
-        /* 點擊步驟樣式 */
+        /* 移除interaction-content，直接使用ingredients-container */
         .ingredients-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            height: auto;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
             position: relative;
-            margin-bottom: 5px;
         }
         
         .ingredients {
@@ -386,10 +380,10 @@
             justify-content: center;
             gap: 8px;
             width: 100%;
-            max-height: 100px;
+            height: 100%;
             overflow-y: auto;
-            padding: 3px;
-            margin-bottom: 5px;
+            padding: 5px;
+            align-content: flex-start;
         }
         
         .ingredient {
@@ -401,10 +395,10 @@
             align-items: center;
             justify-content: center;
             background-color: white;
-            border: 2px solid #ccc;
+            border: 3px solid #ccc;
             cursor: pointer;
             transition: all 0.3s;
-            padding: 6px;
+            padding: 5px;
             user-select: none;
             position: relative;
             flex-shrink: 0;
@@ -412,7 +406,7 @@
         
         .ingredient:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
         
         .ingredient.correct {
@@ -445,7 +439,7 @@
         
         .ingredient-icon {
             font-size: 1.5rem;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         
         .ingredient-name {
@@ -463,7 +457,7 @@
             border-radius: 12px;
             margin: 15px 0;
             overflow: hidden;
-            border: 2px solid #ddd;
+            border: 3px solid #ddd;
         }
         
         .progress-bar {
@@ -505,7 +499,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            border: 2px solid #ffd700;
+            border: 3px solid #ffd700;
         }
         
         .counter-button:hover {
@@ -561,7 +555,7 @@
         
         .completion-message {
             color: #8B4513;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 10px;
             font-weight: bold;
         }
@@ -570,7 +564,7 @@
             color: #666;
             font-size: 0.9rem;
             margin-bottom: 15px;
-            max-width: 90%;
+            max-width: 95%;
             line-height: 1.3;
             margin-left: auto;
             margin-right: auto;
@@ -581,12 +575,11 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-top: 5px;
+            margin-top: 10px;
             width: 100%;
             padding: 0 10px;
             z-index: 10;
-            position: relative;
-            bottom: auto;
+            flex-shrink: 0;
         }
         
         .nav-button {
@@ -599,7 +592,7 @@
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
-            border: 2px solid #8B4513;
+            border: 3px solid #8B4513;
             min-width: 100px;
         }
         
@@ -628,19 +621,19 @@
             transition: all 0.3s;
             margin-top: 10px;
             font-weight: bold;
-            border: 3px solid #ffd700;
-            box-shadow: 0 5px 0 #5D2906;
+            border: 4px solid #ffd700;
+            box-shadow: 0 6px 0 #5D2906;
             min-width: 130px;
         }
         
         .action-button:hover {
             background-color: #5D2906;
-            transform: translateY(-2px);
-            box-shadow: 0 7px 0 #5D2906;
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 #5D2906;
         }
         
         .action-button:active {
-            transform: translateY(2px);
+            transform: translateY(3px);
             box-shadow: 0 3px 0 #5D2906;
         }
         
@@ -648,7 +641,7 @@
             background-color: #aaa;
             cursor: not-allowed;
             transform: none;
-            box-shadow: 0 5px 0 #777;
+            box-shadow: 0 6px 0 #777;
             border-color: #777;
         }
         
@@ -658,9 +651,9 @@
             height: 100%;
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            padding: 12px;
+            padding: 10px;
             border: 6px solid #ffd700;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -706,7 +699,7 @@
         .leaderboard-tab.active {
             background-color: #8B4513;
             color: #ffd700;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
         }
         
         .leaderboard-table-container {
@@ -719,7 +712,7 @@
             border-collapse: collapse;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
         
         .leaderboard-table th {
@@ -754,9 +747,9 @@
         .name-form {
             background-color: white;
             padding: 15px;
-            border-radius: 12px;
-            border: 4px solid #ffd700;
-            max-width: 90%;
+            border-radius: 15px;
+            border: 6px solid #ffd700;
+            max-width: 95%;
             margin: 0 auto;
             text-align: center;
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
@@ -764,7 +757,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90%;
+            width: 95%;
             max-width: 450px;
             z-index: 100;
         }
@@ -779,7 +772,7 @@
             width: 100%;
             padding: 10px;
             font-size: 1.1rem;
-            border: 2px solid #ffd700;
+            border: 3px solid #ffd700;
             border-radius: 8px;
             margin-bottom: 15px;
             text-align: center;
@@ -797,8 +790,8 @@
         .character-selection {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin: 12px 0;
+            gap: 10px;
+            margin: 10px 0;
             flex-wrap: wrap;
         }
         
@@ -806,12 +799,12 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            border: 2px solid #ffd700;
+            border: 3px solid #ffd700;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             background-color: white;
             transition: all 0.3s;
         }
@@ -825,7 +818,7 @@
             border-color: #8B4513;
             background-color: #ffd700;
             transform: scale(1.05);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
         }
         
         .submit-button {
@@ -838,20 +831,20 @@
             cursor: pointer;
             transition: all 0.3s;
             font-weight: bold;
-            border: 3px solid #ffd700;
-            box-shadow: 0 5px 0 #5D2906;
+            border: 4px solid #ffd700;
+            box-shadow: 0 6px 0 #5D2906;
             width: 100%;
-            margin-top: 8px;
+            margin-top: 10px;
         }
         
         .submit-button:hover {
             background-color: #5D2906;
-            transform: translateY(-2px);
-            box-shadow: 0 7px 0 #5D2906;
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 #5D2906;
         }
         
         .submit-button:active {
-            transform: translateY(2px);
+            transform: translateY(3px);
             box-shadow: 0 3px 0 #5D2906;
         }
         
@@ -871,7 +864,7 @@
             padding: 6px 12px;
             background-color: rgba(244, 67, 54, 0.1);
             border-radius: 6px;
-            border: 1px solid #f44336;
+            border: 2px solid #f44336;
         }
         
         .success-message {
@@ -883,7 +876,7 @@
             padding: 6px 12px;
             background-color: rgba(76, 175, 80, 0.1);
             border-radius: 6px;
-            border: 1px solid #4CAF50;
+            border: 2px solid #4CAF50;
         }
         
         @keyframes shake {
@@ -910,9 +903,8 @@
         /* 訊息區域 */
         .message-area {
             width: 100%;
-            max-width: 90%;
+            max-width: 95%;
             margin-top: 5px;
-            margin-bottom: 5px;
             min-height: 50px;
             display: flex;
             flex-direction: column;
@@ -939,7 +931,7 @@
             height: 35px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -964,7 +956,7 @@
             background-color: #ffd700;
             color: #8B4513;
             border: 2px solid #8B4513;
-            font-size: 1rem;
+            font-size: 1.1rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -988,14 +980,6 @@
             transform: scale(0.95);
         }
         
-        /* 防止文字選擇 */
-        .no-select {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        
         /* 馬年特別主題 */
         .horse-theme {
             background-image: 
@@ -1017,8 +1001,12 @@
         
         /* 橫屏專用優化 */
         @media (orientation: landscape) {
+            .game-area {
+                height: calc(100% - 60px);
+            }
+            
             .header h1 {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
             }
             
             .header p {
@@ -1026,17 +1014,16 @@
             }
             
             .year-badge {
-                font-size: 1rem;
+                font-size: 1.1rem;
                 padding: 6px 15px;
             }
             
             .food-card {
-                width: 33.33%;
-                height: 33.33%;
+                padding: 3px;
             }
             
             .food-icon {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
                 height: 30px;
             }
             
@@ -1045,6 +1032,10 @@
             }
             
             .food-desc {
+                font-size: 0.65rem;
+            }
+            
+            .food-stats {
                 font-size: 0.65rem;
             }
             
@@ -1057,6 +1048,10 @@
                 font-size: 1.3rem;
             }
             
+            .ingredient-name {
+                font-size: 0.65rem;
+            }
+            
             .leaderboard-tabs {
                 gap: 5px;
             }
@@ -1064,7 +1059,7 @@
             .leaderboard-tab {
                 padding: 5px 8px;
                 font-size: 0.75rem;
-                min-width: 60px;
+                min-width: 65px;
             }
             
             .menu-button {
@@ -1076,63 +1071,17 @@
                 font-size: 1.3rem;
             }
             
-            /* 確保材料區域不超出 */
-            .ingredients {
-                max-height: 80px;
+            .step-title {
+                font-size: 1.2rem;
+            }
+            
+            .step-instruction {
+                font-size: 0.9rem;
             }
             
             .message-area {
                 min-height: 40px;
                 max-height: 60px;
-            }
-            
-            .food-cards-container {
-                width: 33.33%;
-            }
-        }
-        
-        /* 小屏幕優化 */
-        @media (max-height: 600px) {
-            .header h1 {
-                font-size: 1.4rem;
-            }
-            
-            .header p {
-                font-size: 0.8rem;
-            }
-            
-            .year-badge {
-                font-size: 1rem;
-                padding: 6px 15px;
-                margin: 3px auto;
-            }
-            
-            .game-area {
-                height: calc(100% - 70px);
-            }
-            
-            .food-card {
-                padding: 8px 5px;
-            }
-            
-            .food-icon {
-                font-size: 1.5rem;
-                height: 30px;
-                margin-bottom: 3px;
-            }
-            
-            .food-name {
-                font-size: 0.9rem;
-                margin-bottom: 2px;
-            }
-            
-            .food-desc {
-                font-size: 0.65rem;
-                margin-bottom: 3px;
-            }
-            
-            .food-stats {
-                font-size: 0.65rem;
             }
         }
         
@@ -1202,9 +1151,9 @@
                         已選擇: <span id="selected-count">0</span>/<span id="total-ingredients">0</span>
                     </div>
                     
-                    <!-- 通用互動區域 -->
-                    <div id="interaction-content" class="interaction-content">
-                        <!-- 內容將根據步驟動態更新 -->
+                    <!-- 直接使用ingredients-container，移除interaction-content -->
+                    <div id="ingredients-container" class="ingredients-container">
+                        <!-- 材料卡片將由JS動態生成 -->
                     </div>
                     
                     <!-- 訊息區域 -->
@@ -1318,7 +1267,6 @@
         const interactionArea = document.getElementById('interaction-area');
         const stepTitle = document.getElementById('step-title');
         const stepInstruction = document.getElementById('step-instruction');
-        const interactionContent = document.getElementById('interaction-content');
         const prevStepButton = document.getElementById('prev-step');
         const nextStepButton = document.getElementById('next-step');
         const leaderboardArea = document.getElementById('leaderboard-area');
@@ -1336,6 +1284,7 @@
         const selectedCountEl = document.getElementById('selected-count');
         const totalIngredientsEl = document.getElementById('total-ingredients');
         const messageArea = document.getElementById('message-area');
+        const ingredientsContainer = document.getElementById('ingredients-container');
         
         // ============================================
         // 遊戲數據定義
@@ -1847,6 +1796,16 @@
             
             // 顯示主菜單
             showMainMenu();
+            
+            // 禁用雙擊放大
+            document.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            // 禁用手勢縮放
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
         }
         
         // ============================================
@@ -1961,10 +1920,6 @@
             const cardsContainer = document.createElement('div');
             cardsContainer.className = 'food-cards-container';
             
-            // 計算卡片尺寸
-            const containerWidth = cardsContainer.offsetWidth || 300;
-            const cardSize = Math.floor(containerWidth / 3);
-            
             // 創建每個美食的卡片
             Object.keys(foodSteps).forEach((foodId) => {
                 const food = foodSteps[foodId];
@@ -1972,8 +1927,6 @@
                 const foodCard = document.createElement('div');
                 foodCard.className = 'food-card clickable no-select';
                 foodCard.dataset.food = foodId;
-                foodCard.style.width = `${cardSize}px`;
-                foodCard.style.height = `${cardSize}px`;
                 
                 foodCard.innerHTML = `
                     <div class="food-icon">${food.icon}</div>
@@ -2070,8 +2023,8 @@
             stepTitle.textContent = `步驟${stepIndex + 1}: ${step.title}`;
             stepInstruction.textContent = step.instruction;
             
-            // 更新互動內容
-            interactionContent.innerHTML = '';
+            // 清空材料容器
+            ingredientsContainer.innerHTML = '';
             ingredientCounterDisplay.classList.add('hidden');
             
             // 清空訊息區域
@@ -2117,10 +2070,6 @@
         
         // 載入點擊步驟
         function loadClickStep(step) {
-            // 創建材料區域
-            const ingredientsContainer = document.createElement('div');
-            ingredientsContainer.className = 'ingredients-container';
-            
             // 顯示食材計數器
             ingredientCounterDisplay.classList.remove('hidden');
             selectedCountEl.textContent = '0';
@@ -2179,9 +2128,8 @@
                 ingredientsDiv.appendChild(ingredientDiv);
             });
             
+            ingredientsContainer.appendChild(ingredientCounterDisplay);
             ingredientsContainer.appendChild(ingredientsDiv);
-            
-            interactionContent.appendChild(ingredientsContainer);
             
             // 重置點擊狀態
             gameState.clickedIngredients = [];
@@ -2283,9 +2231,9 @@
             actionButton.id = 'action-button';
             actionButton.textContent = step.actionText;
             
-            interactionContent.appendChild(progressContainer);
-            interactionContent.appendChild(progressText);
-            interactionContent.appendChild(actionButton);
+            ingredientsContainer.appendChild(progressContainer);
+            ingredientsContainer.appendChild(progressText);
+            ingredientsContainer.appendChild(actionButton);
             
             // 重置進度狀態
             gameState.progress = 0;
@@ -2331,8 +2279,8 @@
             actionText.className = 'step-instruction';
             actionText.textContent = `目標: ${step.targetCount} 次 ${step.actionText}`;
             
-            interactionContent.appendChild(actionText);
-            interactionContent.appendChild(counterDiv);
+            ingredientsContainer.appendChild(actionText);
+            ingredientsContainer.appendChild(counterDiv);
             
             // 重置計數器狀態
             gameState.counter = 0;
@@ -2418,7 +2366,7 @@
         
         // 顯示完成畫面
         function showCompletionScreen() {
-            interactionContent.innerHTML = '';
+            ingredientsContainer.innerHTML = '';
             stepsIndicator.classList.add('hidden');
             ingredientCounterDisplay.classList.add('hidden');
             prevStepButton.classList.add('hidden');
@@ -2477,7 +2425,7 @@
             starRating.style.display = 'flex';
             starRating.style.justifyContent = 'center';
             starRating.style.gap = '6px';
-            starRating.style.margin = '12px 0';
+            starRating.style.margin = '10px 0';
             starRating.style.fontSize = '1.8rem';
             
             for (let i = 1; i <= 5; i++) {
@@ -2506,7 +2454,7 @@
                 </div>
             `;
             
-            interactionContent.appendChild(completionScreen);
+            ingredientsContainer.appendChild(completionScreen);
             
             // 顯示姓名輸入表單
             setTimeout(() => {
@@ -2620,7 +2568,7 @@
             if (displayData.length === 0) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td colspan="4" style="text-align: center; padding: 25px; font-size: 0.9rem; color: #666;">
+                    <td colspan="4" style="text-align: center; padding: 20px; font-size: 0.9rem; color: #666;">
                         還沒有挑戰記錄，快來成為第一個吧！
                     </td>
                 `;
@@ -2674,7 +2622,7 @@
             let size = 5;
             let opacity = 1;
             const explode = () => {
-                size += 6;
+                size += 8;
                 opacity -= 0.05;
                 
                 firework.style.width = size + 'px';
