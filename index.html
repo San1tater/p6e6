@@ -7,9 +7,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>2026馬年美食製作遊戲 - 攤位版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Firebase SDK (版本 9.6.0 compat 版本，兼容您的配置) -->
+    <!-- Firebase SDK (版本 9.6.0 compat 版本，包含 Realtime Database) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -1203,6 +1203,36 @@
             margin-top: 10px;
             font-size: 1.2rem;
         }
+        
+        /* 清除排行榜按鈕 */
+        .clear-leaderboard-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            border: 2px solid #8B4513;
+            margin-top: 10px;
+            touch-action: manipulation; /* 禁用雙擊縮放 */
+        }
+        
+        .clear-leaderboard-button:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+        }
+        
+        /* 控制按鈕容器 */
+        .leaderboard-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 <body>
@@ -1300,6 +1330,16 @@
                     <button class="leaderboard-tab" data-food="turnipCake">🥮 蘿蔔糕</button>
                     <button class="leaderboard-tab" data-food="hotPot">🍲 火鍋</button>
                     <button class="leaderboard-tab" data-food="eightTreasureRice">🍚 八寶飯</button>
+                </div>
+                
+                <!-- 排行榜控制按鈕 -->
+                <div class="leaderboard-controls">
+                    <button id="refresh-leaderboard" class="leaderboard-tab clickable">
+                        <i class="fas fa-sync-alt"></i> 刷新
+                    </button>
+                    <button id="clear-leaderboard" class="clear-leaderboard-button clickable">
+                        <i class="fas fa-trash-alt"></i> 清除排行榜
+                    </button>
                 </div>
                 
                 <div class="leaderboard-table-container">
@@ -1411,7 +1451,9 @@
             projectId: "hyp-p6e6",
             storageBucket: "hyp-p6e6.firebasestorage.app",
             messagingSenderId: "734894821919",
-            appId: "1:734894821919:web:a2125ffaf99d0c10827b2a"
+            appId: "1:734894821919:web:a2125ffaf99d0c10827b2a",
+            // 添加 Realtime Database URL
+            databaseURL: "https://hyp-p6e6-default-rtdb.asia-southeast1.firebasedatabase.app/"
         };
 
         // ============================================
@@ -1473,6 +1515,8 @@
         const finalScoreDetail = document.getElementById('final-score-detail');
         const syncStatus = document.getElementById('sync-status');
         const submitStatus = document.getElementById('submit-status');
+        const refreshLeaderboardButton = document.getElementById('refresh-leaderboard');
+        const clearLeaderboardButton = document.getElementById('clear-leaderboard');
         
         // ============================================
         // 遊戲數據定義
@@ -1892,7 +1936,7 @@
         };
         
         // ============================================
-        // Firebase初始化
+        // Firebase初始化 (Realtime Database)
         // ============================================
         async function initializeFirebase() {
             try {
@@ -1901,13 +1945,13 @@
                 
                 // 初始化Firebase
                 firebase.initializeApp(firebaseConfig);
-                db = firebase.firestore();
+                db = firebase.database();
                 
                 // 測試連接
-                await db.collection('test').limit(1).get();
+                await db.ref('.info/connected').once('value');
                 
                 firebaseInitialized = true;
-                console.log("Firebase 初始化成功");
+                console.log("Firebase Realtime Database 初始化成功");
                 
                 // 更新同步狀態
                 syncStatus.textContent = "數據已同步";
@@ -1920,7 +1964,7 @@
                 
                 return true;
             } catch (error) {
-                console.error("Firebase 初始化失敗:", error);
+                console.error("Firebase Realtime Database 初始化失敗:", error);
                 firebaseInitialized = false;
                 
                 // 更新同步狀態
@@ -2048,6 +2092,30 @@
                     
                     setTimeout(() => { isProcessingClick = false; }, 300);
                 });
+            });
+            
+            // 刷新排行榜按鈕
+            refreshLeaderboardButton.addEventListener('click', function() {
+                if (isProcessingClick) return;
+                isProcessingClick = true;
+                
+                const activeTab = document.querySelector('.leaderboard-tab.active');
+                const foodType = activeTab ? activeTab.dataset.food : 'all';
+                updateLeaderboard(foodType);
+                
+                playSound('click-sound');
+                
+                setTimeout(() => { isProcessingClick = false; }, 300);
+            });
+            
+            // 清除排行榜按鈕
+            clearLeaderboardButton.addEventListener('click', function() {
+                if (isProcessingClick) return;
+                isProcessingClick = true;
+                
+                clearLeaderboard();
+                
+                setTimeout(() => { isProcessingClick = false; }, 300);
             });
             
             // 勝利視頻結束事件
@@ -2882,8 +2950,8 @@
             }
         }
         
-        // 從Firebase獲取排行榜數據
-        async function fetchLeaderboardFromFirebase(foodType = 'all') {
+        // 從 Firebase Realtime Database 獲取排行榜數據
+        async function fetchLeaderboardFromRealtimeDB(foodType = 'all') {
             if (!firebaseInitialized) {
                 console.log("Firebase未初始化，使用本地數據");
                 return null;
@@ -2894,31 +2962,39 @@
                 syncStatus.textContent = "正在同步數據...";
                 syncStatus.style.color = "#ff9800";
                 
-                let query = db.collection('scores');
+                // 從 Realtime Database 獲取數據
+                const snapshot = await db.ref('scores').once('value');
+                const data = snapshot.val();
+                
+                // 將數據轉換為數組
+                let scoresArray = [];
+                if (data) {
+                    Object.keys(data).forEach(key => {
+                        scoresArray.push({
+                            id: key,
+                            ...data[key]
+                        });
+                    });
+                }
                 
                 // 如果指定了特定食物，則過濾
                 if (foodType !== 'all') {
-                    query = query.where('food', '==', foodType);
+                    scoresArray = scoresArray.filter(item => item.food === foodType);
                 }
                 
-                // 獲取數據並按分數排序
-                const snapshot = await query
-                    .orderBy('score', 'desc')
-                    .limit(20)
-                    .get();
+                // 按分數排序（從高到低）
+                scoresArray.sort((a, b) => b.score - a.score);
                 
-                const data = [];
-                snapshot.forEach(doc => {
-                    data.push(doc.data());
-                });
+                // 只取前20名
+                scoresArray = scoresArray.slice(0, 20);
                 
                 // 更新同步狀態
                 syncStatus.textContent = "數據已同步";
                 syncStatus.style.color = "#4CAF50";
                 
-                return data;
+                return scoresArray;
             } catch (error) {
-                console.error("從Firebase獲取排行榜數據失敗:", error);
+                console.error("從Firebase Realtime Database獲取排行榜數據失敗:", error);
                 
                 // 更新同步狀態
                 syncStatus.textContent = "數據同步失敗，使用本地數據";
@@ -2928,8 +3004,8 @@
             }
         }
         
-        // 提交分數到Firebase
-        async function submitScoreToFirebase(scoreData) {
+        // 提交分數到 Firebase Realtime Database
+        async function submitScoreToRealtimeDB(scoreData) {
             if (!firebaseInitialized) {
                 console.log("Firebase未初始化，保存到本地");
                 return false;
@@ -2940,23 +3016,72 @@
                 submitStatus.innerHTML = '<div class="success-message">正在上傳分數到雲端...</div>';
                 
                 // 添加時間戳
-                scoreData.timestamp = firebase.firestore.FieldValue.serverTimestamp();
+                scoreData.timestamp = Date.now();
                 scoreData.date = new Date().toISOString();
                 
-                // 保存到Firebase
-                await db.collection('scores').add(scoreData);
+                // 保存到 Firebase Realtime Database
+                const newScoreRef = db.ref('scores').push();
+                await newScoreRef.set(scoreData);
                 
                 // 更新提交狀態
                 submitStatus.innerHTML = '<div class="success-message">分數已成功上傳到雲端排行榜！</div>';
                 
                 return true;
             } catch (error) {
-                console.error("提交分數到Firebase失敗:", error);
+                console.error("提交分數到Firebase Realtime Database失敗:", error);
                 
                 // 更新提交狀態
                 submitStatus.innerHTML = '<div class="error-message">雲端上傳失敗，已保存到本地</div>';
                 
                 return false;
+            }
+        }
+        
+        // 清除排行榜數據
+        async function clearLeaderboard() {
+            // 顯示確認對話框
+            if (!confirm("確定要清除排行榜嗎？這個操作將會刪除所有本地和雲端的排行榜數據，且無法恢復！")) {
+                return;
+            }
+            
+            try {
+                // 顯示清除中狀態
+                syncStatus.textContent = "正在清除排行榜數據...";
+                syncStatus.style.color = "#ff9800";
+                
+                // 清除本地數據
+                leaderboardData = [];
+                localStorage.removeItem('foodGameLeaderboard');
+                
+                // 清除 Firebase Realtime Database 數據
+                if (firebaseInitialized) {
+                    await db.ref('scores').remove();
+                    console.log("Firebase Realtime Database 排行榜數據已清除");
+                }
+                
+                // 顯示成功訊息
+                syncStatus.textContent = "排行榜數據已清除";
+                syncStatus.style.color = "#4CAF50";
+                
+                // 播放音效
+                playSound('complete-sound');
+                
+                // 更新排行榜顯示
+                const activeTab = document.querySelector('.leaderboard-tab.active');
+                const foodType = activeTab ? activeTab.dataset.food : 'all';
+                updateLeaderboard(foodType);
+                
+                // 顯示成功提示
+                alert("排行榜數據已成功清除！");
+                
+            } catch (error) {
+                console.error("清除排行榜數據失敗:", error);
+                
+                // 顯示錯誤訊息
+                syncStatus.textContent = "清除數據失敗";
+                syncStatus.style.color = "#f44336";
+                
+                alert("清除排行榜數據時發生錯誤，請重試或檢查網絡連接。");
             }
         }
         
@@ -3008,8 +3133,8 @@
             // 保存遊戲數據到本地
             saveGameData();
             
-            // 嘗試提交到Firebase
-            const firebaseSuccess = await submitScoreToFirebase(scoreData);
+            // 嘗試提交到 Firebase Realtime Database
+            const firebaseSuccess = await submitScoreToRealtimeDB(scoreData);
             
             // 標記分數已提交
             scoreAlreadySubmitted = true;
@@ -3055,14 +3180,14 @@
             `;
             leaderboardBody.appendChild(loadingRow);
             
-            // 嘗試從Firebase獲取數據
+            // 嘗試從 Firebase Realtime Database 獲取數據
             let displayData = [];
             
             if (firebaseInitialized) {
-                const firebaseData = await fetchLeaderboardFromFirebase(foodType);
+                const firebaseData = await fetchLeaderboardFromRealtimeDB(foodType);
                 
                 if (firebaseData && firebaseData.length > 0) {
-                    // 使用Firebase數據
+                    // 使用 Firebase 數據
                     displayData = firebaseData;
                 } else {
                     // 使用本地數據作為備份
