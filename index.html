@@ -7,6 +7,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>2026馬年美食製作遊戲 - 攤位版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Firebase SDK (版本 9.6.0 compat 版本，兼容您的配置) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -1124,9 +1127,91 @@
             pointer-events: none;
             z-index: 1000;
         }
+        
+        /* 加載指示器 */
+        .loading-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 20px 30px;
+            border-radius: 15px;
+            border: 5px solid #ffd700;
+            text-align: center;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #8B4513;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 時間倍率顯示 */
+        .time-bonus-display {
+            background: linear-gradient(45deg, #ffd700, #ff9900);
+            color: #8B4513;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 15px 0;
+            text-align: center;
+            border: 3px solid #8B4513;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* 分數詳情 */
+        .score-details {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid #ffd700;
+        }
+        
+        .score-detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .score-detail-label {
+            color: #666;
+        }
+        
+        .score-detail-value {
+            color: #8B4513;
+            font-weight: bold;
+        }
+        
+        .score-detail-row.total {
+            border-top: 2px solid #ffd700;
+            padding-top: 10px;
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
+    <!-- 加載指示器 -->
+    <div id="loading-indicator" class="loading-indicator hidden">
+        <div class="loading-spinner"></div>
+        <div>正在載入遊戲數據...</div>
+    </div>
+    
     <div class="container">
         <div class="decoration dec-1 horse-decoration">🐴</div>
         <div class="decoration dec-2">🧧</div>
@@ -1222,15 +1307,21 @@
                         <thead>
                             <tr>
                                 <th width="15%">排名</th>
-                                <th width="30%">玩家</th>
-                                <th width="30%">美食</th>
-                                <th width="25%">分數</th>
+                                <th width="25%">玩家</th>
+                                <th width="25%">美食</th>
+                                <th width="20%">分數</th>
+                                <th width="15%">時間</th>
                             </tr>
                         </thead>
                         <tbody id="leaderboard-body">
                             <!-- 排行榜數據將由JS動態生成 -->
                         </tbody>
                     </table>
+                </div>
+                
+                <!-- 同步狀態顯示 -->
+                <div id="sync-status" style="text-align: center; margin-top: 10px; font-size: 0.8rem; color: #666;">
+                    數據已同步
                 </div>
             </div>
             
@@ -1240,6 +1331,35 @@
                 <p style="font-size: 1.2rem; margin-bottom: 20px; color: #666;">
                     你獲得了 <span id="final-score" style="color: #8B4513; font-weight: bold;">0</span> 分！
                 </p>
+                
+                <!-- 時間倍率顯示 -->
+                <div id="time-bonus-display" class="time-bonus-display hidden">
+                    <div id="time-bonus-text">時間倍率: 1.0x</div>
+                </div>
+                
+                <!-- 分數詳情 -->
+                <div id="score-details" class="score-details hidden">
+                    <div class="score-detail-row">
+                        <span class="score-detail-label">基礎分數:</span>
+                        <span class="score-detail-value" id="base-score">100</span>
+                    </div>
+                    <div class="score-detail-row">
+                        <span class="score-detail-label">錯誤扣分:</span>
+                        <span class="score-detail-value" id="mistake-penalty">0</span>
+                    </div>
+                    <div class="score-detail-row">
+                        <span class="score-detail-label">完美獎勵:</span>
+                        <span class="score-detail-value" id="perfect-bonus">0</span>
+                    </div>
+                    <div class="score-detail-row">
+                        <span class="score-detail-label">時間倍率:</span>
+                        <span class="score-detail-value" id="time-multiplier-value">1.0x</span>
+                    </div>
+                    <div class="score-detail-row total">
+                        <span class="score-detail-label">最終分數:</span>
+                        <span class="score-detail-value" id="final-score-detail">0</span>
+                    </div>
+                </div>
                 
                 <h3>選擇你的頭像：</h3>
                 <div class="character-selection">
@@ -1252,6 +1372,9 @@
                 <h3 style="margin-top: 20px;">輸入你的名字：</h3>
                 <input type="text" id="player-name" class="name-input" placeholder="輸入你的名字" maxlength="12">
                 <button id="submit-score" class="submit-button clickable">登上排行榜！</button>
+                
+                <!-- 提交狀態顯示 -->
+                <div id="submit-status" style="margin-top: 15px;"></div>
             </div>
         </div>
         
@@ -1280,6 +1403,18 @@
 
     <script>
         // ============================================
+        // Firebase 配置 (使用您提供的配置)
+        // ============================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyBQRbIU2weYRh6VqyaFulThNS4m1cn0kA0",
+            authDomain: "hyp-p6e6.firebaseapp.com",
+            projectId: "hyp-p6e6",
+            storageBucket: "hyp-p6e6.firebasestorage.app",
+            messagingSenderId: "734894821919",
+            appId: "1:734894821919:web:a2125ffaf99d0c10827b2a"
+        };
+
+        // ============================================
         // 遊戲核心變量
         // ============================================
         let currentFood = null;
@@ -1290,6 +1425,8 @@
         let selectedCharacter = "👨‍🍳";
         let leaderboardData = [];
         let scoreAlreadySubmitted = false;
+        let firebaseInitialized = false;
+        let db = null;
         
         // 修復點擊問題
         let isProcessingClick = false;
@@ -1325,6 +1462,17 @@
         const messageArea = document.getElementById('message-area');
         const victoryVideoContainer = document.getElementById('victory-video-container');
         const victoryVideo = document.getElementById('victory-video');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const timeBonusDisplay = document.getElementById('time-bonus-display');
+        const timeBonusText = document.getElementById('time-bonus-text');
+        const scoreDetails = document.getElementById('score-details');
+        const baseScoreEl = document.getElementById('base-score');
+        const mistakePenaltyEl = document.getElementById('mistake-penalty');
+        const perfectBonusEl = document.getElementById('perfect-bonus');
+        const timeMultiplierValue = document.getElementById('time-multiplier-value');
+        const finalScoreDetail = document.getElementById('final-score-detail');
+        const syncStatus = document.getElementById('sync-status');
+        const submitStatus = document.getElementById('submit-status');
         
         // ============================================
         // 遊戲數據定義
@@ -1348,7 +1496,7 @@
             { icon: "🍓", name: "草莓" }
         ];
         
-        // 美食步驟定義 - 10種美食（已移除鳳梨酥）
+        // 美食步驟定義 - 10種美食
         const foodSteps = {
             dumpling: {
                 name: "餃子",
@@ -1744,6 +1892,51 @@
         };
         
         // ============================================
+        // Firebase初始化
+        // ============================================
+        async function initializeFirebase() {
+            try {
+                // 顯示加載指示器
+                loadingIndicator.classList.remove('hidden');
+                
+                // 初始化Firebase
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+                
+                // 測試連接
+                await db.collection('test').limit(1).get();
+                
+                firebaseInitialized = true;
+                console.log("Firebase 初始化成功");
+                
+                // 更新同步狀態
+                syncStatus.textContent = "數據已同步";
+                syncStatus.style.color = "#4CAF50";
+                
+                // 隱藏加載指示器
+                setTimeout(() => {
+                    loadingIndicator.classList.add('hidden');
+                }, 500);
+                
+                return true;
+            } catch (error) {
+                console.error("Firebase 初始化失敗:", error);
+                firebaseInitialized = false;
+                
+                // 更新同步狀態
+                syncStatus.textContent = "數據同步失敗，使用本地數據";
+                syncStatus.style.color = "#f44336";
+                
+                // 隱藏加載指示器
+                setTimeout(() => {
+                    loadingIndicator.classList.add('hidden');
+                }, 500);
+                
+                return false;
+            }
+        }
+        
+        // ============================================
         // 遊戲初始化
         // ============================================
         
@@ -1780,9 +1973,15 @@
         }
         
         // 初始化遊戲
-        function initGame() {
+        async function initGame() {
+            // 顯示加載指示器
+            loadingIndicator.classList.remove('hidden');
+            
             // 加載遊戲數據
             loadGameData();
+            
+            // 初始化Firebase
+            await initializeFirebase();
             
             // 設置事件監聽器
             playButton.addEventListener('click', showFoodSelection);
@@ -1863,6 +2062,11 @@
             
             // 顯示主菜單
             showMainMenu();
+            
+            // 隱藏加載指示器
+            setTimeout(() => {
+                loadingIndicator.classList.add('hidden');
+            }, 1000);
         }
         
         // 絕對禁用雙擊縮放
@@ -2496,6 +2700,28 @@
             setTimeout(() => { isProcessingClick = false; }, 300);
         }
         
+        // 計算時間倍率
+        function calculateTimeMultiplier(timeInSeconds) {
+            // 時間倍率計算邏輯：
+            // - 30秒內完成: 2.0x 倍率
+            // - 60秒內完成: 1.5x 倍率
+            // - 90秒內完成: 1.2x 倍率
+            // - 120秒內完成: 1.0x 倍率
+            // - 超過120秒: 0.8x 倍率
+            
+            if (timeInSeconds <= 30) {
+                return { multiplier: 2.0, description: "神速！" };
+            } else if (timeInSeconds <= 60) {
+                return { multiplier: 1.5, description: "快速！" };
+            } else if (timeInSeconds <= 90) {
+                return { multiplier: 1.2, description: "不錯！" };
+            } else if (timeInSeconds <= 120) {
+                return { multiplier: 1.0, description: "標準" };
+            } else {
+                return { multiplier: 0.8, description: "稍慢" };
+            }
+        }
+        
         // 顯示完成畫面
         function showCompletionScreen() {
             interactionContent.innerHTML = '';
@@ -2509,40 +2735,45 @@
             
             // 計算總分
             const timeElapsed = (Date.now() - gameState.startTime) / 1000;
-            let totalScore = 100;
+            const timeMultiplierInfo = calculateTimeMultiplier(timeElapsed);
+            const timeMultiplier = timeMultiplierInfo.multiplier;
             
-            // 減少錯誤選擇的懲罰
-            totalScore -= gameState.wrongSelections * 5;
+            // 基礎分數計算
+            let baseScore = 100;
+            
+            // 錯誤選擇扣分 (減少懲罰)
+            const mistakePenalty = gameState.wrongSelections * 5;
+            baseScore -= mistakePenalty;
             
             // 完美獎勵
-            if (gameState.perfect) {
-                totalScore += 30;
-            }
+            const perfectBonus = gameState.perfect ? 30 : 0;
+            baseScore += perfectBonus;
             
-            // 時間獎勵（完成時間少於30秒）
-            if (timeElapsed < 30) {
-                totalScore += Math.floor((30 - timeElapsed) * 1.5);
-            }
+            // 計算最終分數（應用時間倍率）
+            let totalScore = Math.round(baseScore * timeMultiplier);
             
-            // 限制分數在0-200之間
-            totalScore = Math.max(0, Math.min(200, Math.round(totalScore)));
+            // 限制分數在合理範圍
+            totalScore = Math.max(0, Math.min(300, totalScore));
+            
+            // 計算星級評價
+            const starsEarned = Math.floor(totalScore / 60); // 每60分一顆星，最高5星
             
             // 評價
             let evaluation = "";
             let evaluationIcon = "";
-            if (totalScore >= 180) {
+            if (totalScore >= 270) {
                 evaluation = "👑 廚神級別！完美無缺！";
                 evaluationIcon = "👑";
-            } else if (totalScore >= 150) {
+            } else if (totalScore >= 240) {
                 evaluation = "🎉 大廚級別！非常出色！";
                 evaluationIcon = "🎉";
-            } else if (totalScore >= 120) {
+            } else if (totalScore >= 210) {
                 evaluation = "👍 優秀廚師！表現很好！";
                 evaluationIcon = "👍";
-            } else if (totalScore >= 90) {
+            } else if (totalScore >= 180) {
                 evaluation = "😊 合格廚師！繼續努力！";
                 evaluationIcon = "😊";
-            } else if (totalScore >= 60) {
+            } else if (totalScore >= 150) {
                 evaluation = "💪 新手廚師！多加練習！";
                 evaluationIcon = "💪";
             } else {
@@ -2551,7 +2782,6 @@
             }
             
             // 創建星級評價
-            const starsEarned = Math.floor(totalScore / 40);
             const starRating = document.createElement('div');
             starRating.className = 'star-rating';
             starRating.style.display = 'flex';
@@ -2581,18 +2811,43 @@
                     挑戰統計：<br>
                     - 錯誤選擇: ${gameState.wrongSelections} 次<br>
                     - 完成時間: ${Math.round(timeElapsed)}秒<br>
-                    - 最終分數: ${totalScore}/200分<br><br>
+                    - 時間倍率: ${timeMultiplier.toFixed(1)}x (${timeMultiplierInfo.description})<br>
+                    - 最終分數: ${totalScore}/300分<br><br>
                     現在可以登上排行榜了！
                 </div>
             `;
             
             interactionContent.appendChild(completionScreen);
             
+            // 保存分數計算細節供姓名輸入表單使用
+            gameState.scoreDetails = {
+                baseScore: 100,
+                mistakePenalty: mistakePenalty,
+                perfectBonus: perfectBonus,
+                timeMultiplier: timeMultiplier,
+                totalScore: totalScore,
+                timeElapsed: timeElapsed
+            };
+            
             // 顯示姓名輸入表單
             setTimeout(() => {
                 interactionArea.classList.add('hidden');
                 nameForm.classList.remove('hidden');
                 finalScoreEl.textContent = totalScore;
+                
+                // 顯示時間倍率
+                timeBonusDisplay.classList.remove('hidden');
+                timeBonusText.textContent = `時間倍率: ${timeMultiplier.toFixed(1)}x (${timeMultiplierInfo.description})`;
+                
+                // 顯示分數詳情
+                scoreDetails.classList.remove('hidden');
+                baseScoreEl.textContent = "100";
+                mistakePenaltyEl.textContent = `-${mistakePenalty}`;
+                mistakePenaltyEl.style.color = mistakePenalty > 0 ? "#f44336" : "#8B4513";
+                perfectBonusEl.textContent = perfectBonus > 0 ? `+${perfectBonus}` : "0";
+                perfectBonusEl.style.color = perfectBonus > 0 ? "#4CAF50" : "#8B4513";
+                timeMultiplierValue.textContent = `${timeMultiplier.toFixed(1)}x`;
+                finalScoreDetail.textContent = totalScore;
                 
                 // 設置當前選中的角色
                 document.querySelectorAll('.character-option').forEach(option => {
@@ -2610,6 +2865,7 @@
                 scoreAlreadySubmitted = false;
                 submitScoreButton.disabled = false;
                 submitScoreButton.textContent = '登上排行榜！';
+                submitStatus.innerHTML = '';
             }, 3000);
             
             // 播放完成音效
@@ -2626,8 +2882,86 @@
             }
         }
         
+        // 從Firebase獲取排行榜數據
+        async function fetchLeaderboardFromFirebase(foodType = 'all') {
+            if (!firebaseInitialized) {
+                console.log("Firebase未初始化，使用本地數據");
+                return null;
+            }
+            
+            try {
+                // 更新同步狀態
+                syncStatus.textContent = "正在同步數據...";
+                syncStatus.style.color = "#ff9800";
+                
+                let query = db.collection('scores');
+                
+                // 如果指定了特定食物，則過濾
+                if (foodType !== 'all') {
+                    query = query.where('food', '==', foodType);
+                }
+                
+                // 獲取數據並按分數排序
+                const snapshot = await query
+                    .orderBy('score', 'desc')
+                    .limit(20)
+                    .get();
+                
+                const data = [];
+                snapshot.forEach(doc => {
+                    data.push(doc.data());
+                });
+                
+                // 更新同步狀態
+                syncStatus.textContent = "數據已同步";
+                syncStatus.style.color = "#4CAF50";
+                
+                return data;
+            } catch (error) {
+                console.error("從Firebase獲取排行榜數據失敗:", error);
+                
+                // 更新同步狀態
+                syncStatus.textContent = "數據同步失敗，使用本地數據";
+                syncStatus.style.color = "#f44336";
+                
+                return null;
+            }
+        }
+        
+        // 提交分數到Firebase
+        async function submitScoreToFirebase(scoreData) {
+            if (!firebaseInitialized) {
+                console.log("Firebase未初始化，保存到本地");
+                return false;
+            }
+            
+            try {
+                // 更新提交狀態
+                submitStatus.innerHTML = '<div class="success-message">正在上傳分數到雲端...</div>';
+                
+                // 添加時間戳
+                scoreData.timestamp = firebase.firestore.FieldValue.serverTimestamp();
+                scoreData.date = new Date().toISOString();
+                
+                // 保存到Firebase
+                await db.collection('scores').add(scoreData);
+                
+                // 更新提交狀態
+                submitStatus.innerHTML = '<div class="success-message">分數已成功上傳到雲端排行榜！</div>';
+                
+                return true;
+            } catch (error) {
+                console.error("提交分數到Firebase失敗:", error);
+                
+                // 更新提交狀態
+                submitStatus.innerHTML = '<div class="error-message">雲端上傳失敗，已保存到本地</div>';
+                
+                return false;
+            }
+        }
+        
         // 提交分數到排行榜
-        function submitScore() {
+        async function submitScore() {
             if (isProcessingClick) return;
             isProcessingClick = true;
             
@@ -2643,28 +2977,39 @@
             
             // 禁用提交按鈕防止重複點擊
             submitScoreButton.disabled = true;
-            submitScoreButton.textContent = '已提交...';
+            submitScoreButton.textContent = '提交中...';
             
-            // 添加到排行榜數據
-            leaderboardData.push({
+            // 創建分數數據對象
+            const scoreData = {
                 name: playerName,
                 character: selectedCharacter,
                 food: currentFood,
                 foodName: foodSteps[currentFood].name,
                 score: finalScore,
-                date: new Date().toISOString()
-            });
+                timeElapsed: Math.round(gameState.scoreDetails.timeElapsed),
+                timeMultiplier: gameState.scoreDetails.timeMultiplier,
+                perfect: gameState.perfect,
+                wrongSelections: gameState.wrongSelections,
+                deviceId: localStorage.getItem('deviceId') || generateDeviceId(),
+                date: new Date().toISOString().split('T')[0] // 只保留日期部分
+            };
+            
+            // 添加到本地排行榜數據
+            leaderboardData.push(scoreData);
             
             // 排序排行榜（分數高到低）
             leaderboardData.sort((a, b) => b.score - a.score);
             
-            // 限制排行榜數量
+            // 限制本地排行榜數量
             if (leaderboardData.length > 50) {
                 leaderboardData = leaderboardData.slice(0, 50);
             }
             
-            // 保存遊戲數據
+            // 保存遊戲數據到本地
             saveGameData();
+            
+            // 嘗試提交到Firebase
+            const firebaseSuccess = await submitScoreToFirebase(scoreData);
             
             // 標記分數已提交
             scoreAlreadySubmitted = true;
@@ -2686,26 +3031,55 @@
                 });
                 
                 isProcessingClick = false;
-            }, 500);
+            }, firebaseSuccess ? 1500 : 1000);
         }
         
-        // 更新排行榜
-        function updateLeaderboard(foodType) {
+        // 生成設備ID
+        function generateDeviceId() {
+            const deviceId = 'device_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('deviceId', deviceId);
+            return deviceId;
+        }
+        
+        // 更新排行榜顯示
+        async function updateLeaderboard(foodType) {
             leaderboardBody.innerHTML = '';
             
-            // 篩選數據
-            let filteredData = [...leaderboardData];
-            if (foodType !== 'all') {
-                filteredData = leaderboardData.filter(item => item.food === foodType);
+            // 顯示加載中
+            const loadingRow = document.createElement('tr');
+            loadingRow.innerHTML = `
+                <td colspan="5" style="text-align: center; padding: 30px; font-size: 1rem; color: #666;">
+                    <div class="loading-spinner" style="width: 30px; height: 30px; margin: 0 auto 10px;"></div>
+                    正在載入排行榜數據...
+                </td>
+            `;
+            leaderboardBody.appendChild(loadingRow);
+            
+            // 嘗試從Firebase獲取數據
+            let displayData = [];
+            
+            if (firebaseInitialized) {
+                const firebaseData = await fetchLeaderboardFromFirebase(foodType);
+                
+                if (firebaseData && firebaseData.length > 0) {
+                    // 使用Firebase數據
+                    displayData = firebaseData;
+                } else {
+                    // 使用本地數據作為備份
+                    displayData = getLocalLeaderboardData(foodType);
+                }
+            } else {
+                // 使用本地數據
+                displayData = getLocalLeaderboardData(foodType);
             }
             
-            // 顯示前20名
-            const displayData = filteredData.slice(0, 20);
+            // 清空加載中提示
+            leaderboardBody.innerHTML = '';
             
             if (displayData.length === 0) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td colspan="4" style="text-align: center; padding: 30px; font-size: 1rem; color: #666;">
+                    <td colspan="5" style="text-align: center; padding: 30px; font-size: 1rem; color: #666;">
                         還沒有挑戰記錄，快來成為第一個吧！
                     </td>
                 `;
@@ -2713,6 +3087,7 @@
                 return;
             }
             
+            // 顯示數據
             displayData.forEach((item, index) => {
                 const row = document.createElement('tr');
                 
@@ -2730,20 +3105,39 @@
                     medal = '🥉 ';
                 }
                 
+                // 格式化時間
+                const timeFormatted = item.timeElapsed ? 
+                    `${item.timeElapsed}秒` : 
+                    (item.timeElapsed === 0 ? '--' : '--');
+                
                 row.innerHTML = `
                     <td class="${rankClass}">${medal}第${index + 1}名</td>
                     <td>${item.character} ${item.name}</td>
                     <td>${item.foodName}</td>
                     <td class="${rankClass}">${item.score}分</td>
+                    <td>${timeFormatted}</td>
                 `;
                 
                 leaderboardBody.appendChild(row);
             });
         }
         
+        // 獲取本地排行榜數據
+        function getLocalLeaderboardData(foodType) {
+            let filteredData = [...leaderboardData];
+            if (foodType !== 'all') {
+                filteredData = leaderboardData.filter(item => item.food === foodType);
+            }
+            
+            // 排序並返回前20名
+            return filteredData
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 20);
+        }
+        
         // 創建煙花效果
         function createFirework(x, y) {
-            const colors = ['#ff0000', '#ffd700, #00ff00', '#00aaff', '#ff00ff'];
+            const colors = ['#ff0000', '#ffd700', '#00ff00', '#00aaff', '#ff00ff'];
             const color = colors[Math.floor(Math.random() * colors.length)];
             
             const firework = document.createElement('div');
