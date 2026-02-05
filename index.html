@@ -1048,86 +1048,6 @@
             object-fit: contain;
         }
         
-        /* 橫屏專用優化 */
-        @media (orientation: landscape) {
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .header p {
-                font-size: 0.9rem;
-            }
-            
-            .year-badge {
-                font-size: 1.2rem;
-                padding: 8px 20px;
-            }
-            
-            .food-card {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .food-cards-container {
-                width: 432px; /* 3 * 120px * 1.2 */
-                height: 432px; /* 3 * 120px * 1.2 */
-            }
-            
-            .food-icon {
-                font-size: 2rem;
-                height: 35px;
-            }
-            
-            .food-name {
-                font-size: 1.1rem;
-            }
-            
-            .ingredient {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .ingredients-container {
-                height: 105px; /* 1.5 * 70px */
-                width: 800px; /* 足夠展示6個材料卡片 */
-                justify-content: center;
-            }
-            
-            .leaderboard-tabs {
-                gap: 6px;
-            }
-            
-            .leaderboard-tab {
-                padding: 6px 10px;
-                font-size: 0.8rem;
-                min-width: 70px;
-            }
-            
-            .menu-button {
-                padding: 15px 20px;
-                font-size: 1.3rem;
-            }
-            
-            .menu-button i {
-                font-size: 1.5rem;
-            }
-            
-            .message-area {
-                min-height: 35px;
-                max-height: 50px;
-            }
-        }
-        
-        /* 煙花效果 */
-        .fireworks {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1000;
-        }
-        
         /* 加載指示器 */
         .loading-indicator {
             position: fixed;
@@ -1232,6 +1152,107 @@
             gap: 10px;
             margin-bottom: 15px;
             flex-wrap: wrap;
+        }
+        
+        /* 橫屏專用優化 */
+        @media (orientation: landscape) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 0.9rem;
+            }
+            
+            .year-badge {
+                font-size: 1.2rem;
+                padding: 8px 20px;
+            }
+            
+            .food-card {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .food-cards-container {
+                width: 432px; /* 3 * 120px * 1.2 */
+                height: 432px; /* 3 * 120px * 1.2 */
+            }
+            
+            .food-icon {
+                font-size: 2rem;
+                height: 35px;
+            }
+            
+            .food-name {
+                font-size: 1.1rem;
+            }
+            
+            .ingredient {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .ingredients-container {
+                height: 105px; /* 1.5 * 70px */
+                width: 800px; /* 足夠展示6個材料卡片 */
+                justify-content: center;
+            }
+            
+            .leaderboard-tabs {
+                gap: 6px;
+            }
+            
+            .leaderboard-tab {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+                min-width: 70px;
+            }
+            
+            .menu-button {
+                padding: 15px 20px;
+                font-size: 1.3rem;
+            }
+            
+            .menu-button i {
+                font-size: 1.5rem;
+            }
+            
+            .message-area {
+                min-height: 35px;
+                max-height: 50px;
+            }
+        }
+        
+        /* 煙花效果 */
+        .fireworks {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        /* 特別新增：防止iOS雙擊縮放的CSS規則 */
+        html {
+            -webkit-text-size-adjust: 100%;
+            touch-action: manipulation;
+        }
+        
+        body {
+            touch-action: manipulation;
+            -ms-touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+        
+        /* 防止所有元素的雙擊縮放 */
+        * {
+            touch-action: manipulation;
+            -ms-touch-action: manipulation;
         }
     </style>
 </head>
@@ -2128,6 +2149,9 @@
             // 絕對禁用雙擊縮放
             disableDoubleTapZoom();
             
+            // 特別加強：防止iOS雙擊縮放
+            preventIOSDoubleTapZoom();
+            
             // 顯示主菜單
             showMainMenu();
             
@@ -2195,6 +2219,49 @@
                     return false;
                 }
             }, { passive: false });
+        }
+        
+        // 特別針對iOS的雙擊縮放防護
+        function preventIOSDoubleTapZoom() {
+            // 阻止所有元素的默認雙擊行為
+            document.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }, { capture: true, passive: false });
+            
+            // 使用更嚴格的iOS防護
+            document.documentElement.addEventListener('touchstart', function(event) {
+                if (event.touches.length > 1) {
+                    event.preventDefault();
+                }
+            }, { passive: false });
+            
+            // 防止雙指捏合縮放
+            let initialPinchDistance = 0;
+            document.addEventListener('touchstart', function(e) {
+                if (e.touches.length === 2) {
+                    initialPinchDistance = Math.hypot(
+                        e.touches[0].clientX - e.touches[1].clientX,
+                        e.touches[0].clientY - e.touches[1].clientY
+                    );
+                }
+            }, { passive: true });
+            
+            document.addEventListener('touchmove', function(e) {
+                if (e.touches.length === 2) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            // 禁用文本選擇
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+            });
+            
+            // 禁用上下文菜單
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
         }
         
         // ============================================
