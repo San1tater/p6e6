@@ -275,13 +275,7 @@
             margin-bottom: 8px;
         }
         
-        .food-stats {
-            display: flex;
-            justify-content: space-between;
-            color: #888;
-            font-size: 0.8rem;
-            margin-top: auto;
-        }
+        /* 已移除 .food-stats 樣式 */
         
         /* 遊戲互動區域 */
         .interaction-container {
@@ -1154,6 +1148,27 @@
             flex-wrap: wrap;
         }
         
+        /* 特別新增：防止iOS雙擊縮放的CSS規則 */
+        html {
+            -webkit-text-size-adjust: 100%;
+            touch-action: manipulation;
+        }
+        
+        body {
+            touch-action: manipulation;
+            -ms-touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+        
+        /* 防止所有元素的雙擊縮放 */
+        * {
+            touch-action: manipulation;
+            -ms-touch-action: manipulation;
+        }
+        
         /* 橫屏專用優化 */
         @media (orientation: landscape) {
             .header h1 {
@@ -1233,139 +1248,6 @@
             pointer-events: none;
             z-index: 1000;
         }
-        
-        /* 特別新增：防止iOS雙擊縮放的CSS規則 */
-        html {
-            -webkit-text-size-adjust: 100%;
-            touch-action: manipulation;
-        }
-        
-        body {
-            touch-action: manipulation;
-            -ms-touch-action: manipulation;
-            -webkit-text-size-adjust: 100%;
-            -moz-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            text-size-adjust: 100%;
-        }
-        
-        /* 防止所有元素的雙擊縮放 */
-        * {
-            touch-action: manipulation;
-            -ms-touch-action: manipulation;
-        }
-        
-        /* 密碼驗證彈窗 */
-        .password-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .password-form {
-            background-color: white;
-            padding: 30px;
-            border-radius: 20px;
-            border: 8px solid #ffd700;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-        
-        .password-form h2 {
-            color: #8B4513;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-        
-        .password-input {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.2rem;
-            border: 3px solid #ffd700;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            color: #8B4513;
-            transition: all 0.3s;
-            background-color: #fff9e6;
-        }
-        
-        .password-input:focus {
-            outline: none;
-            border-color: #8B4513;
-            box-shadow: 0 0 15px rgba(139, 69, 19, 0.3);
-            transform: scale(1.02);
-        }
-        
-        .password-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .password-button {
-            flex: 1;
-            padding: 12px 20px;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
-            border: 3px solid #8B4513;
-        }
-        
-        .password-submit {
-            background-color: #8B4513;
-            color: white;
-        }
-        
-        .password-submit:hover {
-            background-color: #5D2906;
-            transform: scale(1.05);
-        }
-        
-        .password-cancel {
-            background-color: #ffd700;
-            color: #8B4513;
-        }
-        
-        .password-cancel:hover {
-            background-color: #ffcc00;
-            transform: scale(1.05);
-        }
-        
-        .password-error {
-            color: #f44336;
-            font-size: 1rem;
-            margin-top: 10px;
-            font-weight: bold;
-            padding: 8px 15px;
-            background-color: rgba(244, 67, 54, 0.1);
-            border-radius: 8px;
-            border: 2px solid #f44336;
-            display: none;
-        }
-        
-        .password-success {
-            color: #4CAF50;
-            font-size: 1rem;
-            margin-top: 10px;
-            font-weight: bold;
-            padding: 8px 15px;
-            background-color: rgba(76, 175, 80, 0.1);
-            border-radius: 8px;
-            border: 2px solid #4CAF50;
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -1373,24 +1255,6 @@
     <div id="loading-indicator" class="loading-indicator hidden">
         <div class="loading-spinner"></div>
         <div>正在載入遊戲數據...</div>
-    </div>
-    
-    <!-- 密碼驗證彈窗 -->
-    <div id="password-modal" class="password-modal hidden">
-        <div class="password-form">
-            <h2>🔒 清除排行榜驗證</h2>
-            <p style="color: #666; margin-bottom: 20px; font-size: 1.1rem;">
-                此操作將會刪除所有排行榜數據！<br>
-                請輸入管理員密碼以確認操作。
-            </p>
-            <input type="password" id="password-input" class="password-input" placeholder="輸入密碼" maxlength="20">
-            <div id="password-error" class="password-error">密碼錯誤！請重新輸入。</div>
-            <div id="password-success" class="password-success">密碼正確！正在清除排行榜...</div>
-            <div class="password-buttons">
-                <button id="password-cancel" class="password-button password-cancel">取消</button>
-                <button id="password-submit" class="password-button password-submit">確認清除</button>
-            </div>
-        </div>
     </div>
     
     <div class="container">
@@ -1473,7 +1337,7 @@
                 <div class="leaderboard-tabs">
                     <button class="leaderboard-tab active" data-food="all">總排行榜</button>
                     <button class="leaderboard-tab" data-food="dumpling">🥟 餃子</button>
-                    <button class="leaderboard-tab" data-food="springRoll">🌯 春捲</button>
+                    <button class="leaderboard-tab" data-food="springRoll">🌯 春卷</button>
                     <button class="leaderboard-tab" data-food="riceCake">🍚 年糕</button>
                     <button class="leaderboard-tab" data-food="tangyuan">🟡 湯圓</button>
                     <button class="leaderboard-tab" data-food="fish">🐟 年年有魚</button>
@@ -1669,14 +1533,6 @@
         const refreshLeaderboardButton = document.getElementById('refresh-leaderboard');
         const clearLeaderboardButton = document.getElementById('clear-leaderboard');
         
-        // 新增：密碼驗證相關元素
-        const passwordModal = document.getElementById('password-modal');
-        const passwordInput = document.getElementById('password-input');
-        const passwordSubmit = document.getElementById('password-submit');
-        const passwordCancel = document.getElementById('password-cancel');
-        const passwordError = document.getElementById('password-error');
-        const passwordSuccess = document.getElementById('password-success');
-        
         // ============================================
         // 遊戲數據定義
         // ============================================
@@ -1781,11 +1637,11 @@
                         nextButton: "下一步"
                     },
                     {
-                        title: "捲春卷",
-                        instruction: "點擊按鈕捲春卷",
+                        title: "卷春卷",
+                        instruction: "點擊按鈕卷春卷",
                         type: "counter",
                         targetCount: 5,
-                        actionText: "捲一個",
+                        actionText: "卷一個",
                         nextButton: "完成"
                     }
                 ]
@@ -2267,47 +2123,14 @@
                 setTimeout(() => { isProcessingClick = false; }, 300);
             });
             
-            // 清除排行榜按鈕 - 修改為顯示密碼驗證彈窗
+            // 清除排行榜按鈕
             clearLeaderboardButton.addEventListener('click', function() {
                 if (isProcessingClick) return;
                 isProcessingClick = true;
                 
-                playSound('click-sound');
-                showPasswordModal();
+                clearLeaderboard();
                 
                 setTimeout(() => { isProcessingClick = false; }, 300);
-            });
-            
-            // 密碼驗證相關事件
-            passwordSubmit.addEventListener('click', function() {
-                if (isProcessingClick) return;
-                isProcessingClick = true;
-                
-                verifyPassword();
-                
-                setTimeout(() => { isProcessingClick = false; }, 300);
-            });
-            
-            passwordCancel.addEventListener('click', function() {
-                if (isProcessingClick) return;
-                isProcessingClick = true;
-                
-                playSound('click-sound');
-                hidePasswordModal();
-                
-                setTimeout(() => { isProcessingClick = false; }, 300);
-            });
-            
-            // 密碼輸入框的Enter鍵支持
-            passwordInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    if (isProcessingClick) return;
-                    isProcessingClick = true;
-                    
-                    verifyPassword();
-                    
-                    setTimeout(() => { isProcessingClick = false; }, 300);
-                }
             });
             
             // 勝利視頻結束事件
@@ -2330,111 +2153,6 @@
             setTimeout(() => {
                 loadingIndicator.classList.add('hidden');
             }, 1000);
-        }
-        
-        // 顯示密碼驗證彈窗
-        function showPasswordModal() {
-            passwordModal.classList.remove('hidden');
-            passwordInput.value = '';
-            passwordError.style.display = 'none';
-            passwordSuccess.style.display = 'none';
-            passwordInput.focus();
-        }
-        
-        // 隱藏密碼驗證彈窗
-        function hidePasswordModal() {
-            passwordModal.classList.add('hidden');
-        }
-        
-        // 驗證密碼
-        function verifyPassword() {
-            const password = passwordInput.value.trim();
-            
-            // 隱藏之前的錯誤/成功訊息
-            passwordError.style.display = 'none';
-            passwordSuccess.style.display = 'none';
-            
-            if (!password) {
-                passwordError.textContent = '請輸入密碼！';
-                passwordError.style.display = 'block';
-                playSound('wrong-sound');
-                return;
-            }
-            
-            // 正確密碼是 "Jaden"
-            if (password === 'Jaden') {
-                passwordSuccess.textContent = '密碼正確！正在清除排行榜...';
-                passwordSuccess.style.display = 'block';
-                playSound('correct-sound');
-                
-                // 禁用按鈕防止重複點擊
-                passwordSubmit.disabled = true;
-                passwordCancel.disabled = true;
-                
-                // 延遲一段時間後執行清除操作
-                setTimeout(() => {
-                    hidePasswordModal();
-                    // 執行真正的清除排行榜操作
-                    performClearLeaderboard();
-                    
-                    // 重新啟用按鈕
-                    passwordSubmit.disabled = false;
-                    passwordCancel.disabled = false;
-                }, 1500);
-            } else {
-                passwordError.textContent = '密碼錯誤！請重新輸入。';
-                passwordError.style.display = 'block';
-                playSound('wrong-sound');
-                
-                // 清空輸入框並聚焦
-                passwordInput.value = '';
-                passwordInput.focus();
-            }
-        }
-        
-        // 執行清除排行榜操作（原來的clearLeaderboard函數內容）
-        async function performClearLeaderboard() {
-            try {
-                // 顯示清除中狀態
-                syncStatus.textContent = "正在清除排行榜數據...";
-                syncStatus.style.color = "#ff9800";
-                
-                // 清除本地數據
-                leaderboardData = [];
-                localStorage.removeItem('foodGameLeaderboard');
-                
-                // 清除 Firebase Realtime Database 數據
-                if (firebaseInitialized) {
-                    await db.ref('scores').remove();
-                    console.log("Firebase Realtime Database 排行榜數據已清除");
-                }
-                
-                // 顯示成功訊息
-                syncStatus.textContent = "排行榜數據已清除";
-                syncStatus.style.color = "#4CAF50";
-                
-                // 播放音效
-                playSound('complete-sound');
-                
-                // 更新排行榜顯示
-                const activeTab = document.querySelector('.leaderboard-tab.active');
-                const foodType = activeTab ? activeTab.dataset.food : 'all';
-                updateLeaderboard(foodType);
-                
-                // 顯示成功提示
-                setTimeout(() => {
-                    alert("排行榜數據已成功清除！");
-                }, 500);
-                
-            } catch (error) {
-                console.error("清除排行榜數據失敗:", error);
-                
-                // 顯示錯誤訊息
-                syncStatus.textContent = "清除數據失敗";
-                syncStatus.style.color = "#f44336";
-                
-                alert("清除排行榜數據時發生錯誤，請重試或檢查網絡連接。");
-            }
         }
         
         // 絕對禁用雙擊縮放
@@ -2583,7 +2301,6 @@
             leaderboardArea.classList.add('hidden');
             nameForm.classList.add('hidden');
             victoryVideoContainer.classList.add('hidden');
-            passwordModal.classList.add('hidden');
             
             // 顯示主菜單
             mainMenu.classList.remove('hidden');
@@ -2640,7 +2357,7 @@
             setTimeout(() => { isProcessingClick = false; }, 300);
         }
         
-        // 創建美食卡片
+        // 創建美食卡片 - 已移除步驟顯示
         function createFoodCards() {
             selectionArea.innerHTML = '';
             
@@ -2654,7 +2371,7 @@
             const cardsContainer = document.createElement('div');
             cardsContainer.className = 'food-cards-container';
             
-            // 創建每個美食的卡片
+            // 創建每個美食的卡片 - 移除步驟顯示
             Object.keys(foodSteps).forEach((foodId) => {
                 const food = foodSteps[foodId];
                 
@@ -2662,13 +2379,11 @@
                 foodCard.className = 'food-card clickable no-select';
                 foodCard.dataset.food = foodId;
                 
+                // 移除步驟顯示，只保留圖標、名稱和描述
                 foodCard.innerHTML = `
                     <div class="food-icon">${food.icon}</div>
                     <div class="food-name">${food.name}</div>
                     <div class="food-desc">${food.desc}</div>
-                    <div class="food-stats">
-                        <span>步驟: ${food.steps.length}</span>
-                    </div>
                 `;
                 
                 // 添加點擊事件
@@ -3378,6 +3093,54 @@
                 submitStatus.innerHTML = '<div class="error-message">雲端上傳失敗，已保存到本地</div>';
                 
                 return false;
+            }
+        }
+        
+        // 清除排行榜數據
+        async function clearLeaderboard() {
+            // 顯示確認對話框
+            if (!confirm("確定要清除排行榜嗎？這個操作將會刪除所有本地和雲端的排行榜數據，且無法恢復！")) {
+                return;
+            }
+            
+            try {
+                // 顯示清除中狀態
+                syncStatus.textContent = "正在清除排行榜數據...";
+                syncStatus.style.color = "#ff9800";
+                
+                // 清除本地數據
+                leaderboardData = [];
+                localStorage.removeItem('foodGameLeaderboard');
+                
+                // 清除 Firebase Realtime Database 數據
+                if (firebaseInitialized) {
+                    await db.ref('scores').remove();
+                    console.log("Firebase Realtime Database 排行榜數據已清除");
+                }
+                
+                // 顯示成功訊息
+                syncStatus.textContent = "排行榜數據已清除";
+                syncStatus.style.color = "#4CAF50";
+                
+                // 播放音效
+                playSound('complete-sound');
+                
+                // 更新排行榜顯示
+                const activeTab = document.querySelector('.leaderboard-tab.active');
+                const foodType = activeTab ? activeTab.dataset.food : 'all';
+                updateLeaderboard(foodType);
+                
+                // 顯示成功提示
+                alert("排行榜數據已成功清除！");
+                
+            } catch (error) {
+                console.error("清除排行榜數據失敗:", error);
+                
+                // 顯示錯誤訊息
+                syncStatus.textContent = "清除數據失敗";
+                syncStatus.style.color = "#f44336";
+                
+                alert("清除排行榜數據時發生錯誤，請重試或檢查網絡連接。");
             }
         }
         
