@@ -275,13 +275,7 @@
             margin-bottom: 8px;
         }
         
-        .food-stats {
-            display: flex;
-            justify-content: space-between;
-            color: #888;
-            font-size: 0.8rem;
-            margin-top: auto;
-        }
+        /* 移除了 .food-stats 類 */
         
         /* 遊戲互動區域 */
         .interaction-container {
@@ -2662,13 +2656,11 @@
                 foodCard.className = 'food-card clickable no-select';
                 foodCard.dataset.food = foodId;
                 
+                // 移除了"步驟"部分，只保留圖標、名稱和描述
                 foodCard.innerHTML = `
                     <div class="food-icon">${food.icon}</div>
                     <div class="food-name">${food.name}</div>
                     <div class="food-desc">${food.desc}</div>
-                    <div class="food-stats">
-                        <span>步驟: ${food.steps.length}</span>
-                    </div>
                 `;
                 
                 // 添加點擊事件
