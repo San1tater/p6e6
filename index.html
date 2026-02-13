@@ -32,8 +32,8 @@
             background: url('images/bg.png') no-repeat center center fixed;
             background-size: cover;
             color: #333;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
-            -ms-touch-action: manipulation; /* IE11支持 */
+            touch-action: manipulation;
+            -ms-touch-action: manipulation;
         }
         
         .container {
@@ -46,7 +46,6 @@
             flex-direction: column;
         }
         
-        /* 裝飾元素 */
         .decoration {
             position: absolute;
             font-size: 2rem;
@@ -95,23 +94,22 @@
         }
         
         .header h1 {
-            color: #ffd700; /* 改為金黃色 */
+            color: #ffd700;
             font-size: 2.2rem;
-            text-shadow: 2px 2px 0 #8B4513; /* 修改陰影顏色為深棕色 */
+            text-shadow: 2px 2px 0 #8B4513;
             margin-bottom: 8px;
             letter-spacing: 1px;
         }
         
         .header p {
-            color: #ffd700; /* 改為金黃色 */
+            color: #ffd700;
             font-size: 1.1rem;
             line-height: 1.4;
             max-width: 90%;
             margin: 0 auto;
-            text-shadow: 1px 1px 1px rgba(0,0,0,0.3); /* 添加陰影增強可讀性 */
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
         }
         
-        /* 遊戲區域 */
         .game-area {
             display: flex;
             flex-direction: column;
@@ -120,7 +118,6 @@
             overflow: hidden;
         }
         
-        /* 主菜單 */
         .main-menu {
             display: flex;
             flex-direction: column;
@@ -152,7 +149,7 @@
             position: relative;
             overflow: hidden;
             width: 100%;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .menu-button::before {
@@ -185,7 +182,6 @@
             font-size: 1.8rem;
         }
         
-        /* 食物選擇區域 */
         .food-selection {
             display: flex;
             flex-direction: column;
@@ -197,21 +193,20 @@
         
         .food-selection-title {
             text-align: center;
-            color: #ffd700; /* 改為金黃色 */
+            color: #ffd700;
             font-size: 1.8rem;
             margin-bottom: 15px;
             font-weight: bold;
             width: 100%;
-            text-shadow: 1px 1px 0 #8B4513; /* 修改陰影顏色為深棕色 */
+            text-shadow: 1px 1px 0 #8B4513;
             flex-shrink: 0;
         }
         
-        /* 3x3佈局，不使用網格 */
         .food-cards-container {
             display: flex;
             flex-wrap: wrap;
-            width: 504px; /* 3 * 140px * 1.2 */
-            height: 504px; /* 3 * 140px * 1.2 */
+            width: 504px;
+            height: 504px;
             margin: 0 auto;
             padding: 0;
             overflow-y: auto;
@@ -236,7 +231,7 @@
             width: 140px;
             height: 140px;
             margin: 0;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .food-card:hover {
@@ -275,9 +270,6 @@
             margin-bottom: 8px;
         }
         
-        /* 移除了 .food-stats 類 */
-        
-        /* 遊戲互動區域 */
         .interaction-container {
             display: flex;
             flex-direction: column;
@@ -322,7 +314,6 @@
             border-color: #ffd700;
         }
         
-        /* 製作區保留白色背景和黃色邊框 */
         .interaction-area {
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
@@ -358,7 +349,6 @@
             flex-shrink: 0;
         }
         
-        /* 互動內容區域 */
         .interaction-content {
             width: 100%;
             display: flex;
@@ -370,10 +360,9 @@
             flex: 0 0 auto;
         }
         
-        /* 材料容器區域 - 修改為500px寬度和120px高度 */
         .ingredients-container {
-            width: 500px; /* 足夠展示6個材料卡片 */
-            height: 120px; /* 1.5 * 80px */
+            width: 500px;
+            height: 120px;
             overflow-x: auto;
             overflow-y: hidden;
             display: flex;
@@ -407,7 +396,7 @@
             user-select: none;
             position: relative;
             flex-shrink: 0;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .ingredient:hover {
@@ -455,7 +444,6 @@
             font-weight: bold;
         }
         
-        /* 進度條步驟樣式 */
         .progress-container {
             width: 90%;
             height: 25px;
@@ -481,7 +469,6 @@
             margin-top: 10px;
         }
         
-        /* 計數器步驟樣式 */
         .counter {
             display: flex;
             align-items: center;
@@ -506,7 +493,7 @@
             justify-content: center;
             transition: all 0.2s;
             border: 3px solid #ffd700;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .counter-button:hover {
@@ -536,7 +523,6 @@
             border: 2px solid #ffd700;
         }
         
-        /* 完成畫面 */
         .completion-screen {
             text-align: center;
             padding: 15px;
@@ -577,7 +563,6 @@
             margin-right: auto;
         }
         
-        /* 導航按鈕 */
         .navigation-buttons {
             display: flex;
             justify-content: center;
@@ -602,7 +587,7 @@
             font-weight: bold;
             border: 3px solid #8B4513;
             min-width: 120px;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .nav-button:hover {
@@ -633,7 +618,7 @@
             border: 4px solid #ffd700;
             box-shadow: 0 6px 0 #5D2906;
             min-width: 150px;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .action-button:hover {
@@ -655,7 +640,6 @@
             border-color: #777;
         }
         
-        /* 排行榜 */
         .leaderboard-container {
             width: 100%;
             height: 100%;
@@ -699,7 +683,7 @@
             font-weight: bold;
             transition: all 0.3s;
             min-width: 80px;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .leaderboard-tab:hover {
@@ -754,7 +738,6 @@
         .rank-2 { color: #c0c0c0; font-weight: bold; font-size: 1rem; }
         .rank-3 { color: #cd7f32; font-weight: bold; font-size: 1rem; }
         
-        /* 姓名輸入表單 */
         .name-form {
             background-color: white;
             padding: 20px;
@@ -818,7 +801,7 @@
             font-size: 2rem;
             background-color: white;
             transition: all 0.3s;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .character-option:hover {
@@ -847,7 +830,7 @@
             box-shadow: 0 6px 0 #5D2906;
             width: 100%;
             margin-top: 10px;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .submit-button:hover {
@@ -861,12 +844,10 @@
             box-shadow: 0 3px 0 #5D2906;
         }
         
-        /* 隱藏類 */
         .hidden {
             display: none !important;
         }
         
-        /* 錯誤訊息 */
         .error-message {
             color: #f44336;
             font-size: 1rem;
@@ -898,7 +879,6 @@
             20%, 40%, 60%, 80% { transform: translateX(3px); }
         }
         
-        /* 食材計數器 */
         .ingredient-counter {
             font-size: 1.1rem;
             color: #8B4513;
@@ -913,7 +893,6 @@
             flex-shrink: 0;
         }
         
-        /* 訊息區域 */
         .message-area {
             width: 100%;
             max-width: 90%;
@@ -932,7 +911,6 @@
             position: relative;
         }
         
-        /* 返回按鈕 */
         .back-button {
             position: absolute;
             top: 15px;
@@ -951,7 +929,7 @@
             transition: all 0.3s;
             border: 2px solid #ffd700;
             z-index: 10;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .back-button:hover {
@@ -959,7 +937,6 @@
             transform: scale(1.1);
         }
         
-        /* 音效按鈕 */
         .sound-toggle {
             position: absolute;
             top: 15px;
@@ -977,14 +954,13 @@
             justify-content: center;
             z-index: 10;
             transition: all 0.3s;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .sound-toggle:hover {
             transform: scale(1.1);
         }
         
-        /* 觸摸設備優化 */
         .clickable {
             cursor: pointer;
             user-select: none;
@@ -995,7 +971,6 @@
             transform: scale(0.95);
         }
         
-        /* 防止文字選擇 */
         .no-select {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -1003,7 +978,6 @@
             user-select: none;
         }
         
-        /* 馬年特別主題 */
         .horse-theme {
             background-image: 
                 radial-gradient(#ffd700 1px, transparent 1px),
@@ -1022,7 +996,6 @@
             75% { transform: translateY(5px) rotate(-5deg); }
         }
         
-        /* 勝利視頻全屏播放 */
         .victory-video-container {
             position: fixed;
             top: 0;
@@ -1042,7 +1015,6 @@
             object-fit: contain;
         }
         
-        /* 加載指示器 */
         .loading-indicator {
             position: fixed;
             top: 50%;
@@ -1072,7 +1044,6 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* 時間倍率顯示 */
         .time-bonus-display {
             background: linear-gradient(45deg, #ffd700, #ff9900);
             color: #8B4513;
@@ -1086,7 +1057,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
-        /* 分數詳情 */
         .score-details {
             background-color: #fff9e6;
             padding: 15px;
@@ -1118,7 +1088,6 @@
             font-size: 1.2rem;
         }
         
-        /* 清除排行榜按鈕 */
         .clear-leaderboard-button {
             background-color: #f44336;
             color: white;
@@ -1131,7 +1100,7 @@
             font-weight: bold;
             border: 2px solid #8B4513;
             margin-top: 10px;
-            touch-action: manipulation; /* 禁用雙擊縮放 */
+            touch-action: manipulation;
         }
         
         .clear-leaderboard-button:hover {
@@ -1139,7 +1108,6 @@
             transform: scale(1.05);
         }
         
-        /* 控制按鈕容器 */
         .leaderboard-controls {
             display: flex;
             justify-content: center;
@@ -1148,77 +1116,62 @@
             flex-wrap: wrap;
         }
         
-        /* 橫屏專用優化 */
         @media (orientation: landscape) {
             .header h1 {
                 font-size: 1.8rem;
             }
-            
             .header p {
                 font-size: 0.9rem;
             }
-            
             .year-badge {
                 font-size: 1.2rem;
                 padding: 8px 20px;
             }
-            
             .food-card {
                 width: 120px;
                 height: 120px;
             }
-            
             .food-cards-container {
-                width: 432px; /* 3 * 120px * 1.2 */
-                height: 432px; /* 3 * 120px * 1.2 */
+                width: 432px;
+                height: 432px;
             }
-            
             .food-icon {
                 font-size: 2rem;
                 height: 35px;
             }
-            
             .food-name {
                 font-size: 1.1rem;
             }
-            
             .ingredient {
                 width: 70px;
                 height: 70px;
             }
-            
             .ingredients-container {
-                height: 105px; /* 1.5 * 70px */
-                width: 800px; /* 足夠展示6個材料卡片 */
+                height: 105px;
+                width: 800px;
                 justify-content: center;
             }
-            
             .leaderboard-tabs {
                 gap: 6px;
             }
-            
             .leaderboard-tab {
                 padding: 6px 10px;
                 font-size: 0.8rem;
                 min-width: 70px;
             }
-            
             .menu-button {
                 padding: 15px 20px;
                 font-size: 1.3rem;
             }
-            
             .menu-button i {
                 font-size: 1.5rem;
             }
-            
             .message-area {
                 min-height: 35px;
                 max-height: 50px;
             }
         }
         
-        /* 煙花效果 */
         .fireworks {
             position: fixed;
             width: 8px;
@@ -1228,7 +1181,6 @@
             z-index: 1000;
         }
         
-        /* 特別新增：防止iOS雙擊縮放的CSS規則 */
         html {
             -webkit-text-size-adjust: 100%;
             touch-action: manipulation;
@@ -1243,13 +1195,11 @@
             text-size-adjust: 100%;
         }
         
-        /* 防止所有元素的雙擊縮放 */
         * {
             touch-action: manipulation;
             -ms-touch-action: manipulation;
         }
         
-        /* 密碼驗證彈窗 */
         .password-modal {
             position: fixed;
             top: 0;
@@ -1393,10 +1343,8 @@
         <div class="decoration dec-3">🏮</div>
         <div class="decoration dec-4 horse-decoration">🏇</div>
         
-        <!-- 年份標誌 -->
         <div class="year-badge">🏮 2026 新年快樂 🏮</div>
         
-        <!-- 音效開關 -->
         <button class="sound-toggle" id="sound-toggle">🔊</button>
         
         <div class="header">
@@ -1405,7 +1353,6 @@
         </div>
         
         <div class="game-area">
-            <!-- 主菜單 -->
             <div id="main-menu" class="main-menu">
                 <button id="play-button" class="menu-button clickable">
                     <i class="fas fa-play-circle"></i> 開始挑戰
@@ -1415,41 +1362,27 @@
                 </button>
             </div>
             
-            <!-- 遊戲選擇區域 -->
             <div id="selection-area" class="food-selection hidden">
-                <!-- 返回按鈕 -->
                 <button class="back-button clickable" id="back-to-menu-from-selection">←</button>
-                <!-- 美食將由JS動態生成 -->
             </div>
             
-            <!-- 互動區域 -->
             <div id="interaction-area" class="interaction-container hidden">
-                <!-- 返回按鈕 -->
                 <button class="back-button clickable" id="back-to-menu-from-game">←</button>
                 
-                <!-- 步驟指示器 -->
-                <div id="steps-indicator" class="steps-indicator">
-                    <!-- 步驟指示點將由JS動態生成 -->
-                </div>
+                <div id="steps-indicator" class="steps-indicator"></div>
                 
                 <div class="interaction-area">
                     <h2 id="step-title" class="step-title">步驟1: 準備材料</h2>
                     <p id="step-instruction" class="step-instruction">點擊正確的食材加入到碗裡面</p>
                     
-                    <!-- 食材計數器 -->
                     <div id="ingredient-counter-display" class="ingredient-counter hidden">
                         已選擇: <span id="selected-count">0</span>/<span id="total-ingredients">0</span>
                     </div>
                     
-                    <!-- 通用互動區域 -->
-                    <div id="interaction-content" class="interaction-content">
-                        <!-- 內容將根據步驟動態更新 -->
-                    </div>
+                    <div id="interaction-content" class="interaction-content"></div>
                     
-                    <!-- 訊息區域 -->
                     <div id="message-area" class="message-area"></div>
                     
-                    <!-- 導航按鈕 -->
                     <div class="navigation-buttons">
                         <button id="prev-step" class="nav-button clickable hidden">上一步</button>
                         <button id="next-step" class="nav-button clickable" disabled>下一步</button>
@@ -1457,9 +1390,7 @@
                 </div>
             </div>
             
-            <!-- 排行榜區域 -->
             <div id="leaderboard-area" class="leaderboard-container hidden">
-                <!-- 返回按鈕 -->
                 <button class="back-button clickable" id="back-to-menu-from-leaderboard">←</button>
                 
                 <h2 class="leaderboard-title">🏆 排行榜 🏆</h2>
@@ -1477,7 +1408,6 @@
                     <button class="leaderboard-tab" data-food="eightTreasureRice">🍚 八寶飯</button>
                 </div>
                 
-                <!-- 排行榜控制按鈕 -->
                 <div class="leaderboard-controls">
                     <button id="refresh-leaderboard" class="leaderboard-tab clickable">
                         <i class="fas fa-sync-alt"></i> 刷新
@@ -1498,31 +1428,25 @@
                                 <th width="15%">時間</th>
                             </tr>
                         </thead>
-                        <tbody id="leaderboard-body">
-                            <!-- 排行榜數據將由JS動態生成 -->
-                        </tbody>
+                        <tbody id="leaderboard-body"></tbody>
                     </table>
                 </div>
                 
-                <!-- 同步狀態顯示 -->
                 <div id="sync-status" style="text-align: center; margin-top: 10px; font-size: 0.8rem; color: #666;">
                     數據已同步
                 </div>
             </div>
             
-            <!-- 姓名輸入表單 -->
             <div id="name-form" class="name-form hidden">
                 <h2>🎉 挑戰完成！</h2>
                 <p style="font-size: 1.2rem; margin-bottom: 20px; color: #666;">
                     你獲得了 <span id="final-score" style="color: #8B4513; font-weight: bold;">0</span> 分！
                 </p>
                 
-                <!-- 時間倍率顯示 -->
                 <div id="time-bonus-display" class="time-bonus-display hidden">
                     <div id="time-bonus-text">時間倍率: 1.0x</div>
                 </div>
                 
-                <!-- 分數詳情 -->
                 <div id="score-details" class="score-details hidden">
                     <div class="score-detail-row">
                         <span class="score-detail-label">基礎分數:</span>
@@ -1558,12 +1482,10 @@
                 <input type="text" id="player-name" class="name-input" placeholder="輸入你的名字" maxlength="12">
                 <button id="submit-score" class="submit-button clickable">登上排行榜！</button>
                 
-                <!-- 提交狀態顯示 -->
                 <div id="submit-status" style="margin-top: 15px;"></div>
             </div>
         </div>
         
-        <!-- 勝利視頻容器 -->
         <div id="victory-video-container" class="victory-video-container hidden">
             <video id="victory-video" class="victory-video" preload="auto">
                 <source src="images/victory.mp4" type="video/mp4">
@@ -1572,7 +1494,6 @@
         </div>
     </div>
 
-    <!-- 音效 -->
     <audio id="correct-sound" preload="auto">
         <source src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" type="audio/mpeg">
     </audio>
@@ -1597,7 +1518,6 @@
             storageBucket: "hyp-p6e6.firebasestorage.app",
             messagingSenderId: "734894821919",
             appId: "1:734894821919:web:a2125ffaf99d0c10827b2a",
-            // 添加 Realtime Database URL
             databaseURL: "https://hyp-p6e6-default-rtdb.asia-southeast1.firebasedatabase.app/"
         };
 
@@ -1615,7 +1535,6 @@
         let firebaseInitialized = false;
         let db = null;
         
-        // 修復點擊問題
         let isProcessingClick = false;
         
         // ============================================
@@ -1663,7 +1582,6 @@
         const refreshLeaderboardButton = document.getElementById('refresh-leaderboard');
         const clearLeaderboardButton = document.getElementById('clear-leaderboard');
         
-        // 新增：密碼驗證相關元素
         const passwordModal = document.getElementById('password-modal');
         const passwordInput = document.getElementById('password-input');
         const passwordSubmit = document.getElementById('password-submit');
@@ -1674,8 +1592,6 @@
         // ============================================
         // 遊戲數據定義
         // ============================================
-        
-        // 干擾材料庫
         const wrongIngredients = [
             { icon: "🍫", name: "巧克力" },
             { icon: "🍦", name: "冰淇淋" },
@@ -1693,7 +1609,6 @@
             { icon: "🍓", name: "草莓" }
         ];
         
-        // 美食步驟定義 - 10種美食
         const foodSteps = {
             dumpling: {
                 name: "餃子",
@@ -2093,42 +2008,26 @@
         // ============================================
         async function initializeFirebase() {
             try {
-                // 顯示加載指示器
                 loadingIndicator.classList.remove('hidden');
-                
-                // 初始化Firebase
                 firebase.initializeApp(firebaseConfig);
                 db = firebase.database();
-                
-                // 測試連接
                 await db.ref('.info/connected').once('value');
-                
                 firebaseInitialized = true;
                 console.log("Firebase Realtime Database 初始化成功");
-                
-                // 更新同步狀態
                 syncStatus.textContent = "數據已同步";
                 syncStatus.style.color = "#4CAF50";
-                
-                // 隱藏加載指示器
                 setTimeout(() => {
                     loadingIndicator.classList.add('hidden');
                 }, 500);
-                
                 return true;
             } catch (error) {
                 console.error("Firebase Realtime Database 初始化失敗:", error);
                 firebaseInitialized = false;
-                
-                // 更新同步狀態
                 syncStatus.textContent = "數據同步失敗，使用本地數據";
                 syncStatus.style.color = "#f44336";
-                
-                // 隱藏加載指示器
                 setTimeout(() => {
                     loadingIndicator.classList.add('hidden');
                 }, 500);
-                
                 return false;
             }
         }
@@ -2136,8 +2035,6 @@
         // ============================================
         // 遊戲初始化
         // ============================================
-        
-        // 從本地存儲加載遊戲數據
         function loadGameData() {
             const savedData = localStorage.getItem('foodGameLeaderboard');
             if (savedData) {
@@ -2150,8 +2047,6 @@
             } else {
                 leaderboardData = [];
             }
-            
-            // 加載音效設置
             const soundSetting = localStorage.getItem('foodGameSound');
             if (soundSetting !== null) {
                 soundEnabled = soundSetting === 'true';
@@ -2159,7 +2054,6 @@
             updateSoundToggle();
         }
         
-        // 保存遊戲數據到本地存儲
         function saveGameData() {
             try {
                 localStorage.setItem('foodGameLeaderboard', JSON.stringify(leaderboardData));
@@ -2169,164 +2063,117 @@
             }
         }
         
-        // 初始化遊戲
         async function initGame() {
-            // 顯示加載指示器
             loadingIndicator.classList.remove('hidden');
-            
-            // 加載遊戲數據
             loadGameData();
-            
-            // 初始化Firebase
             await initializeFirebase();
             
-            // 設置事件監聽器
             playButton.addEventListener('click', showFoodSelection);
             leaderboardButton.addEventListener('click', showLeaderboard);
             soundToggle.addEventListener('click', toggleSound);
             
-            // 返回按鈕 - 從排行榜返回時刷新頁面
             backToMenuFromSelection.addEventListener('click', showMainMenu);
             backToMenuFromGame.addEventListener('click', showMainMenu);
             
-            // 修改排行榜返回按鈕事件，先返回主菜單然後刷新
             backToMenuFromLeaderboard.addEventListener('click', function() {
                 if (isProcessingClick) return;
                 isProcessingClick = true;
-                
                 playSound('click-sound');
-                
-                // 顯示主菜單
                 showMainMenu();
-                
-                // 延遲一小段時間後刷新頁面
                 setTimeout(() => {
                     location.reload();
                 }, 300);
-                
                 setTimeout(() => { isProcessingClick = false; }, 300);
             });
             
-            // 導航按鈕
             nextStepButton.addEventListener('click', goToNextStep);
             prevStepButton.addEventListener('click', goToPrevStep);
             
-            // 提交分數
             submitScoreButton.addEventListener('click', submitScore);
             
-            // 角色選擇
             document.querySelectorAll('.character-option').forEach(option => {
                 option.addEventListener('click', function() {
                     if (isProcessingClick) return;
                     isProcessingClick = true;
-                    
                     document.querySelectorAll('.character-option').forEach(o => o.classList.remove('selected'));
                     this.classList.add('selected');
                     selectedCharacter = this.dataset.char;
-                    
                     playSound('click-sound');
-                    
                     setTimeout(() => { isProcessingClick = false; }, 300);
                 });
             });
             
-            // 排行榜標籤
             leaderboardTabs.forEach(tab => {
                 tab.addEventListener('click', function() {
                     if (isProcessingClick) return;
                     isProcessingClick = true;
-                    
                     const food = this.dataset.food;
                     leaderboardTabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
                     updateLeaderboard(food);
-                    
                     playSound('click-sound');
-                    
                     setTimeout(() => { isProcessingClick = false; }, 300);
                 });
             });
             
-            // 刷新排行榜按鈕
             refreshLeaderboardButton.addEventListener('click', function() {
                 if (isProcessingClick) return;
                 isProcessingClick = true;
-                
                 const activeTab = document.querySelector('.leaderboard-tab.active');
                 const foodType = activeTab ? activeTab.dataset.food : 'all';
                 updateLeaderboard(foodType);
-                
                 playSound('click-sound');
-                
                 setTimeout(() => { isProcessingClick = false; }, 300);
             });
             
-            // 清除排行榜按鈕 - 修改為顯示密碼驗證彈窗
             clearLeaderboardButton.addEventListener('click', function() {
                 if (isProcessingClick) return;
                 isProcessingClick = true;
-                
                 playSound('click-sound');
                 showPasswordModal();
-                
                 setTimeout(() => { isProcessingClick = false; }, 300);
             });
             
-            // 密碼驗證相關事件
             passwordSubmit.addEventListener('click', function() {
                 if (isProcessingClick) return;
                 isProcessingClick = true;
-                
                 verifyPassword();
-                
                 setTimeout(() => { isProcessingClick = false; }, 300);
             });
             
             passwordCancel.addEventListener('click', function() {
                 if (isProcessingClick) return;
                 isProcessingClick = true;
-                
                 playSound('click-sound');
                 hidePasswordModal();
-                
                 setTimeout(() => { isProcessingClick = false; }, 300);
             });
             
-            // 密碼輸入框的Enter鍵支持
             passwordInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     if (isProcessingClick) return;
                     isProcessingClick = true;
-                    
                     verifyPassword();
-                    
                     setTimeout(() => { isProcessingClick = false; }, 300);
                 }
             });
             
-            // 勝利視頻結束事件
             victoryVideo.addEventListener('ended', function() {
                 victoryVideoContainer.classList.add('hidden');
                 leaderboardArea.classList.remove('hidden');
                 updateLeaderboard('all');
             });
             
-            // 絕對禁用雙擊縮放
             disableDoubleTapZoom();
-            
-            // 特別加強：防止iOS雙擊縮放
             preventIOSDoubleTapZoom();
             
-            // 顯示主菜單
             showMainMenu();
             
-            // 隱藏加載指示器
             setTimeout(() => {
                 loadingIndicator.classList.add('hidden');
             }, 1000);
         }
         
-        // 顯示密碼驗證彈窗
         function showPasswordModal() {
             passwordModal.classList.remove('hidden');
             passwordInput.value = '';
@@ -2335,43 +2182,29 @@
             passwordInput.focus();
         }
         
-        // 隱藏密碼驗證彈窗
         function hidePasswordModal() {
             passwordModal.classList.add('hidden');
         }
         
-        // 驗證密碼
         function verifyPassword() {
             const password = passwordInput.value.trim();
-            
-            // 隱藏之前的錯誤/成功訊息
             passwordError.style.display = 'none';
             passwordSuccess.style.display = 'none';
-            
             if (!password) {
                 passwordError.textContent = '請輸入密碼！';
                 passwordError.style.display = 'block';
                 playSound('wrong-sound');
                 return;
             }
-            
-            // 正確密碼是 "Jaden"
             if (password === 'Jaden') {
                 passwordSuccess.textContent = '密碼正確！正在清除排行榜...';
                 passwordSuccess.style.display = 'block';
                 playSound('correct-sound');
-                
-                // 禁用按鈕防止重複點擊
                 passwordSubmit.disabled = true;
                 passwordCancel.disabled = true;
-                
-                // 延遲一段時間後執行清除操作
                 setTimeout(() => {
                     hidePasswordModal();
-                    // 執行真正的清除排行榜操作
                     performClearLeaderboard();
-                    
-                    // 重新啟用按鈕
                     passwordSubmit.disabled = false;
                     passwordCancel.disabled = false;
                 }, 1500);
@@ -2379,87 +2212,59 @@
                 passwordError.textContent = '密碼錯誤！請重新輸入。';
                 passwordError.style.display = 'block';
                 playSound('wrong-sound');
-                
-                // 清空輸入框並聚焦
                 passwordInput.value = '';
                 passwordInput.focus();
             }
         }
         
-        // 執行清除排行榜操作（原來的clearLeaderboard函數內容）
         async function performClearLeaderboard() {
             try {
-                // 顯示清除中狀態
                 syncStatus.textContent = "正在清除排行榜數據...";
                 syncStatus.style.color = "#ff9800";
-                
-                // 清除本地數據
                 leaderboardData = [];
                 localStorage.removeItem('foodGameLeaderboard');
-                
-                // 清除 Firebase Realtime Database 數據
                 if (firebaseInitialized) {
                     await db.ref('scores').remove();
                     console.log("Firebase Realtime Database 排行榜數據已清除");
                 }
-                
-                // 顯示成功訊息
                 syncStatus.textContent = "排行榜數據已清除";
                 syncStatus.style.color = "#4CAF50";
-                
-                // 播放音效
                 playSound('complete-sound');
-                
-                // 更新排行榜顯示
                 const activeTab = document.querySelector('.leaderboard-tab.active');
                 const foodType = activeTab ? activeTab.dataset.food : 'all';
                 updateLeaderboard(foodType);
-                
-                // 顯示成功提示
                 setTimeout(() => {
                     alert("排行榜數據已成功清除！");
                 }, 500);
-                
             } catch (error) {
                 console.error("清除排行榜數據失敗:", error);
-                
-                // 顯示錯誤訊息
                 syncStatus.textContent = "清除數據失敗";
                 syncStatus.style.color = "#f44336";
-                
                 alert("清除排行榜數據時發生錯誤，請重試或檢查網絡連接。");
             }
         }
         
-        // 絕對禁用雙擊縮放
         function disableDoubleTapZoom() {
-            // 禁用雙擊事件
             document.addEventListener('dblclick', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 return false;
             }, { passive: false });
-            
-            // 禁用手勢縮放
             document.addEventListener('gesturestart', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 return false;
             }, { passive: false });
-            
             document.addEventListener('gesturechange', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 return false;
             }, { passive: false });
-            
             document.addEventListener('gestureend', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 return false;
             }, { passive: false });
-            
-            // 防止iOS Safari的雙擊縮放
             let lastTouchEnd = 0;
             document.addEventListener('touchend', function(event) {
                 const now = Date.now();
@@ -2470,8 +2275,6 @@
                 }
                 lastTouchEnd = now;
             }, { passive: false });
-            
-            // 防止雙擊事件觸發縮放
             let touchCount = 0;
             document.addEventListener('touchstart', function(event) {
                 if (event.touches.length > 1) {
@@ -2480,8 +2283,6 @@
                     return false;
                 }
             }, { passive: false });
-            
-            // 防止捏合縮放
             document.addEventListener('touchmove', function(event) {
                 if (event.touches.length > 1) {
                     event.preventDefault();
@@ -2491,22 +2292,16 @@
             }, { passive: false });
         }
         
-        // 特別針對iOS的雙擊縮放防護
         function preventIOSDoubleTapZoom() {
-            // 阻止所有元素的默認雙擊行為
             document.addEventListener('dblclick', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
             }, { capture: true, passive: false });
-            
-            // 使用更嚴格的iOS防護
             document.documentElement.addEventListener('touchstart', function(event) {
                 if (event.touches.length > 1) {
                     event.preventDefault();
                 }
             }, { passive: false });
-            
-            // 防止雙指捏合縮放
             let initialPinchDistance = 0;
             document.addEventListener('touchstart', function(e) {
                 if (e.touches.length === 2) {
@@ -2516,19 +2311,14 @@
                     );
                 }
             }, { passive: true });
-            
             document.addEventListener('touchmove', function(e) {
                 if (e.touches.length === 2) {
                     e.preventDefault();
                 }
             }, { passive: false });
-            
-            // 禁用文本選擇
             document.addEventListener('selectstart', function(e) {
                 e.preventDefault();
             });
-            
-            // 禁用上下文菜單
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
             });
@@ -2537,11 +2327,8 @@
         // ============================================
         // 遊戲功能函數
         // ============================================
-        
-        // 播放音效
         function playSound(soundId) {
             if (!soundEnabled) return;
-            
             try {
                 const sound = document.getElementById(soundId);
                 if (sound) {
@@ -2553,7 +2340,6 @@
             }
         }
         
-        // 切換音效
         function toggleSound() {
             soundEnabled = !soundEnabled;
             updateSoundToggle();
@@ -2561,34 +2347,24 @@
             playSound('click-sound');
         }
         
-        // 更新音效按鈕
         function updateSoundToggle() {
             soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
         }
         
-        // 顯示主菜單
         function showMainMenu() {
             if (isProcessingClick) return;
             isProcessingClick = true;
-            
-            // 隱藏所有區域
             selectionArea.classList.add('hidden');
             interactionArea.classList.add('hidden');
             leaderboardArea.classList.add('hidden');
             nameForm.classList.add('hidden');
             victoryVideoContainer.classList.add('hidden');
             passwordModal.classList.add('hidden');
-            
-            // 顯示主菜單
             mainMenu.classList.remove('hidden');
-            
-            // 重置遊戲狀態
             currentFood = null;
             currentStep = 0;
             gameState = {};
             scoreAlreadySubmitted = false;
-            
-            // 修復BUG：重置下一步按鈕狀態
             if (nextStepButton) {
                 nextStepButton.disabled = false;
                 nextStepButton.textContent = "下一步";
@@ -2596,108 +2372,69 @@
             if (prevStepButton) {
                 prevStepButton.classList.add('hidden');
             }
-            
             playSound('click-sound');
-            
             setTimeout(() => { isProcessingClick = false; }, 300);
         }
         
-        // 顯示美食選擇
         function showFoodSelection() {
             if (isProcessingClick) return;
             isProcessingClick = true;
-            
             mainMenu.classList.add('hidden');
             selectionArea.classList.remove('hidden');
-            
-            // 創建美食卡片
             createFoodCards();
-            
             playSound('click-sound');
-            
             setTimeout(() => { isProcessingClick = false; }, 300);
         }
         
-        // 顯示排行榜
         function showLeaderboard() {
             if (isProcessingClick) return;
             isProcessingClick = true;
-            
             mainMenu.classList.add('hidden');
             leaderboardArea.classList.remove('hidden');
-            
-            // 更新排行榜
             updateLeaderboard('all');
-            
             playSound('click-sound');
-            
             setTimeout(() => { isProcessingClick = false; }, 300);
         }
         
-        // 創建美食卡片
         function createFoodCards() {
             selectionArea.innerHTML = '';
-            
-            // 添加標題
             const title = document.createElement('div');
             title.className = 'food-selection-title';
             title.textContent = '選擇春節美食開始挑戰：';
             selectionArea.appendChild(title);
-            
-            // 創建卡片容器
             const cardsContainer = document.createElement('div');
             cardsContainer.className = 'food-cards-container';
-            
-            // 創建每個美食的卡片
             Object.keys(foodSteps).forEach((foodId) => {
                 const food = foodSteps[foodId];
-                
                 const foodCard = document.createElement('div');
                 foodCard.className = 'food-card clickable no-select';
                 foodCard.dataset.food = foodId;
-                
-                // 移除了"步驟"部分，只保留圖標、名稱和描述
                 foodCard.innerHTML = `
                     <div class="food-icon">${food.icon}</div>
                     <div class="food-name">${food.name}</div>
                     <div class="food-desc">${food.desc}</div>
                 `;
-                
-                // 添加點擊事件
                 foodCard.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    
                     if (isProcessingClick) return;
                     isProcessingClick = true;
-                    
                     playSound('click-sound');
-                    
-                    // 更新選中狀態
                     document.querySelectorAll('.food-card').forEach(c => c.classList.remove('selected'));
                     this.classList.add('selected');
-                    
-                    // 設置當前選中的美食
                     currentFood = foodId;
-                    
-                    // 開始製作美食
                     setTimeout(() => {
                         startFoodMaking(foodId);
                         isProcessingClick = false;
                     }, 300);
                 });
-                
                 cardsContainer.appendChild(foodCard);
             });
-            
             selectionArea.appendChild(cardsContainer);
         }
         
-        // 開始製作美食
         function startFoodMaking(foodType) {
             selectionArea.classList.add('hidden');
             interactionArea.classList.remove('hidden');
-            
-            // 重置遊戲狀態
             currentStep = 0;
             gameState = {
                 clickedIngredients: [],
@@ -2707,63 +2444,40 @@
                 startTime: Date.now(),
                 perfect: true
             };
-            
-            // 重置分數提交狀態
             scoreAlreadySubmitted = false;
-            
-            // 創建步驟指示器
             createStepIndicators(foodType);
-            
-            // 載入第一步
             loadStep(foodType, 0);
         }
         
-        // 創建步驟指示器
         function createStepIndicators(foodType) {
             stepsIndicator.innerHTML = '';
             totalSteps = foodSteps[foodType].steps.length;
-            
             for (let i = 0; i < totalSteps; i++) {
                 const stepDot = document.createElement('div');
                 stepDot.className = 'step-dot';
                 stepDot.textContent = i + 1;
                 stepDot.dataset.step = i;
-                
                 if (i === 0) {
                     stepDot.classList.add('active');
                 }
-                
                 stepsIndicator.appendChild(stepDot);
             }
         }
         
-        // 載入步驟
         function loadStep(foodType, stepIndex) {
             currentStep = stepIndex;
             const step = foodSteps[foodType].steps[stepIndex];
-            
-            // 更新步驟指示器
             updateStepIndicators();
-            
-            // 更新標題和說明
             stepTitle.textContent = `步驟${stepIndex + 1}: ${step.title}`;
             stepInstruction.textContent = step.instruction;
-            
-            // 更新互動內容
             interactionContent.innerHTML = '';
             ingredientCounterDisplay.classList.add('hidden');
-            
-            // 清空訊息區域
             clearMessageArea();
-            
-            // 根據步驟類型設置interaction-content的高度
             if (step.type === "click") {
                 interactionContent.style.height = "96px";
             } else {
                 interactionContent.style.height = "auto";
             }
-            
-            // 根據步驟類型載入不同的互動內容
             switch(step.type) {
                 case "click":
                     loadClickStep(step);
@@ -2775,12 +2489,8 @@
                     loadCounterStep(step);
                     break;
             }
-            
-            // 更新下一步按鈕文字和狀態
             nextStepButton.textContent = step.nextButton;
             nextStepButton.disabled = true;
-            
-            // 顯示/隱藏上一步按鈕
             if (stepIndex > 0) {
                 prevStepButton.classList.remove('hidden');
             } else {
@@ -2788,11 +2498,9 @@
             }
         }
         
-        // 更新步驟指示器
         function updateStepIndicators() {
             document.querySelectorAll('.step-dot').forEach((dot, index) => {
                 dot.classList.remove('active', 'completed');
-                
                 if (index === currentStep) {
                     dot.classList.add('active');
                 } else if (index < currentStep) {
@@ -2801,123 +2509,74 @@
             });
         }
         
-        // 載入點擊步驟
         function loadClickStep(step) {
-            // 清空interactionContent
             interactionContent.innerHTML = '';
-            
-            // 顯示食材計數器
             ingredientCounterDisplay.classList.remove('hidden');
             selectedCountEl.textContent = '0';
             totalIngredientsEl.textContent = step.correctIngredients.length;
-            
-            // 創建材料容器
             const ingredientsContainer = document.createElement('div');
             ingredientsContainer.className = 'ingredients-container';
-            
             const ingredientsDiv = document.createElement('div');
             ingredientsDiv.className = 'ingredients';
-            
-            // 準備所有材料：正確材料 + 干擾材料
             const allIngredients = [...step.correctIngredients];
-            
-            // 添加干擾材料
             const numWrongIngredients = Math.max(step.correctIngredients.length, 4);
             const shuffledWrongIngredients = [...wrongIngredients]
                 .sort(() => 0.5 - Math.random())
                 .slice(0, numWrongIngredients);
-            
             allIngredients.push(...shuffledWrongIngredients);
-            
-            // 隨機排序所有材料
             const shuffledAllIngredients = allIngredients.sort(() => 0.5 - Math.random());
-            
-            // 創建材料元素
             shuffledAllIngredients.forEach(ingredient => {
                 const isCorrect = step.correctIngredients.some(ci => ci.name === ingredient.name);
-                
                 const ingredientDiv = document.createElement('div');
                 ingredientDiv.className = `ingredient clickable no-select`;
                 ingredientDiv.dataset.name = ingredient.name;
                 ingredientDiv.dataset.correct = isCorrect;
-                
-                // 添加正確/錯誤樣式
                 if (isCorrect) {
                     ingredientDiv.classList.add('correct');
                 } else {
                     ingredientDiv.classList.add('wrong');
                 }
-                
                 ingredientDiv.innerHTML = `
                     <div class="ingredient-icon">${ingredient.icon}</div>
                     <div class="ingredient-name">${ingredient.name}</div>
                 `;
-                
-                // 添加點擊事件
                 ingredientDiv.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    
                     if (isProcessingClick) return;
                     isProcessingClick = true;
-                    
                     handleIngredientClick(this, ingredient, isCorrect, step);
-                    
                     setTimeout(() => { isProcessingClick = false; }, 300);
                 });
-                
                 ingredientsDiv.appendChild(ingredientDiv);
             });
-            
             ingredientsContainer.appendChild(ingredientsDiv);
             interactionContent.appendChild(ingredientsContainer);
-            
-            // 重置點擊狀態
             gameState.clickedIngredients = [];
             gameState.wrongSelections = 0;
         }
         
-        // 處理材料點擊
         function handleIngredientClick(ingredientDiv, ingredient, isCorrect, step) {
             playSound('click-sound');
-            
-            // 檢查是否已經點擊過
             if (ingredientDiv.classList.contains('placed') || ingredientDiv.classList.contains('disabled')) {
                 return;
             }
-            
             if (isCorrect) {
-                // 正確材料
                 gameState.clickedIngredients.push(ingredient.name);
                 ingredientDiv.classList.add('placed');
                 ingredientDiv.classList.add('disabled');
-                
-                // 顯示成功訊息
                 showMessage(`✓ 選擇了 ${ingredient.name}`, true);
-                
                 playSound('correct-sound');
-                
-                // 更新計數器
                 selectedCountEl.textContent = gameState.clickedIngredients.length;
-                
-                // 檢查是否所有正確材料都已添加
                 if (gameState.clickedIngredients.length === step.correctIngredients.length) {
                     nextStepButton.disabled = false;
-                    
                     showMessage('🎉 所有材料已準備好！可以繼續下一步了！', true);
                 }
             } else {
-                // 錯誤材料
                 gameState.wrongSelections++;
                 gameState.perfect = false;
-                
                 ingredientDiv.classList.add('disabled');
-                
-                // 顯示錯誤訊息
                 showMessage(`✗ ${ingredient.name} 不是正確材料！`, false);
-                
                 playSound('wrong-sound');
-                
-                // 閃爍效果
                 ingredientDiv.style.animation = 'shake 0.5s';
                 setTimeout(() => {
                     ingredientDiv.style.animation = '';
@@ -2925,22 +2584,15 @@
             }
         }
         
-        // 顯示訊息到訊息區域
         function showMessage(message, isSuccess) {
             const messageElement = document.createElement('div');
             messageElement.className = isSuccess ? 'success-message' : 'error-message';
             messageElement.textContent = message;
-            
-            // 添加到訊息區域頂部，這樣新訊息會出現在最上方
             messageArea.insertBefore(messageElement, messageArea.firstChild);
-            
-            // 如果訊息太多，移除最舊的訊息
             const maxMessages = 3;
             while (messageArea.children.length > maxMessages) {
                 messageArea.removeChild(messageArea.lastChild);
             }
-            
-            // 設定3秒後自動移除這條訊息
             setTimeout(() => {
                 if (messageElement.parentNode === messageArea) {
                     messageArea.removeChild(messageElement);
@@ -2948,65 +2600,49 @@
             }, 3000);
         }
         
-        // 清空訊息區域
         function clearMessageArea() {
             messageArea.innerHTML = '';
         }
         
-        // 載入進度條步驟
         function loadProgressStep(step) {
             const progressContainer = document.createElement('div');
             progressContainer.className = 'progress-container';
             progressContainer.innerHTML = `
                 <div class="progress-bar" id="progress-bar"></div>
             `;
-            
             const progressText = document.createElement('div');
             progressText.className = 'progress-text';
             progressText.id = 'progress-text';
             progressText.textContent = '0%';
-            
             const actionButton = document.createElement('button');
             actionButton.className = 'action-button clickable';
             actionButton.id = 'action-button';
             actionButton.textContent = step.actionText;
-            
             interactionContent.appendChild(progressContainer);
             interactionContent.appendChild(progressText);
             interactionContent.appendChild(actionButton);
-            
-            // 重置進度狀態
             gameState.progress = 0;
             updateProgressBar();
-            
-            // 添加點擊事件
             actionButton.addEventListener('click', function() {
                 if (isProcessingClick) return;
                 isProcessingClick = true;
-                
                 playSound('click-sound');
-                
                 const increment = 20;
-                
                 if (gameState.progress < step.targetProgress) {
                     gameState.progress += increment;
                     if (gameState.progress > step.targetProgress) {
                         gameState.progress = step.targetProgress;
                     }
                     updateProgressBar();
-                    
-                    // 完成時啟用下一步按鈕
                     if (gameState.progress >= step.targetProgress) {
                         nextStepButton.disabled = false;
                         this.disabled = true;
                     }
                 }
-                
                 setTimeout(() => { isProcessingClick = false; }, 200);
             });
         }
         
-        // 載入計數器步驟
         function loadCounterStep(step) {
             const counterDiv = document.createElement('div');
             counterDiv.className = 'counter';
@@ -3014,58 +2650,42 @@
                 <button class="counter-button clickable" id="increase-button">+</button>
                 <div class="counter-value" id="counter-value">0</div>
             `;
-            
             const actionText = document.createElement('div');
             actionText.className = 'step-instruction';
             actionText.textContent = `目標: ${step.targetCount} 次 ${step.actionText}`;
-            
             interactionContent.appendChild(actionText);
             interactionContent.appendChild(counterDiv);
-            
-            // 重置計數器狀態
             gameState.counter = 0;
             updateCounter();
-            
-            // 添加計數器事件
             const increaseButton = document.getElementById('increase-button');
             increaseButton.addEventListener('click', function() {
                 if (isProcessingClick) return;
                 isProcessingClick = true;
-                
                 playSound('click-sound');
-                
                 if (gameState.counter < step.targetCount) {
                     gameState.counter++;
                     updateCounter();
-                    
-                    // 完成時啟用下一步按鈕
                     if (gameState.counter >= step.targetCount) {
                         nextStepButton.disabled = false;
                         this.disabled = true;
                     }
                 }
-                
                 setTimeout(() => { isProcessingClick = false; }, 200);
             });
         }
         
-        // 更新進度條
         function updateProgressBar() {
             const progressBar = document.getElementById('progress-bar');
             const progressText = document.getElementById('progress-text');
-            
             if (progressBar && progressText) {
                 progressBar.style.width = `${gameState.progress}%`;
                 progressText.textContent = `${gameState.progress}%`;
-                
-                // 完成時添加彩色效果
                 if (gameState.progress >= 100) {
                     progressBar.classList.add('colorful-progress');
                 }
             }
         }
         
-        // 更新計數器
         function updateCounter() {
             const counterValue = document.getElementById('counter-value');
             if (counterValue) {
@@ -3073,48 +2693,38 @@
             }
         }
         
-        // 下一步
         function goToNextStep() {
             if (isProcessingClick) return;
             isProcessingClick = true;
-            
             playSound('click-sound');
-            
             if (currentStep < totalSteps - 1) {
                 loadStep(currentFood, currentStep + 1);
             } else {
-                // 完成所有步驟
                 showCompletionScreen();
             }
-            
             setTimeout(() => { isProcessingClick = false; }, 300);
         }
         
-        // 上一步
         function goToPrevStep() {
             if (isProcessingClick) return;
             isProcessingClick = true;
-            
             playSound('click-sound');
-            
             if (currentStep > 0) {
                 loadStep(currentFood, currentStep - 1);
             }
-            
             setTimeout(() => { isProcessingClick = false; }, 300);
         }
         
-        // 計算時間倍率
+        // ============================================
+        // 修改後的時間倍率計算（可達五星）
+        // ============================================
         function calculateTimeMultiplier(timeInSeconds) {
-            // 時間倍率計算邏輯：
-            // - 30秒內完成: 2.0x 倍率
-            // - 60秒內完成: 1.5x 倍率
-            // - 90秒內完成: 1.2x 倍率
-            // - 120秒內完成: 1.0x 倍率
-            // - 超過120秒: 0.8x 倍率
-            
-            if (timeInSeconds <= 30) {
-                return { multiplier: 2.0, description: "神速！" };
+            if (timeInSeconds <= 20) {
+                return { multiplier: 3.0, description: "超神速！" };
+            } else if (timeInSeconds <= 30) {
+                return { multiplier: 2.5, description: "神速！" };
+            } else if (timeInSeconds <= 45) {
+                return { multiplier: 2.0, description: "非常快！" };
             } else if (timeInSeconds <= 60) {
                 return { multiplier: 1.5, description: "快速！" };
             } else if (timeInSeconds <= 90) {
@@ -3126,7 +2736,6 @@
             }
         }
         
-        // 顯示完成畫面
         function showCompletionScreen() {
             interactionContent.innerHTML = '';
             stepsIndicator.classList.add('hidden');
@@ -3137,32 +2746,22 @@
             const completionScreen = document.createElement('div');
             completionScreen.className = 'completion-screen';
             
-            // 計算總分
             const timeElapsed = (Date.now() - gameState.startTime) / 1000;
             const timeMultiplierInfo = calculateTimeMultiplier(timeElapsed);
             const timeMultiplier = timeMultiplierInfo.multiplier;
             
-            // 基礎分數計算
             let baseScore = 100;
-            
-            // 錯誤選擇扣分 (減少懲罰)
             const mistakePenalty = gameState.wrongSelections * 5;
             baseScore -= mistakePenalty;
-            
-            // 完美獎勵
             const perfectBonus = gameState.perfect ? 30 : 0;
             baseScore += perfectBonus;
             
-            // 計算最終分數（應用時間倍率）
+            // 不設上限，讓時間倍率可以推高分數達到五星
             let totalScore = Math.round(baseScore * timeMultiplier);
+            totalScore = Math.max(0, totalScore); // 只防負分，不設上限
             
-            // 限制分數在合理範圍
-            totalScore = Math.max(0, Math.min(300, totalScore));
+            const starsEarned = Math.floor(totalScore / 60);
             
-            // 計算星級評價
-            const starsEarned = Math.floor(totalScore / 60); // 每60分一顆星，最高5星
-            
-            // 評價
             let evaluation = "";
             let evaluationIcon = "";
             if (totalScore >= 270) {
@@ -3185,7 +2784,6 @@
                 evaluationIcon = "📚";
             }
             
-            // 創建星級評價
             const starRating = document.createElement('div');
             starRating.className = 'star-rating';
             starRating.style.display = 'flex';
@@ -3216,14 +2814,13 @@
                     - 錯誤選擇: ${gameState.wrongSelections} 次<br>
                     - 完成時間: ${Math.round(timeElapsed)}秒<br>
                     - 時間倍率: ${timeMultiplier.toFixed(1)}x (${timeMultiplierInfo.description})<br>
-                    - 最終分數: ${totalScore}/300分<br><br>
+                    - 最終分數: ${totalScore}分<br><br>
                     現在可以登上排行榜了！
                 </div>
             `;
             
             interactionContent.appendChild(completionScreen);
             
-            // 保存分數計算細節供姓名輸入表單使用
             gameState.scoreDetails = {
                 baseScore: 100,
                 mistakePenalty: mistakePenalty,
@@ -3233,17 +2830,14 @@
                 timeElapsed: timeElapsed
             };
             
-            // 顯示姓名輸入表單
             setTimeout(() => {
                 interactionArea.classList.add('hidden');
                 nameForm.classList.remove('hidden');
                 finalScoreEl.textContent = totalScore;
                 
-                // 顯示時間倍率
                 timeBonusDisplay.classList.remove('hidden');
                 timeBonusText.textContent = `時間倍率: ${timeMultiplier.toFixed(1)}x (${timeMultiplierInfo.description})`;
                 
-                // 顯示分數詳情
                 scoreDetails.classList.remove('hidden');
                 baseScoreEl.textContent = "100";
                 mistakePenaltyEl.textContent = `-${mistakePenalty}`;
@@ -3253,7 +2847,6 @@
                 timeMultiplierValue.textContent = `${timeMultiplier.toFixed(1)}x`;
                 finalScoreDetail.textContent = totalScore;
                 
-                // 設置當前選中的角色
                 document.querySelectorAll('.character-option').forEach(option => {
                     if (option.dataset.char === selectedCharacter) {
                         option.classList.add('selected');
@@ -3262,20 +2855,14 @@
                     }
                 });
                 
-                // 自動聚焦到姓名輸入框
                 playerNameInput.focus();
-                
-                // 重置分數提交狀態
                 scoreAlreadySubmitted = false;
                 submitScoreButton.disabled = false;
                 submitScoreButton.textContent = '登上排行榜！';
                 submitStatus.innerHTML = '';
             }, 3000);
             
-            // 播放完成音效
             playSound('complete-sound');
-            
-            // 創建煙花效果
             for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
                     createFirework(
@@ -3286,23 +2873,19 @@
             }
         }
         
-        // 從 Firebase Realtime Database 獲取排行榜數據
+        // ============================================
+        // 排行榜排序：先分數降序，同分則用時升序
+        // ============================================
         async function fetchLeaderboardFromRealtimeDB(foodType = 'all') {
             if (!firebaseInitialized) {
                 console.log("Firebase未初始化，使用本地數據");
                 return null;
             }
-            
             try {
-                // 更新同步狀態
                 syncStatus.textContent = "正在同步數據...";
                 syncStatus.style.color = "#ff9800";
-                
-                // 從 Realtime Database 獲取數據
                 const snapshot = await db.ref('scores').once('value');
                 const data = snapshot.val();
-                
-                // 將數據轉換為數組
                 let scoresArray = [];
                 if (data) {
                     Object.keys(data).forEach(key => {
@@ -3312,73 +2895,50 @@
                         });
                     });
                 }
-                
-                // 如果指定了特定食物，則過濾
                 if (foodType !== 'all') {
                     scoresArray = scoresArray.filter(item => item.food === foodType);
                 }
-                
-                // 按分數排序（從高到低）
-                scoresArray.sort((a, b) => b.score - a.score);
-                
-                // 只取前20名
+                // 排序：分數降序 → 用時升序
+                scoresArray.sort((a, b) => {
+                    if (a.score !== b.score) return b.score - a.score;
+                    return (a.timeElapsed || 0) - (b.timeElapsed || 0);
+                });
                 scoresArray = scoresArray.slice(0, 20);
-                
-                // 更新同步狀態
                 syncStatus.textContent = "數據已同步";
                 syncStatus.style.color = "#4CAF50";
-                
                 return scoresArray;
             } catch (error) {
                 console.error("從Firebase Realtime Database獲取排行榜數據失敗:", error);
-                
-                // 更新同步狀態
                 syncStatus.textContent = "數據同步失敗，使用本地數據";
                 syncStatus.style.color = "#f44336";
-                
                 return null;
             }
         }
         
-        // 提交分數到 Firebase Realtime Database
         async function submitScoreToRealtimeDB(scoreData) {
             if (!firebaseInitialized) {
                 console.log("Firebase未初始化，保存到本地");
                 return false;
             }
-            
             try {
-                // 更新提交狀態
                 submitStatus.innerHTML = '<div class="success-message">正在上傳分數到雲端...</div>';
-                
-                // 添加時間戳
                 scoreData.timestamp = Date.now();
                 scoreData.date = new Date().toISOString();
-                
-                // 保存到 Firebase Realtime Database
                 const newScoreRef = db.ref('scores').push();
                 await newScoreRef.set(scoreData);
-                
-                // 更新提交狀態
                 submitStatus.innerHTML = '<div class="success-message">分數已成功上傳到雲端排行榜！</div>';
-                
                 return true;
             } catch (error) {
                 console.error("提交分數到Firebase Realtime Database失敗:", error);
-                
-                // 更新提交狀態
                 submitStatus.innerHTML = '<div class="error-message">雲端上傳失敗，已保存到本地</div>';
-                
                 return false;
             }
         }
         
-        // 提交分數到排行榜
         async function submitScore() {
             if (isProcessingClick) return;
             isProcessingClick = true;
             
-            // 防止重複提交
             if (scoreAlreadySubmitted) {
                 alert("分數已經提交過了！");
                 setTimeout(() => { isProcessingClick = false; }, 300);
@@ -3388,11 +2948,9 @@
             const playerName = playerNameInput.value.trim() || "美食達人";
             const finalScore = parseInt(finalScoreEl.textContent);
             
-            // 禁用提交按鈕防止重複點擊
             submitScoreButton.disabled = true;
             submitScoreButton.textContent = '提交中...';
             
-            // 創建分數數據對象
             const scoreData = {
                 name: playerName,
                 character: selectedCharacter,
@@ -3404,61 +2962,45 @@
                 perfect: gameState.perfect,
                 wrongSelections: gameState.wrongSelections,
                 deviceId: localStorage.getItem('deviceId') || generateDeviceId(),
-                date: new Date().toISOString().split('T')[0] // 只保留日期部分
+                date: new Date().toISOString().split('T')[0]
             };
             
-            // 添加到本地排行榜數據
             leaderboardData.push(scoreData);
-            
-            // 排序排行榜（分數高到低）
-            leaderboardData.sort((a, b) => b.score - a.score);
-            
-            // 限制本地排行榜數量
+            // 排序：分數降序 → 用時升序
+            leaderboardData.sort((a, b) => {
+                if (a.score !== b.score) return b.score - a.score;
+                return (a.timeElapsed || 0) - (b.timeElapsed || 0);
+            });
             if (leaderboardData.length > 50) {
                 leaderboardData = leaderboardData.slice(0, 50);
             }
-            
-            // 保存遊戲數據到本地
             saveGameData();
             
-            // 嘗試提交到 Firebase Realtime Database
             const firebaseSuccess = await submitScoreToRealtimeDB(scoreData);
-            
-            // 標記分數已提交
             scoreAlreadySubmitted = true;
             
-            // 顯示勝利視頻
             setTimeout(() => {
-                // 隱藏姓名輸入表單
                 nameForm.classList.add('hidden');
-                
-                // 顯示視頻容器並播放視頻
                 victoryVideoContainer.classList.remove('hidden');
                 victoryVideo.currentTime = 0;
                 victoryVideo.play().catch(e => {
                     console.log("視頻播放失敗:", e);
-                    // 如果視頻播放失敗，直接顯示排行榜
                     victoryVideoContainer.classList.add('hidden');
                     leaderboardArea.classList.remove('hidden');
                     updateLeaderboard('all');
                 });
-                
                 isProcessingClick = false;
             }, firebaseSuccess ? 1500 : 1000);
         }
         
-        // 生成設備ID
         function generateDeviceId() {
             const deviceId = 'device_' + Math.random().toString(36).substr(2, 9);
             localStorage.setItem('deviceId', deviceId);
             return deviceId;
         }
         
-        // 更新排行榜顯示
         async function updateLeaderboard(foodType) {
             leaderboardBody.innerHTML = '';
-            
-            // 顯示加載中
             const loadingRow = document.createElement('tr');
             loadingRow.innerHTML = `
                 <td colspan="5" style="text-align: center; padding: 30px; font-size: 1rem; color: #666;">
@@ -3468,27 +3010,19 @@
             `;
             leaderboardBody.appendChild(loadingRow);
             
-            // 嘗試從 Firebase Realtime Database 獲取數據
             let displayData = [];
-            
             if (firebaseInitialized) {
                 const firebaseData = await fetchLeaderboardFromRealtimeDB(foodType);
-                
                 if (firebaseData && firebaseData.length > 0) {
-                    // 使用 Firebase 數據
                     displayData = firebaseData;
                 } else {
-                    // 使用本地數據作為備份
                     displayData = getLocalLeaderboardData(foodType);
                 }
             } else {
-                // 使用本地數據
                 displayData = getLocalLeaderboardData(foodType);
             }
             
-            // 清空加載中提示
             leaderboardBody.innerHTML = '';
-            
             if (displayData.length === 0) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -3500,11 +3034,8 @@
                 return;
             }
             
-            // 顯示數據
             displayData.forEach((item, index) => {
                 const row = document.createElement('tr');
-                
-                // 排名樣式
                 let rankClass = '';
                 let medal = '';
                 if (index === 0) {
@@ -3517,12 +3048,9 @@
                     rankClass = 'rank-3';
                     medal = '🥉 ';
                 }
-                
-                // 格式化時間
                 const timeFormatted = item.timeElapsed ? 
                     `${item.timeElapsed}秒` : 
                     (item.timeElapsed === 0 ? '--' : '--');
-                
                 row.innerHTML = `
                     <td class="${rankClass}">${medal}第${index + 1}名</td>
                     <td>${item.character} ${item.name}</td>
@@ -3530,63 +3058,54 @@
                     <td class="${rankClass}">${item.score}分</td>
                     <td>${timeFormatted}</td>
                 `;
-                
                 leaderboardBody.appendChild(row);
             });
         }
         
-        // 獲取本地排行榜數據
         function getLocalLeaderboardData(foodType) {
             let filteredData = [...leaderboardData];
             if (foodType !== 'all') {
                 filteredData = leaderboardData.filter(item => item.food === foodType);
             }
-            
-            // 排序並返回前20名
+            // 排序：分數降序 → 用時升序
             return filteredData
-                .sort((a, b) => b.score - a.score)
+                .sort((a, b) => {
+                    if (a.score !== b.score) return b.score - a.score;
+                    return (a.timeElapsed || 0) - (b.timeElapsed || 0);
+                })
                 .slice(0, 20);
         }
         
-        // 創建煙花效果
         function createFirework(x, y) {
             const colors = ['#ff0000', '#ffd700', '#00ff00', '#00aaff', '#ff00ff'];
             const color = colors[Math.floor(Math.random() * colors.length)];
-            
             const firework = document.createElement('div');
             firework.className = 'fireworks';
             firework.style.left = x + 'px';
             firework.style.top = y + 'px';
             firework.style.backgroundColor = color;
             firework.style.boxShadow = `0 0 15px ${color}`;
-            
             document.body.appendChild(firework);
-            
-            // 煙花爆炸效果
             let size = 5;
             let opacity = 1;
             const explode = () => {
                 size += 8;
                 opacity -= 0.05;
-                
                 firework.style.width = size + 'px';
                 firework.style.height = size + 'px';
                 firework.style.left = (x - size/2) + 'px';
                 firework.style.top = (y - size/2) + 'px';
                 firework.style.opacity = opacity;
                 firework.style.borderRadius = size % 2 === 0 ? '50%' : '40%';
-                
                 if (opacity > 0) {
                     requestAnimationFrame(explode);
                 } else {
                     firework.remove();
                 }
             };
-            
             explode();
         }
         
-        // 初始化遊戲
         document.addEventListener('DOMContentLoaded', initGame);
     </script>
 </body>
